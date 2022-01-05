@@ -48,3 +48,7 @@ names(df)[5] <- "in_paid_work"
 
 df <- cbind(df, all_data$W2_Q87) 
 names(df)[6] <- "religion" # lots of NAs
+
+# attitudinal variables
+df <- cbind(df, all_data$W1_Q8) 
+names(df)[7] <- "ideology_left_right" # 1 = max left; 10 = max right
