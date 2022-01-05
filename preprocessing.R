@@ -115,3 +115,43 @@ names(df)[ncol(df)] <- "free_move_protect_jobs" # The movement of individuals be
 df <- cbind(df, all_data$W1_Q28_4)
 names(df)[ncol(df)] <- "free_move_protect_services" # The movement of individuals between EU countries should be restricted to avoid exploitation of the public services (e.g. education and health services).
 # 1 = strongly disagree; 5 = strongly agree
+
+# general political knowledge
+df <- cbind(df, all_data$W2_Q82_1)
+names(df)[ncol(df)] <- "gen_know_switzerland" # correct = 2
+table(df$gen_know_switzerland)
+df$gen_know_switzerland[df$gen_know_switzerland==1] <- 0
+df$gen_know_switzerland[df$gen_know_switzerland==2] <- 1
+
+df <- cbind(df, all_data$W2_Q82_2)
+names(df)[ncol(df)] <- "gen_know_ep" # correct = 2
+table(df$gen_know_ep)
+df$gen_know_ep[df$gen_know_ep==1] <- 0
+df$gen_know_ep[df$gen_know_ep==2] <- 1
+
+df <- cbind(df, all_data$W2_Q82_3)
+names(df)[ncol(df)] <- "gen_know_party" # correct = 1
+table(df$gen_know_party)
+df$gen_know_party[df$gen_know_party==2] <- 0
+
+# migration political knowledge
+df <- cbind(df, all_data$W2_Q83_1)
+names(df)[ncol(df)] <- "mig_know_free_move" # correct = 1
+table(df$mig_know_free_move)
+df$mig_know_free_move[df$mig_know_free_move==2] <- 0
+
+df <- cbind(df, all_data$W2_Q83_2)
+names(df)[ncol(df)] <- "mig_know_schenger" # correct = 1
+table(df$mig_know_schenger)
+df$mig_know_schenger[df$mig_know_schenger==2] <- 0
+
+df <- cbind(df, all_data$W2_Q83_3)
+names(df)[ncol(df)] <- "mig_know_asylum" # correct = 2
+table(df$mig_know_asylum)
+df$mig_know_asylum[df$mig_know_asylum==1] <- 0
+df$mig_know_asylum[df$mig_know_asylum==2] <- 1
+
+df <- cbind(df, all_data$W2_Q83_4)
+names(df)[ncol(df)] <- "mig_know_syrians" # correct = 1
+table(df$mig_know_syrians)
+df$mig_know_syrians[df$mig_know_syrians==2] <- 0
