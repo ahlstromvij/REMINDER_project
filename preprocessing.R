@@ -178,15 +178,15 @@ names(df)[ncol(df)] <- "W2_CC"
 # weights
 df <- cbind(df, all_data$WEIGHT)
 names(df)[ncol(df)] <- "WEIGHT"
-df$WEIGHT[is.na(df$WEIGHT)] <- 1 # observations with weight NA is assumed to be 1
+df$WEIGHT[is.na(df$WEIGHT)] <- 1 # observations with weight NA assumed to be 1
 
 df <- cbind(df, all_data$WEIGHTEX1)
 names(df)[ncol(df)] <- "WEIGHTEX1"
-df$WEIGHTEX1[is.na(df$WEIGHTEX1)] <- 1 # observations with weight NA is assumed to be 1
+df$WEIGHTEX1[is.na(df$WEIGHTEX1)] <- 1 # observations with weight NA assumed to be 1
 
 df <- cbind(df, all_data$WEIGHTEX2)
 names(df)[ncol(df)] <- "WEIGHTEX2"
-df$WEIGHTEX2[is.na(df$WEIGHTEX2)] <- 1 # observations with weight NA is assumed to be 1
+df$WEIGHTEX2[is.na(df$WEIGHTEX2)] <- 1 # observations with weight NA assumed to be 1
 
 # save df as CSV
-write.csv(df, "df-preprocessed.csv", row.names = FALSE)
+write.csv(df, "df_preprocessed.csv", row.names = FALSE)
