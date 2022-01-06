@@ -5,8 +5,11 @@ library(haven)
 all_data <- read_spss("10085_da_en_v1_0.zsav")
 
 # add demographic variables
-df <- data.frame(all_data$W1_Q1) # 1 = man; 2 = woman
+df <- data.frame(all_data$W1_Q1) # 1 = man; 2 = female
 names(df)[ncol(df)] <- "gender"
+df$gender <- as.character(df$gender)
+df$gender[df$gender==1] <- "male"
+df$gender[df$gender==2] <- "fenale"
 
 df <- cbind(df, all_data$W1_Q2A) # continuous version; see Q2C for ordinal
 names(df)[ncol(df)] <- "age"
@@ -155,3 +158,35 @@ df <- cbind(df, all_data$W2_Q83_4)
 names(df)[ncol(df)] <- "mig_know_syrians" # correct = 1
 table(df$mig_know_syrians)
 df$mig_know_syrians[df$mig_know_syrians==2] <- 0
+
+# quality control variables
+df <- cbind(df, all_data$W1_EX1) # basic
+names(df)[ncol(df)] <- "W1_EX1"
+
+df <- cbind(df, all_data$W1_EX2) # advanced
+names(df)[ncol(df)] <- "W1_EX2"
+
+df <- cbind(df, all_data$W2_EX1) # basic
+names(df)[ncol(df)] <- "W2_EX1"
+
+df <- cbind(df, all_data$W2_EX2) # advanced
+names(df)[ncol(df)] <- "W2_EX2"
+
+df <- cbind(df, all_data$W2_CC) # W2 quality control question; 2 = correct
+names(df)[ncol(df)] <- "W2_CC"
+
+# weights
+df <- cbind(df, all_data$WEIGHT)
+names(df)[ncol(df)] <- "WEIGHT"
+df$WEIGHT[is.na(df$WEIGHT)] <- 1 # observations with weight NA is assumed to be 1
+
+df <- cbind(df, all_data$WEIGHTEX1)
+names(df)[ncol(df)] <- "WEIGHTEX1"
+df$WEIGHTEX1[is.na(df$WEIGHTEX1)] <- 1 # observations with weight NA is assumed to be 1
+
+df <- cbind(df, all_data$WEIGHTEX2)
+names(df)[ncol(df)] <- "WEIGHTEX2"
+df$WEIGHTEX2[is.na(df$WEIGHTEX2)] <- 1 # observations with weight NA is assumed to be 1
+
+# save df as CSV
+write.csv(df, "df-preprocessed.csv", row.names = FALSE)
