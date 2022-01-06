@@ -188,5 +188,15 @@ df <- cbind(df, all_data$WEIGHTEX2)
 names(df)[ncol(df)] <- "WEIGHTEX2"
 df$WEIGHTEX2[is.na(df$WEIGHTEX2)] <- 1 # observations with weight NA assumed to be 1
 
+# flag for participation in W2
+df$part_in_W2 <- NA
+for(i in 1:length(df$part_in_W2)) {
+  if(!is.na(all_data$W2_DATE[i])) {
+    df$part_in_W2[i] <- 1
+  }
+  else
+    df$part_in_W2[i] <- 0
+}
+
 # save df as CSV
 write.csv(df, "df_preprocessed.csv", row.names = FALSE)
