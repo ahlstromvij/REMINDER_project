@@ -1,16 +1,13 @@
+# load packages
+library(table1)
+
 # read in preprocessed data
 df_preprocessed <- read.csv("df_preprocessed.csv")
 
-# visualize missing data
-library(naniar)
-vis_miss(df_preprocessed[,c(1:30)]) # ignoring quality control, weights, and W2 flag
-
-# only those who also took part in W2
+# subset to only data from both W1 and 2
 df_W2 <- subset(df_preprocessed, part_in_W2==1)
-vis_miss(df_W2[,c(1:31)]) # ignoring quality control, weights, and W2 flag
 
-# summarize wave 2 data
-library(table1)
+# summarize data
 # sociodemographics
 table1(~ factor(gender) + age + factor(education_ISCED) + factor(in_paid_work) + ideology_left_right | nationality, data=df_W2)
 
@@ -41,3 +38,6 @@ table1(~ gen_know_prop + mig_know_prop | nationality, data=df_W2)
 
 # correlation between general and specific knowledge
 cor(df_W2$gen_know_sum, df_W2$mig_know_sum)
+
+# save df as CSV
+write.csv(df_W2, "df_preprocessed_W2.csv", row.names = FALSE)
