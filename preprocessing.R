@@ -110,6 +110,10 @@ names(df)[ncol(df)] <- "imm_sympathy"
 df <- cbind(df, all_data$W1_Q25_2)
 names(df)[ncol(df)] <- "imm_size" # Out of every 100 people in [COUNTRY], how many do you think were born outside [COUNTRY]? (percentage)
 
+# eu and national identity
+df <- cbind(df, all_data$W2_Q51_2)
+names(df)[ncol(df)] <- "eu_nat_identity" # The European Union poses a threat to (NATIONALITY) identity and culture.
+
 # free movement
 df <- cbind(df, all_data$W1_Q28_3)
 names(df)[ncol(df)] <- "free_move_protect_jobs" # The movement of individuals between EU countries should be restricted to protect native workers.
@@ -160,8 +164,8 @@ table(df$mig_know_syrians)
 df$mig_know_syrians[df$mig_know_syrians==2] <- 0
 
 # knowledge sums and proportion correct
-df$gen_know_sum <- rowSums(df[,24:26], na.rm = TRUE)
-df$mig_know_sum <- rowSums(df[,27:30], na.rm = TRUE)
+df$gen_know_sum <- rowSums(df[,25:27], na.rm = TRUE)
+df$mig_know_sum <- rowSums(df[,28:31], na.rm = TRUE)
 df$gen_know_prop <- df$gen_know_sum/3
 df$mig_know_prop <- df$mig_know_sum/4
 
