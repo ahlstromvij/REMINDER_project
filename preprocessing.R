@@ -9,7 +9,7 @@ df <- data.frame(all_data$W1_Q1) # 1 = man; 2 = female
 names(df)[ncol(df)] <- "gender"
 df$gender <- as.character(df$gender)
 df$gender[df$gender==1] <- "male"
-df$gender[df$gender==2] <- "fenale"
+df$gender[df$gender==2] <- "female"
 
 df <- cbind(df, all_data$W1_Q2A) # continuous version; see Q2C for ordinal
 names(df)[ncol(df)] <- "age"
