@@ -159,6 +159,12 @@ names(df)[ncol(df)] <- "mig_know_syrians" # correct = 1
 table(df$mig_know_syrians)
 df$mig_know_syrians[df$mig_know_syrians==2] <- 0
 
+# knowledge sums and proportion correct
+df$gen_know_sum <- rowSums(df[,24:26], na.rm = TRUE)
+df$mig_know_sum <- rowSums(df[,27:30], na.rm = TRUE)
+df$gen_know_prop <- df$gen_know_sum/3
+df$mig_know_prop <- df$mig_know_sum/4
+
 # quality control variables
 df <- cbind(df, all_data$W1_EX1) # basic
 names(df)[ncol(df)] <- "W1_EX1"

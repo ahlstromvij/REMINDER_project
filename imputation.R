@@ -15,6 +15,31 @@ df_W2 <- subset(df_preprocessed, part_in_W2==1)
 vis_miss(df_W2[,c(1:30)]) # ignoring quality control, weights, and W2 flag
 
 # summarize wave 2 data
-library(modelsummary)
-datasummary_skim(df_W2) # numerical variables
-datasummary_skim(df_W2, type="categorical") # categorical variables
+library(table1)
+# sociodemographics
+table1(~ factor(gender) + age + factor(education_ISCED) + factor(in_paid_work) + ideology_left_right | nationality, data=df_W2)
+
+# general immigration attitudes
+table1(~ gen_imm_escape + gen_imm_work + gen_imm_study + gen_imm_family_war + gen_imm_marriage + gen_imm_marriage | nationality, data=df_W2)
+
+# ess immigration attitudes
+table1(~ gen_imm_ess_good_bad + gen_imm_ess_jobs + gen_imm_ess_welfare + gen_imm_ess_safety | nationality, data=df_W2)
+
+# emotions about immigration
+table1(~ imm_anger + imm_fear + imm_hope + imm_sympathy | nationality, data=df_W2)
+
+# immigration size
+table1(~ imm_size | nationality, data=df_W2)
+
+# free movement
+table1(~ free_move_protect_jobs + free_move_protect_services | nationality, data=df_W2)
+
+# general knowledge
+table1(~ gen_know_switzerland + gen_know_ep + gen_know_party | nationality, data=df_W2)
+
+# specific knowledge about immigration
+table1(~ mig_know_free_move + mig_know_schenger + mig_know_asylum + mig_know_syrians | nationality, data=df_W2)
+
+# knowledge sums and proportions
+table1(~ gen_know_sum + mig_know_sum | nationality, data=df_W2)
+table1(~ gen_know_prop + mig_know_prop | nationality, data=df_W2)
