@@ -5,4 +5,4 @@ library(naniar)
 df_W2 <- read.csv("df_preprocessed_W2.csv")
 
 # visualize missing
-vis_miss(df_W2[,c(1:31)]) # ignoring quality control, weights, and W2 flag
+vis_miss(df_W2[,c(1:24,26:32)]) # ignoring quality control, weights, and W2 flag

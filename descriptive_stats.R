@@ -157,8 +157,8 @@ ggplot(know_plot) +
   facet_grid(variable ~ .) +
   geom_hline(data = know_plot_overall, aes(yintercept = overall_mean), linetype="dashed", color = "red")
 
-# high general knowledge: germany, hungary, spain, sweden
-# high specific knowledge: germany, hungary, sweden
+# high general knowledge: germany, hungary, poland
+# high specific knowledge: germany, hungary, spain, sweden
 
 # correlation between general and specific knowledge
 cor(df_W2$gen_know_sum, df_W2$mig_know_sum)
