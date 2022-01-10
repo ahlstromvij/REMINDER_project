@@ -48,6 +48,7 @@ names(df)[ncol(df)] <- "education_ISCED"
 
 df <- cbind(df, all_data$W1_Q45) # 1 = in paid work
 names(df)[ncol(df)] <- "in_paid_work"
+df$in_paid_work[df$in_paid_work==2] <- 0
 
 df <- cbind(df, all_data$W2_Q87) 
 names(df)[ncol(df)] <- "religion" # lots of NAs
