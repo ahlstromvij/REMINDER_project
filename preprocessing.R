@@ -114,6 +114,7 @@ names(df)[ncol(df)] <- "imm_size" # Out of every 100 people in [COUNTRY], how ma
 # eu and national identity
 df <- cbind(df, all_data$W2_Q51_2)
 names(df)[ncol(df)] <- "eu_nat_identity" # The European Union poses a threat to (NATIONALITY) identity and culture.
+# 1 = strongly disagree; 5 = strongly agree
 
 # free movement
 df <- cbind(df, all_data$W1_Q28_3)
