@@ -165,10 +165,10 @@ df$mig_know_free_move[df$mig_know_free_move==2] <- 0
 df$mig_know_free_move[is.na(df$mig_know_free_move) & df$part_in_W2==1] <- 0
 
 df <- cbind(df, all_data$W2_Q83_2)
-names(df)[ncol(df)] <- "mig_know_schenger" # correct = 1
-table(df$mig_know_schenger)
-df$mig_know_schenger[df$mig_know_schenger==2] <- 0
-df$mig_know_schenger[is.na(df$mig_know_schenger) & df$part_in_W2==1] <- 0
+names(df)[ncol(df)] <- "mig_know_schengen" # correct = 1
+table(df$mig_know_schengen)
+df$mig_know_schengen[df$mig_know_schengen==2] <- 0
+df$mig_know_schengen[is.na(df$mig_know_schengen) & df$part_in_W2==1] <- 0
 
 df <- cbind(df, all_data$W2_Q83_3)
 names(df)[ncol(df)] <- "mig_know_asylum" # correct = 2
