@@ -15,11 +15,11 @@ Our study, arising from a longer-standing collaboration between an empirical com
 
 ## Files
 
-The R scripts are meant to be run in the following order:
+The R scripts in the `R` folder are meant to be run in the following order:
 
-1. `preprocessing.R` - Reads in the SPSS data and pre-processes it. Outputs `df_preprocessed.csv`. 
-2. `descriptive_stats.R` - Subsets the data to only include Wave 2 data, and shows some basic tables and plots by way of descriptive statistics. Outputs `df_preprocessed_W2.csv`.
-3. `imputation.R` - Reads in the pre-processed data from the previous step and imputes all missing values using multiple imputation, to prepare for modeling. Outputs `model_data.csv`. 
+1. `preprocessing.R` - Reads in the SPSS data from `data/10085_da_en_v1_0.zsav` and pre-processes it. Outputs `data/df_preprocessed.csv`. 
+2. `descriptive_stats.R` - Subsets the data to only include Wave 2 data, and shows some basic tables and plots by way of descriptive statistics. Outputs `data/df_preprocessed_W2.csv`.
+3. `imputation.R` - Reads in the pre-processed data from the previous step and imputes all missing values using multiple imputation, to prepare for modeling. Outputs `data/model_data.csv`. 
 4. `scales.R` - Reads in the data from the previous step and builds scales using IRT modeling.
 
 ## Data
