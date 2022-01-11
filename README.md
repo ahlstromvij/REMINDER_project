@@ -13,6 +13,14 @@ However, most of this work on information effects relies on batteries of general
 
 Our study, arising from a longer-standing collaboration between an empirical comparative political scientist (Allen) and a social epistemologist (Ahlstrom-Vij), makes two contributions that connect political theory and empirical enquiry: (1) it provides novel cross-national evidence of how and to what extent EU immigration attitudes and preferences are sensitive to citizens’ levels of different kinds of knowledge, and (2) it tests the validity of using general political knowledge questions as a proxy for respondents’ specific knowledge about issues. This presents practical implications for information effects research that depends on these common survey question types, and invites normative reflection on the state of political representation.
 
+## Files
+
+The R scripts are meant to be run in the following order:
+
+1. `preprocessing.R` - Reads in the SPSS data and pre-processes it. Outputs `df_preprocessed.csv`. 
+2. `descriptive_stats.R` - Subsets the data to only include Wave 2 data, and shows some basic tables and plots by way of descriptive statistics. Outputs `df_preprocessed_W2.csv`.
+3. `imputation.R` - Reads in the pre-processed data from the previous file and imputes all missing values using multiple imputation. Outputs `model_data.csv`. 
+
 ## Data
 
 The data for this project is available at https://data.aussda.at/dataset.xhtml?persistentId=doi:10.11587/LBSMPQ. Any use of that data set is subject to the terms provided there.
