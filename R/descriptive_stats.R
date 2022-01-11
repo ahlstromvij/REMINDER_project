@@ -3,7 +3,7 @@ library(table1)
 library(ggplot2)
 
 # read in preprocessed data
-df_preprocessed <- read.csv("df_preprocessed.csv")
+df_preprocessed <- read.csv("data/df_preprocessed.csv")
 
 # subset to only data from both W1 and 2
 df_W2 <- subset(df_preprocessed, part_in_W2==1)
@@ -164,4 +164,4 @@ ggplot(know_plot) +
 cor(df_W2$gen_know_sum, df_W2$mig_know_sum)
 
 # save df as CSV
-write.csv(df_W2, "df_preprocessed_W2.csv", row.names = FALSE)
+write.csv(df_W2, "data/df_preprocessed_W2.csv", row.names = FALSE)

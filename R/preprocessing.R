@@ -2,7 +2,7 @@
 library(haven)
 
 # read in SPSS data
-all_data <- read_spss("10085_da_en_v1_0.zsav")
+all_data <- read_spss("data/10085_da_en_v1_0.zsav")
 
 # add demographic variables
 df <- data.frame(all_data$W1_Q1) # 1 = man; 2 = female
@@ -219,4 +219,4 @@ names(df)[ncol(df)] <- "WEIGHTEX2"
 df$WEIGHTEX2[is.na(df$WEIGHTEX2)] <- 1 # observations with weight NA assumed to be 1
 
 # save df as CSV
-write.csv(df, "df_preprocessed.csv", row.names = FALSE)
+write.csv(df, "data/df_preprocessed.csv", row.names = FALSE)

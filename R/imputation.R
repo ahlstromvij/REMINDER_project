@@ -3,7 +3,7 @@ library(naniar)
 library(Hmisc)
 
 # read in data
-df_W2 <- read.csv("df_preprocessed_W2.csv")
+df_W2 <- read.csv("data/df_preprocessed_W2.csv")
 
 # visualize missing
 vis_miss(df_W2[,c(1:24,26:32)]) # ignoring quality control, weights, and W2 flag
@@ -82,4 +82,4 @@ head(imp_data, 20)
 model_data <- cbind(imp_data, df_W2[,33:46])
 
 # save df as CSV
-write.csv(model_data, "model_data.csv", row.names = FALSE)
+write.csv(model_data, "data/model_data.csv", row.names = FALSE)
