@@ -137,7 +137,7 @@ ggplot(free_move_plot) +
 table1(~ gen_know_switzerland + gen_know_ep + gen_know_party | nationality, data=df_W2)
 
 # specific knowledge about immigration
-table1(~ mig_know_free_move + mig_know_schenger + mig_know_asylum + mig_know_syrians | nationality, data=df_W2)
+table1(~ mig_know_free_move + mig_know_schengen + mig_know_asylum + mig_know_syrians | nationality, data=df_W2)
 
 # knowledge sums and proportions
 table1(~ gen_know_sum + mig_know_sum | nationality, data=df_W2)
