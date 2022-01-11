@@ -19,7 +19,8 @@ The R scripts are meant to be run in the following order:
 
 1. `preprocessing.R` - Reads in the SPSS data and pre-processes it. Outputs `df_preprocessed.csv`. 
 2. `descriptive_stats.R` - Subsets the data to only include Wave 2 data, and shows some basic tables and plots by way of descriptive statistics. Outputs `df_preprocessed_W2.csv`.
-3. `imputation.R` - Reads in the pre-processed data from the previous file and imputes all missing values using multiple imputation, to prepare for modeling. Outputs `model_data.csv`. 
+3. `imputation.R` - Reads in the pre-processed data from the previous step and imputes all missing values using multiple imputation, to prepare for modeling. Outputs `model_data.csv`. 
+4. `scales.R` - Reads in the data from the previous step and builds scales using IRT modeling.
 
 ## Data
 
