@@ -223,5 +223,8 @@ table(df$W2_EX1) # 63
 table(df$W2_EX2) # none
 df_quality <- subset(df, is.na(W2_EX1))
 
+# drop "other" category for nationality
+df_quality <- subset(df, nationality!="other")
+
 # save df as CSV
 write.csv(df, "data/df_preprocessed.csv", row.names = FALSE)
