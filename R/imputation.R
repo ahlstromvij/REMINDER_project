@@ -1,3 +1,5 @@
+set.seed(100)
+
 # load packages
 library(naniar)
 library(Hmisc)
@@ -77,7 +79,7 @@ impute_arg <- aregImpute(~ gender +
                            mig_know_syrians,
                          data = df_W2, n.impute = 10, tlinear = FALSE)
 impute_arg
-imp_data <- as.data.frame(impute.transcan(impute_arg, imputation=1, data=df_W2, list.out=TRUE,pr=FALSE, check=FALSE)) 
+imp_data <- as.data.frame(impute.transcan(impute_arg, imputation=1, data=df_W2, list.out=TRUE, pr=FALSE, check=FALSE)) 
 head(imp_data, 20)
 model_data <- cbind(imp_data, df_W2[,33:46])
 
