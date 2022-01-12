@@ -227,4 +227,4 @@ df_quality <- subset(df, is.na(W2_EX1))
 df_quality <- subset(df, nationality!="other")
 
 # save df as CSV
-write.csv(df, "data/df_preprocessed.csv", row.names = FALSE)
+write.csv(df_quality, "data/df_preprocessed.csv", row.names = FALSE)
