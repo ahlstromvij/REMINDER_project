@@ -89,3 +89,6 @@ model_data$know_score_imm_binary <- NA
 model_data$know_score_imm_binary[model_data$know_score_imm >= max_know_score_imm] <- 1
 model_data$know_score_imm_binary[model_data$know_score_imm < max_know_score_imm] <- 0
 table(model_data$know_score_imm_binary)
+
+# save df as CSV
+write.csv(model_data, "data/model_data_IRT.csv", row.names = FALSE)
