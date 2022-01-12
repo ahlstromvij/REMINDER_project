@@ -5,8 +5,8 @@ library(ggplot2)
 # read in preprocessed data
 df_preprocessed <- read.csv("data/df_preprocessed.csv")
 
-# subset to only data from both W1 and 2
-df_W2 <- subset(df_preprocessed, part_in_W2==1)
+# subset to only data from both W1 and 2 or who failed W2 quality check
+df_W2 <- subset(df_preprocessed, part_in_W2==1 & W2_CC==2)
 
 # summarize data
 # sociodemographics
@@ -18,8 +18,8 @@ table1(~ factor(gender) + age + factor(education_ISCED) + education_binary + fac
 # general immigration attitudes
 table1(~ gen_imm_escape + gen_imm_work + gen_imm_study + gen_imm_family_war + gen_imm_marriage | nationality, data=df_W2)
 
-gen_imm_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "other", "poland", "romania", "spain", "sweden", "uk"),5)),
-                           "variable" = c(rep("gen_imm_escape",8),rep("gen_imm_work",8),rep("gen_imm_study",8),rep("gen_imm_family_war",8),rep("gen_imm_marriage",8)),
+gen_imm_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "poland", "romania", "spain", "sweden", "uk"),5)),
+                           "variable" = c(rep("gen_imm_escape",7),rep("gen_imm_work",7),rep("gen_imm_study",7),rep("gen_imm_family_war",7),rep("gen_imm_marriage",7)),
                            "mean" = c(tapply(df_W2$gen_imm_escape,df_W2$nationality,mean,na.rm=TRUE),
                                       tapply(df_W2$gen_imm_work,df_W2$nationality,mean,na.rm=TRUE),
                                       tapply(df_W2$gen_imm_study,df_W2$nationality,mean,na.rm=TRUE),
@@ -52,8 +52,8 @@ table1(~ gen_imm_sum | nationality, data=df_W2)
 # ess immigration attitudes
 table1(~ gen_imm_ess_good_bad + gen_imm_ess_jobs + gen_imm_ess_welfare + gen_imm_ess_safety | nationality, data=df_W2)
 
-gen_imm_ess_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "other", "poland", "romania", "spain", "sweden", "uk"),4)),
-                           "variable" = c(rep("gen_imm_ess_good_bad",8),rep("gen_imm_ess_jobs",8),rep("gen_imm_ess_welfare",8),rep("gen_imm_ess_safety",8)),
+gen_imm_ess_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "poland", "romania", "spain", "sweden", "uk"),4)),
+                           "variable" = c(rep("gen_imm_ess_good_bad",7),rep("gen_imm_ess_jobs",7),rep("gen_imm_ess_welfare",7),rep("gen_imm_ess_safety",7)),
                            "mean" = c(tapply(df_W2$gen_imm_ess_good_bad,df_W2$nationality,mean,na.rm=TRUE),
                                       tapply(df_W2$gen_imm_ess_jobs,df_W2$nationality,mean,na.rm=TRUE),
                                       tapply(df_W2$gen_imm_ess_welfare,df_W2$nationality,mean,na.rm=TRUE),
@@ -85,8 +85,8 @@ ggplot(gen_imm_ess_plot) +
 # emotions about immigration
 table1(~ imm_anger + imm_fear + imm_hope + imm_sympathy | nationality, data=df_W2)
 
-imm_emotions_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "other", "poland", "romania", "spain", "sweden", "uk"),4)),
-                               "variable" = c(rep("imm_anger",8),rep("imm_fear",8),rep("imm_hope",8),rep("imm_sympathy",8)),
+imm_emotions_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "poland", "romania", "spain", "sweden", "uk"),4)),
+                               "variable" = c(rep("imm_anger",7),rep("imm_fear",7),rep("imm_hope",7),rep("imm_sympathy",7)),
                                "mean" = c(tapply(df_W2$imm_anger,df_W2$nationality,mean,na.rm=TRUE),
                                           tapply(df_W2$imm_fear,df_W2$nationality,mean,na.rm=TRUE),
                                           tapply(df_W2$imm_hope,df_W2$nationality,mean,na.rm=TRUE),
@@ -103,7 +103,7 @@ ggplot(imm_emotions_plot) +
   facet_grid(variable ~ .) +
   geom_hline(data = imm_emotions_plot_overall, aes(yintercept = overall_mean), linetype="dashed", color = "red")
 
-# a lot of anger: hungary, sweden, uk
+# a lot of anger: germany, hungary, sweden, uk
 # a lot of fear: germany, hungary
 # a lot of sympathy: poland, romania, spain, sweden 
 
@@ -113,8 +113,8 @@ table1(~ imm_size | nationality, data=df_W2)
 # free movement and EU identity
 table1(~ free_move_protect_jobs + free_move_protect_services + eu_nat_identity | nationality, data=df_W2)
 
-free_move_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "other", "poland", "romania", "spain", "sweden", "uk"),3)),
-                                "variable" = c(rep("free_move_protect_jobs",8),rep("free_move_protect_services",8),rep("eu_nat_identity",8)),
+free_move_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "poland", "romania", "spain", "sweden", "uk"),3)),
+                                "variable" = c(rep("free_move_protect_jobs",7),rep("free_move_protect_services",7),rep("eu_nat_identity",7)),
                                 "mean" = c(tapply(df_W2$free_move_protect_jobs,df_W2$nationality,mean,na.rm=TRUE),
                                            tapply(df_W2$free_move_protect_services,df_W2$nationality,mean,na.rm=TRUE),
                                            tapply(df_W2$eu_nat_identity,df_W2$nationality,mean,na.rm=TRUE)))
@@ -143,8 +143,8 @@ table1(~ mig_know_free_move + mig_know_schengen + mig_know_asylum + mig_know_syr
 table1(~ gen_know_sum + mig_know_sum | nationality, data=df_W2)
 table1(~ gen_know_prop + mig_know_prop | nationality, data=df_W2)
 
-know_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "other", "poland", "romania", "spain", "sweden", "uk"),2)),
-                             "variable" = c(rep("gen_know_prop",8),rep("mig_know_prop",8)),
+know_plot <- data.frame("nationality" = (rep(c("germany", "hungary", "poland", "romania", "spain", "sweden", "uk"),2)),
+                             "variable" = c(rep("gen_know_prop",7),rep("mig_know_prop",7)),
                              "mean" = c(tapply(df_W2$gen_know_prop,df_W2$nationality,mean,na.rm=TRUE),
                                         tapply(df_W2$mig_know_prop,df_W2$nationality,mean,na.rm=TRUE)))
 
@@ -161,7 +161,7 @@ ggplot(know_plot) +
 # high specific knowledge: germany, hungary, spain, sweden
 
 # correlation between general and specific knowledge
-cor(df_W2$gen_know_sum, df_W2$mig_know_sum)
+cor(df_W2$gen_know_sum, df_W2$mig_know_sum) # 0.4283856
 
 # save df as CSV
 write.csv(df_W2, "data/df_preprocessed_W2.csv", row.names = FALSE)
