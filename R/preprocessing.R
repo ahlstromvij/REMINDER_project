@@ -218,5 +218,10 @@ df <- cbind(df, all_data$WEIGHTEX2)
 names(df)[ncol(df)] <- "WEIGHTEX2"
 df$WEIGHTEX2[is.na(df$WEIGHTEX2)] <- 1 # observations with weight NA assumed to be 1
 
+# exclude all who failed basic quality control in W2
+table(df$W2_EX1) # 63
+table(df$W2_EX2) # none
+df_quality <- subset(df, is.na(W2_EX1))
+
 # save df as CSV
 write.csv(df, "data/df_preprocessed.csv", row.names = FALSE)
