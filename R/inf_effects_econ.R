@@ -47,13 +47,13 @@ table(model_data$nationality)
 model_data_germany <- subset(model_data, nationality=="germany")
 model_data_hungary <- subset(model_data, nationality=="hungary")
 model_data_poland <- subset(model_data, nationality=="poland")
-model_data_uk <- subset(model_data, nationality=="uk")
+model_data_romania <- subset(model_data, nationality=="romania")
 model_data_spain <- subset(model_data, nationality=="spain")
 model_data_sweden <- subset(model_data, nationality=="sweden")
 model_data_uk <- subset(model_data, nationality=="uk")
 
 # create df to collect knowledge effects and confidence intervals
-df_knowledge <- data.frame("nationality" = rep(c("germany","hungary","poland","uk","spain","sweden","uk"),2),
+df_knowledge <- data.frame("nationality" = rep(c("germany","hungary","poland","romania","spain","sweden","uk"),2),
                            "type" = c(rep("general",7),rep("immigration",7)),
                            "effect" = NA,
                            "lwr" = NA,
@@ -205,44 +205,44 @@ df_knowledge$upr[df_knowledge$nationality=="poland" & df_knowledge$type=="immigr
 par(mfrow = c(2, 2))
 plot(m_econ_imm_poland)
 
-# uk
-m_econ_gen_uk <- lm(gen_imm_ess_good_bad ~ know_score_general_binary +
+# romania
+m_econ_gen_romania <- lm(gen_imm_ess_good_bad ~ know_score_general_binary +
                           gender +
                           age +
                           education_ISCED +
                           in_paid_work +
                           religion +
                           ideology_left_right,
-                        data = model_data_uk, 
+                        data = model_data_romania, 
                         weights = (weight.ATE_general))
-summary(m_econ_gen_uk)
-m_econ_gen_uk_vcov <- vcovHC(m_econ_gen_uk, type="HC1")
-coeftest(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)
-df_knowledge$effect[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)[2,1]
-coefci(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coefci(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coefci(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)[2,2]
+summary(m_econ_gen_romania)
+m_econ_gen_romania_vcov <- vcovHC(m_econ_gen_romania, type="HC1")
+coeftest(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)
+df_knowledge$effect[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)[2,1]
+coefci(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coefci(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coefci(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_gen_uk)
+plot(m_econ_gen_romania)
 
-m_econ_imm_uk <- lm(gen_imm_ess_good_bad ~ know_score_imm_binary +
+m_econ_imm_romania <- lm(gen_imm_ess_good_bad ~ know_score_imm_binary +
                           gender +
                           age +
                           education_ISCED +
                           in_paid_work +
                           religion +
                           ideology_left_right,
-                        data = model_data_uk, 
+                        data = model_data_romania, 
                         weights = (weight.ATE_imm))
-summary(m_econ_imm_uk)
-m_econ_imm_uk_vcov <- vcovHC(m_econ_imm_uk, type="HC1")
-coeftest(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)
-df_knowledge$effect[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)[2,1]
-coefci(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)[2,2]
+summary(m_econ_imm_romania)
+m_econ_imm_romania_vcov <- vcovHC(m_econ_imm_romania, type="HC1")
+coeftest(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)
+df_knowledge$effect[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)[2,1]
+coefci(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_imm_uk)
+plot(m_econ_imm_romania)
 
 # spain
 m_econ_gen_spain <- lm(gen_imm_ess_good_bad ~ know_score_general_binary +
@@ -372,7 +372,7 @@ ggplot(df_knowledge, aes(nationality, effect)) +
 # calculate information effects
 
 # create df to collect information effects
-df_full_information <- data.frame("nationality" = rep(c("germany","hungary","poland","uk","spain","sweden","uk"),2),
+df_full_information <- data.frame("nationality" = rep(c("germany","hungary","poland","romania","spain","sweden","uk"),2),
                                   "type" = c(rep("general",7),rep("immigration",7)),
                                   "actual" = NA,
                                   "informed" = NA)
@@ -469,6 +469,33 @@ df_poland_effect_imm$variable_pred <- predict(m_econ_imm_poland, type = "respons
 df_poland_effect_imm$variable_pred_binary <- ifelse(df_poland_effect_imm$variable_pred > 5, 1, 0)
 df_poland_effect_imm$variable_pred_binary_weighted <- df_poland_effect_imm$variable_pred_binary * df_poland_effect_imm$weight
 df_full_information$informed[df_full_information$nationality=="poland" & df_full_information$type=="immigration"] <- sum(df_poland_effect_imm$variable_pred_binary_weighted)/sum(df_poland_effect_imm$weight)
+
+# romania - general
+df_romania_effect <- data.frame(model_data_romania$gen_imm_ess_good_bad, model_data_romania$WEIGHTEX1)
+names(df_romania_effect)[1:2] <- c("variable","weight")
+df_romania_effect$variable_binary <- ifelse(df_romania_effect$variable > 5, 1, 0)
+df_romania_effect$variable_weighted <- df_romania_effect$variable_binary * df_romania_effect$weight
+df_full_information$actual[df_full_information$nationality=="romania" & df_full_information$type=="general"] <- sum(df_romania_effect$variable_weighted)/sum(df_romania_effect$weight)
+model_data_romania$know_score_general_binary_original <- model_data_romania$know_score_general_binary
+model_data_romania$know_score_general_binary <- 1
+df_romania_effect$variable_pred <- predict(m_econ_gen_romania, type = "response", newdata = model_data_romania)
+df_romania_effect$variable_pred_binary <- ifelse(df_romania_effect$variable_pred > 5, 1, 0)
+df_romania_effect$variable_pred_binary_weighted <- df_romania_effect$variable_pred_binary * df_romania_effect$weight
+pred_romania_econ_effect_general <- sum(df_romania_effect$variable_pred_binary_weighted)/sum(df_romania_effect$weight)
+df_full_information$informed[df_full_information$nationality=="romania" & df_full_information$type=="general"] <- sum(df_romania_effect$variable_pred_binary_weighted)/sum(df_romania_effect$weight)
+
+# romania - immigration
+df_romania_effect_imm <- data.frame(model_data_romania$gen_imm_ess_good_bad, model_data_romania$WEIGHTEX1)
+names(df_romania_effect_imm)[1:2] <- c("variable","weight")
+df_romania_effect_imm$variable_binary <- ifelse(df_romania_effect_imm$variable > 5, 1, 0)
+df_romania_effect_imm$variable_weighted <- df_romania_effect_imm$variable_binary * df_romania_effect_imm$weight
+df_full_information$actual[df_full_information$nationality=="romania" & df_full_information$type=="immigration"] <- sum(df_romania_effect_imm$variable_weighted)/sum(df_romania_effect_imm$weight)
+model_data_romania$know_score_imm_binary_original <- model_data_romania$know_score_imm_binary
+model_data_romania$know_score_imm_binary <- 1
+df_romania_effect_imm$variable_pred <- predict(m_econ_imm_romania, type = "response", newdata = model_data_romania)
+df_romania_effect_imm$variable_pred_binary <- ifelse(df_romania_effect_imm$variable_pred > 5, 1, 0)
+df_romania_effect_imm$variable_pred_binary_weighted <- df_romania_effect_imm$variable_pred_binary * df_romania_effect_imm$weight
+df_full_information$informed[df_full_information$nationality=="romania" & df_full_information$type=="immigration"] <- sum(df_romania_effect_imm$variable_pred_binary_weighted)/sum(df_romania_effect_imm$weight)
 
 # spain - general
 df_spain_effect <- data.frame(model_data_spain$gen_imm_ess_good_bad, model_data_spain$WEIGHTEX1)
