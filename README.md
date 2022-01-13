@@ -22,6 +22,7 @@ The R scripts in the `R` folder are meant to be run in the following order:
 3. `imputation.R` - Reads in the pre-processed data from the previous step and imputes all missing values using multiple imputation, to prepare for modeling. Outputs `data/model_data.csv`. 
 4. `scales.R` - Reads in the data from the previous step and builds scales using IRT modeling. Outputs `data/model_data_IRT.csv`.
 5. `prop_scores.R` - Reads in the data from the previous step and calculates propensity scores for both knowledge scales. Outputs `data/model_data_IRT_propscores.csv`.
+6. `inf_effects_econ.R` - Reads in the data with propensity scores from the previous step, and calculates that information effect on perceptions of the economic impact of immigration.
 
 ## Data
 
