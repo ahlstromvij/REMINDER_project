@@ -23,7 +23,7 @@ The R scripts in the `R` folder are meant to be run in the following order:
 4. `scales.R` - Reads in the data from the previous step and builds scales using IRT modeling. Outputs `data/model_data_IRT.csv`.
 5. `prop_scores.R` - Reads in the data from the previous step and calculates propensity scores for both knowledge scales. Outputs `data/model_data_IRT_propscores.csv`.
 
-The following scripts calculates information effects on the basis of the data from step 6:
+The following scripts calculates information effects on the basis of the data from step 5:
 
 - `inf_effects_econ.R` - Calculates the information effect on perceptions of the economic impact of immigration.
 - `inf_effects_services.R` - Calculates the information effect on perceptions of the impact of immigration on public services.
