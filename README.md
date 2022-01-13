@@ -26,7 +26,7 @@ The R scripts in the `R` folder are meant to be run in the following order:
 The following scripts calculates information effects on the basis of the data from step 5:
 
 - `inf_effects_econ.R` - Calculates the information effect on perceptions of the economic impact of immigration.
-- `inf_effects_services.R` - Calculates the information effect on perceptions of the impact of immigration on public services.
+- `inf_effects_protect_jobs.R` - Calculates the information effect on desire to restrict free movement to protect jobs.
 - `inf_effects_fear.R` - Calculates the information effect on fear of immigration.
 
 ## Data
