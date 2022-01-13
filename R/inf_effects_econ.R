@@ -5,6 +5,7 @@ library(lmtest)
 library(sandwich)
 library(ggplot2)
 library(tidyr)
+library(boot)
 
 # read in data
 model_data <- read.csv("data/model_data_IRT_propscores.csv")
@@ -548,4 +549,133 @@ df_full_information$informed[df_full_information$nationality=="uk" & df_full_inf
 df_plot <- gather(df_full_information, variable, effect, actual:informed, factor_key=TRUE)
 ggplot(data=df_plot, aes(x=nationality, y=effect)) +
   geom_bar(aes(fill = variable), position = "dodge", stat="identity") +
+  facet_grid(. ~ type)
+
+# add bootstrapped confidence intervals
+meanfun <- function(data, indices) {
+  d <- data[indices] # allows boot to select sample
+  return(mean(d))
+}
+
+df_plot$lwr <- NA
+df_plot$upr <- NA
+
+mean_wt_germany <- mean(df_germany_effect$weight)
+boot_germany_actual <- boot(df_germany_effect$variable_weighted, meanfun, R=1000)
+boot_germany_general <- boot(df_germany_effect$variable_pred_weighted, meanfun, R=1000)
+boot_germany_imm <- boot(df_germany_effect_imm$variable_pred_weighted, meanfun, R=1000)
+plot(boot_germany_actual)
+plot(boot_germany_general)
+plot(boot_germany_imm)
+df_plot$lwr[df_plot$nationality=="germany" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_germany_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_germany
+df_plot$upr[df_plot$nationality=="germany" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_germany_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_germany
+df_plot$lwr[df_plot$nationality=="germany" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_germany_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_germany
+df_plot$upr[df_plot$nationality=="germany" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_germany_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_germany
+df_plot$lwr[df_plot$nationality=="germany" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_germany_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_germany
+df_plot$upr[df_plot$nationality=="germany" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_germany_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_germany
+df_plot$lwr[df_plot$nationality=="germany" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_germany_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_germany
+df_plot$upr[df_plot$nationality=="germany" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_germany_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_germany
+
+mean_wt_hungary <- mean(df_hungary_effect$weight)
+boot_hungary_actual <- boot(df_hungary_effect$variable_weighted, meanfun, R=1000)
+boot_hungary_general <- boot(df_hungary_effect$variable_pred_weighted, meanfun, R=1000)
+boot_hungary_imm <- boot(df_hungary_effect_imm$variable_pred_weighted, meanfun, R=1000)
+plot(boot_hungary_actual)
+plot(boot_hungary_general)
+plot(boot_hungary_imm)
+df_plot$lwr[df_plot$nationality=="hungary" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_hungary_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_hungary
+df_plot$upr[df_plot$nationality=="hungary" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_hungary_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_hungary
+df_plot$lwr[df_plot$nationality=="hungary" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_hungary_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_hungary
+df_plot$upr[df_plot$nationality=="hungary" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_hungary_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_hungary
+df_plot$lwr[df_plot$nationality=="hungary" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_hungary_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_hungary
+df_plot$upr[df_plot$nationality=="hungary" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_hungary_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_hungary
+df_plot$lwr[df_plot$nationality=="hungary" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_hungary_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_hungary
+df_plot$upr[df_plot$nationality=="hungary" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_hungary_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_hungary
+
+mean_wt_poland <- mean(df_poland_effect$weight)
+boot_poland_actual <- boot(df_poland_effect$variable_weighted, meanfun, R=1000)
+boot_poland_general <- boot(df_poland_effect$variable_pred_weighted, meanfun, R=1000)
+boot_poland_imm <- boot(df_poland_effect_imm$variable_pred_weighted, meanfun, R=1000)
+plot(boot_poland_actual)
+plot(boot_poland_general)
+plot(boot_poland_imm)
+df_plot$lwr[df_plot$nationality=="poland" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_poland_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_poland
+df_plot$upr[df_plot$nationality=="poland" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_poland_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_poland
+df_plot$lwr[df_plot$nationality=="poland" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_poland_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_poland
+df_plot$upr[df_plot$nationality=="poland" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_poland_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_poland
+df_plot$lwr[df_plot$nationality=="poland" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_poland_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_poland
+df_plot$upr[df_plot$nationality=="poland" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_poland_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_poland
+df_plot$lwr[df_plot$nationality=="poland" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_poland_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_poland
+df_plot$upr[df_plot$nationality=="poland" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_poland_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_poland
+
+mean_wt_romania <- mean(df_romania_effect$weight)
+boot_romania_actual <- boot(df_romania_effect$variable_weighted, meanfun, R=1000)
+boot_romania_general <- boot(df_romania_effect$variable_pred_weighted, meanfun, R=1000)
+boot_romania_imm <- boot(df_romania_effect_imm$variable_pred_weighted, meanfun, R=1000)
+plot(boot_romania_actual)
+plot(boot_romania_general)
+plot(boot_romania_imm)
+df_plot$lwr[df_plot$nationality=="romania" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_romania_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_romania
+df_plot$upr[df_plot$nationality=="romania" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_romania_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_romania
+df_plot$lwr[df_plot$nationality=="romania" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_romania_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_romania
+df_plot$upr[df_plot$nationality=="romania" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_romania_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_romania
+df_plot$lwr[df_plot$nationality=="romania" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_romania_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_romania
+df_plot$upr[df_plot$nationality=="romania" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_romania_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_romania
+df_plot$lwr[df_plot$nationality=="romania" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_romania_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_romania
+df_plot$upr[df_plot$nationality=="romania" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_romania_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_romania
+
+mean_wt_spain <- mean(df_spain_effect$weight)
+boot_spain_actual <- boot(df_spain_effect$variable_weighted, meanfun, R=1000)
+boot_spain_general <- boot(df_spain_effect$variable_pred_weighted, meanfun, R=1000)
+boot_spain_imm <- boot(df_spain_effect_imm$variable_pred_weighted, meanfun, R=1000)
+plot(boot_spain_actual)
+plot(boot_spain_general)
+plot(boot_spain_imm)
+df_plot$lwr[df_plot$nationality=="spain" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_spain_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_spain
+df_plot$upr[df_plot$nationality=="spain" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_spain_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_spain
+df_plot$lwr[df_plot$nationality=="spain" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_spain_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_spain
+df_plot$upr[df_plot$nationality=="spain" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_spain_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_spain
+df_plot$lwr[df_plot$nationality=="spain" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_spain_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_spain
+df_plot$upr[df_plot$nationality=="spain" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_spain_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_spain
+df_plot$lwr[df_plot$nationality=="spain" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_spain_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_spain
+df_plot$upr[df_plot$nationality=="spain" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_spain_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_spain
+
+mean_wt_sweden <- mean(df_sweden_effect$weight)
+boot_sweden_actual <- boot(df_sweden_effect$variable_weighted, meanfun, R=1000)
+boot_sweden_general <- boot(df_sweden_effect$variable_pred_weighted, meanfun, R=1000)
+boot_sweden_imm <- boot(df_sweden_effect_imm$variable_pred_weighted, meanfun, R=1000)
+plot(boot_sweden_actual)
+plot(boot_sweden_general)
+plot(boot_sweden_imm)
+df_plot$lwr[df_plot$nationality=="sweden" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_sweden_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_sweden
+df_plot$upr[df_plot$nationality=="sweden" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_sweden_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_sweden
+df_plot$lwr[df_plot$nationality=="sweden" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_sweden_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_sweden
+df_plot$upr[df_plot$nationality=="sweden" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_sweden_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_sweden
+df_plot$lwr[df_plot$nationality=="sweden" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_sweden_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_sweden
+df_plot$upr[df_plot$nationality=="sweden" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_sweden_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_sweden
+df_plot$lwr[df_plot$nationality=="sweden" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_sweden_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_sweden
+df_plot$upr[df_plot$nationality=="sweden" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_sweden_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_sweden
+
+mean_wt_uk <- mean(df_uk_effect$weight)
+boot_uk_actual <- boot(df_uk_effect$variable_weighted, meanfun, R=1000)
+boot_uk_general <- boot(df_uk_effect$variable_pred_weighted, meanfun, R=1000)
+boot_uk_imm <- boot(df_uk_effect_imm$variable_pred_weighted, meanfun, R=1000)
+plot(boot_uk_actual)
+plot(boot_uk_general)
+plot(boot_uk_imm)
+df_plot$lwr[df_plot$nationality=="uk" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_uk_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_uk
+df_plot$upr[df_plot$nationality=="uk" & df_plot$type=="general" & df_plot$variable=="actual"] <- boot.ci(boot_uk_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
+df_plot$lwr[df_plot$nationality=="uk" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_uk_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_uk
+df_plot$upr[df_plot$nationality=="uk" & df_plot$type=="immigration" & df_plot$variable=="actual"] <- boot.ci(boot_uk_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
+df_plot$lwr[df_plot$nationality=="uk" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_uk_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_uk
+df_plot$upr[df_plot$nationality=="uk" & df_plot$type=="general" & df_plot$variable=="informed"] <- boot.ci(boot_uk_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
+df_plot$lwr[df_plot$nationality=="uk" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_uk_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_uk
+df_plot$upr[df_plot$nationality=="uk" & df_plot$type=="immigration" & df_plot$variable=="informed"] <- boot.ci(boot_uk_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
+
+# plot effects with confidence intervals
+ggplot(df_plot, aes(x=nationality, y=effect, fill=variable)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=lwr, ymax=upr), width=.2,
+                position=position_dodge(.9)) +
   facet_grid(. ~ type)
