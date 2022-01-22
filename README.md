@@ -30,6 +30,8 @@ The following scripts calculate information effects on the basis of the data fro
 - `inf_effects_fear.R` - Calculates the information effect on fear of immigration.
 - `inf_effects_anger.R` - Calculates the information effect on anger over immigration.
 
+The plots in the `plots` folder show the information effects for each of these four variables by country.
+
 ## Data
 
 The data for this project is available at https://data.aussda.at/dataset.xhtml?persistentId=doi:10.11587/LBSMPQ. Any use of that data set is subject to the terms provided there.
