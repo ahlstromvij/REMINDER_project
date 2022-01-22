@@ -633,4 +633,10 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), width=.2,
-                position=position_dodge(.9))
+                position=position_dodge(.9)) +
+  scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray75", "informed_immigration" = "gray50")) +
+  theme_minimal() +
+  labs(
+    title = "Restrict free movement to protect native workers",
+    subtitle = "1 = strongly disagree; 5 = strongly agree"
+  )
