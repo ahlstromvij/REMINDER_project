@@ -630,6 +630,23 @@ df_full_information$lwr[df_full_information$nationality=="uk" & df_full_informat
 df_full_information$upr[df_full_information$nationality=="uk" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_uk_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
 
 # plot effects with confidence intervals
+jpeg(file="plots/econ.jpeg", width=1200, height=800)
+ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) + 
+  geom_bar(stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_errorbar(aes(ymin=lwr, ymax=upr), width=.2,
+                position=position_dodge(.9)) +
+  scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray75", "informed_immigration" = "gray50")) +
+  theme_minimal() +
+  labs(
+    title = "Immigration is good for [country's] economy",
+    subtitle = "0 = bad; 10 = good"
+  )
+
+#save plot
+dev.off()
+
+# show plot
 ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) + 
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
