@@ -32,3 +32,7 @@ The following scripts calculate information effects on the basis of the data fro
 ## Data
 
 The data for this project is available at https://data.aussda.at/dataset.xhtml?persistentId=doi:10.11587/LBSMPQ. Any use of that data set is subject to the terms provided there.
+
+## Requirements
+
+The code in this repository was produced using R 4.1.2 on macOS Catalina (10.15.7).
