@@ -6,6 +6,8 @@ library(sandwich)
 library(ggplot2)
 library(tidyr)
 library(boot)
+library(TOSTER)
+library(Hmisc)
 
 # read in data
 model_data <- read.csv("data/model_data_IRT_propscores.csv")
@@ -658,3 +660,42 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
     title = "Immigration is good for [country's] economy",
     subtitle = "0 = bad; 10 = good"
   )
+
+# aggregate data for analysis
+df_all_effects_general <- rbind(df_germany_effect,
+                                df_hungary_effect,
+                                df_poland_effect,
+                                df_romania_effect,
+                                df_spain_effect,
+                                df_sweden_effect,
+                                df_uk_effect)
+
+df_all_effects_imm <- rbind(df_germany_effect_imm,
+                            df_hungary_effect_imm,
+                            df_poland_effect_imm,
+                            df_romania_effect_imm,
+                            df_spain_effect_imm,
+                            df_sweden_effect_imm,
+                            df_uk_effect_imm)
+
+# calculate weighted means, sd:s, and n
+general_mean <- sum(df_all_effects_general$variable_pred_weighted)/sum(df_all_effects_general$weight)
+general_var <- wtd.var(df_all_effects_general$variable_pred_weighted, df_all_effects_general$weight)
+general_sd <- sqrt(general_var)
+general_n <- length(df_all_effects_general$variable_pred_weighted)
+
+imm_mean <- sum(df_all_effects_imm$variable_pred_weighted)/sum(df_all_effects_imm$weight)
+imm_var <- wtd.var(df_all_effects_imm$variable_pred_weighted, df_all_effects_imm$weight)
+imm_sd <- sqrt(imm_var)
+imm_n <- length(df_all_effects_imm$variable_pred_weighted)
+
+# equivalency test
+bound <- 0.5
+alpha <- 0.025
+TOSTtwo.raw(m1=general_mean, 
+            m2=imm_mean, 
+            sd1=general_sd, 
+            sd2=imm_sd, 
+            n1=general_n, 
+            n2=imm_n, 
+            low_eqbound=-bound, high_eqbound=bound, alpha = alpha,var.equal = FALSE)
