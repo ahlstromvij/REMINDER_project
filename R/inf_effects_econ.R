@@ -690,7 +690,7 @@ imm_sd <- sqrt(imm_var)
 imm_n <- length(df_all_effects_imm$variable_pred_weighted)
 
 # equivalency test
-bound <- 0.5
+bound <- 10*0.05 # 5% of scale (which ranges from 0-10)
 alpha <- 0.025
 TOSTtwo.raw(m1=general_mean, 
             m2=imm_mean, 
