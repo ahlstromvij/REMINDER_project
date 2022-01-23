@@ -519,11 +519,6 @@ df_uk_effect_imm$variable_pred <- predict(m_imm_uk, type = "response", newdata =
 df_uk_effect_imm$variable_pred_weighted <- df_uk_effect_imm$variable_pred * df_uk_effect_imm$weight
 df_full_information$effect[df_full_information$nationality=="uk" & df_full_information$type=="informed_immigration"] <- sum(df_uk_effect_imm$variable_pred_weighted)/sum(df_uk_effect_imm$weight)
 
-# plot effects
-ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) + 
-  geom_bar(stat="identity", color="black", 
-           position=position_dodge())
-
 # add bootstrapped confidence intervals
 meanfun <- function(data, indices) {
   d <- data[indices] # allows boot to select sample
@@ -632,7 +627,7 @@ df_full_information$lwr[df_full_information$nationality=="uk" & df_full_informat
 df_full_information$upr[df_full_information$nationality=="uk" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_uk_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
 
 # plot effects with confidence intervals
-jpeg(file="plots/fear.jpeg", width=1200, height=800)
+jpeg(file="plots/fear.jpeg", width=950, height=500)
 ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) + 
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
@@ -640,10 +635,12 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
                 position=position_dodge(.9)) +
   scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray75", "informed_immigration" = "gray50")) +
   theme_minimal() +
+  scale_y_continuous(limits=c(1,7),oob = squish) +
   labs(
     title = "Feel fear when thinking of immigration to [country]",
     subtitle = "1 = not at all; 7 = a lot"
-  )
+  ) +
+  coord_flip()
 
 #save plot
 dev.off()
@@ -656,10 +653,12 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
                 position=position_dodge(.9)) +
   scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray75", "informed_immigration" = "gray50")) +
   theme_minimal() +
+  scale_y_continuous(limits=c(1,7),oob = squish) +
   labs(
     title = "Feel fear when thinking of immigration to [country]",
     subtitle = "1 = not at all; 7 = a lot"
-  )
+  ) +
+  coord_flip()
 
 # aggregate data for analysis
 df_all_effects_general <- rbind(df_germany_effect,
