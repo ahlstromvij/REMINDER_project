@@ -25,9 +25,9 @@ class(model_data$gen_imm_work) # integer
 class(model_data$gen_imm_study) # integer
 class(model_data$gen_imm_family_war) # integer
 class(model_data$gen_imm_marriage) # integer
-class(model_data$free_move_protect_services) # integer
+class(model_data$free_move_protect_jobs) # integer
 class(model_data$gen_imm_ess_jobs) # integer
-class(model_data$free_move_protect_services) # integer
+class(model_data$free_move_protect_jobs) # integer
 class(model_data$gen_imm_ess_safety) # integer
 class(model_data$imm_anger) # integer
 class(model_data$imm_fear) # integer
@@ -36,7 +36,7 @@ class(model_data$imm_sympathy) # integer
 class(model_data$imm_size) # integer
 class(model_data$eu_nat_identity) # integer
 class(model_data$free_move_protect_jobs) # integer
-class(model_data$free_move_protect_services) # integer
+class(model_data$free_move_protect_jobs) # integer
 class(model_data$gen_know_switzerland) # integer
 class(model_data$gen_know_ep) # integer
 class(model_data$gen_know_party) # integer
@@ -66,7 +66,7 @@ df_knowledge <- data.frame("nationality" = rep(c("germany","hungary","poland","r
 # higher = better for economy
 
 # germany
-m_econ_gen_germany <- lm(free_move_protect_services ~ know_score_general_binary +
+m_econ_gen_germany <- lm(free_move_protect_jobs ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -111,7 +111,7 @@ plot(m_econ_gen_germany, 5)
 # indicates an observation with high leverage (P. Bruce and Bruce 2017); where, p is the number of 
 # predictors and n is the number of observations.
 
-m_econ_imm_germany <- lm(free_move_protect_services ~ know_score_imm_binary +
+m_econ_imm_germany <- lm(free_move_protect_jobs ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -131,7 +131,7 @@ par(mfrow = c(2, 2))
 plot(m_econ_imm_germany)
 
 # hungary
-m_econ_gen_hungary <- lm(free_move_protect_services ~ know_score_general_binary +
+m_econ_gen_hungary <- lm(free_move_protect_jobs ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -150,7 +150,7 @@ df_knowledge$upr[df_knowledge$nationality=="hungary" & df_knowledge$type=="gener
 par(mfrow = c(2, 2))
 plot(m_econ_gen_hungary)
 
-m_econ_imm_hungary <- lm(free_move_protect_services ~ know_score_imm_binary +
+m_econ_imm_hungary <- lm(free_move_protect_jobs ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -170,7 +170,7 @@ par(mfrow = c(2, 2))
 plot(m_econ_imm_hungary)
 
 # poland
-m_econ_gen_poland <- lm(free_move_protect_services ~ know_score_general_binary +
+m_econ_gen_poland <- lm(free_move_protect_jobs ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -189,7 +189,7 @@ df_knowledge$upr[df_knowledge$nationality=="poland" & df_knowledge$type=="genera
 par(mfrow = c(2, 2))
 plot(m_econ_gen_poland)
 
-m_econ_imm_poland <- lm(free_move_protect_services ~ know_score_imm_binary +
+m_econ_imm_poland <- lm(free_move_protect_jobs ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -209,7 +209,7 @@ par(mfrow = c(2, 2))
 plot(m_econ_imm_poland)
 
 # romania
-m_econ_gen_romania <- lm(free_move_protect_services ~ know_score_general_binary +
+m_econ_gen_romania <- lm(free_move_protect_jobs ~ know_score_general_binary +
                           gender +
                           age +
                           education_ISCED +
@@ -228,7 +228,7 @@ df_knowledge$upr[df_knowledge$nationality=="romania" & df_knowledge$type=="gener
 par(mfrow = c(2, 2))
 plot(m_econ_gen_romania)
 
-m_econ_imm_romania <- lm(free_move_protect_services ~ know_score_imm_binary +
+m_econ_imm_romania <- lm(free_move_protect_jobs ~ know_score_imm_binary +
                           gender +
                           age +
                           education_ISCED +
@@ -248,7 +248,7 @@ par(mfrow = c(2, 2))
 plot(m_econ_imm_romania)
 
 # spain
-m_econ_gen_spain <- lm(free_move_protect_services ~ know_score_general_binary +
+m_econ_gen_spain <- lm(free_move_protect_jobs ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -267,7 +267,7 @@ df_knowledge$upr[df_knowledge$nationality=="spain" & df_knowledge$type=="general
 par(mfrow = c(2, 2))
 plot(m_econ_gen_spain)
 
-m_econ_imm_spain <- lm(free_move_protect_services ~ know_score_imm_binary +
+m_econ_imm_spain <- lm(free_move_protect_jobs ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -287,7 +287,7 @@ par(mfrow = c(2, 2))
 plot(m_econ_imm_spain)
 
 # sweden
-m_econ_gen_sweden <- lm(free_move_protect_services ~ know_score_general_binary +
+m_econ_gen_sweden <- lm(free_move_protect_jobs ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -306,7 +306,7 @@ df_knowledge$upr[df_knowledge$nationality=="sweden" & df_knowledge$type=="genera
 par(mfrow = c(2, 2))
 plot(m_econ_gen_sweden)
 
-m_econ_imm_sweden <- lm(free_move_protect_services ~ know_score_imm_binary +
+m_econ_imm_sweden <- lm(free_move_protect_jobs ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -326,7 +326,7 @@ par(mfrow = c(2, 2))
 plot(m_econ_imm_sweden)
 
 # uk
-m_econ_gen_uk <- lm(free_move_protect_services ~ know_score_general_binary +
+m_econ_gen_uk <- lm(free_move_protect_jobs ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -345,7 +345,7 @@ df_knowledge$upr[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] 
 par(mfrow = c(2, 2))
 plot(m_econ_gen_uk)
 
-m_econ_imm_uk <- lm(free_move_protect_services ~ know_score_imm_binary +
+m_econ_imm_uk <- lm(free_move_protect_jobs ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -381,7 +381,7 @@ df_full_information <- data.frame("nationality" = rep(c("germany","hungary","pol
 
 # germany
 # actual support for affirmative
-df_germany_effect <- data.frame(model_data_germany$free_move_protect_services, model_data_germany$WEIGHTEX1)
+df_germany_effect <- data.frame(model_data_germany$free_move_protect_jobs, model_data_germany$WEIGHTEX1)
 names(df_germany_effect)[1:2] <- c("variable","weight")
 
 # weighted support for affirmative
@@ -396,7 +396,7 @@ df_germany_effect$variable_pred_weighted <- df_germany_effect$variable_pred * df
 df_full_information$effect[df_full_information$nationality=="germany" & df_full_information$type=="informed_general"] <- sum(df_germany_effect$variable_pred_weighted)/sum(df_germany_effect$weight)
 
 # predicted weighted support for affirmative - immigration
-df_germany_effect_imm <- data.frame(model_data_germany$free_move_protect_services, model_data_germany$WEIGHTEX1)
+df_germany_effect_imm <- data.frame(model_data_germany$free_move_protect_jobs, model_data_germany$WEIGHTEX1)
 names(df_germany_effect_imm)[1:2] <- c("variable","weight")
 df_germany_effect_imm$variable_weighted <- df_germany_effect_imm$variable * df_germany_effect_imm$weight
 model_data_germany$know_score_imm_binary_original <- model_data_germany$know_score_imm_binary
@@ -406,7 +406,7 @@ df_germany_effect_imm$variable_pred_weighted <- df_germany_effect_imm$variable_p
 df_full_information$effect[df_full_information$nationality=="germany" & df_full_information$type=="informed_immigration"] <- sum(df_germany_effect_imm$variable_pred_weighted)/sum(df_germany_effect_imm$weight)
 
 # hungary
-df_hungary_effect <- data.frame(model_data_hungary$free_move_protect_services, model_data_hungary$WEIGHTEX1)
+df_hungary_effect <- data.frame(model_data_hungary$free_move_protect_jobs, model_data_hungary$WEIGHTEX1)
 names(df_hungary_effect)[1:2] <- c("variable","weight")
 df_hungary_effect$variable_weighted <- df_hungary_effect$variable * df_hungary_effect$weight
 df_full_information$effect[df_full_information$nationality=="hungary" & df_full_information$type=="actual"] <- sum(df_hungary_effect$variable_weighted)/sum(df_hungary_effect$weight)
@@ -415,7 +415,7 @@ model_data_hungary$know_score_general_binary <- 1
 df_hungary_effect$variable_pred <- predict(m_econ_gen_hungary, type = "response", newdata = model_data_hungary)
 df_hungary_effect$variable_pred_weighted <- df_hungary_effect$variable_pred * df_hungary_effect$weight
 df_full_information$effect[df_full_information$nationality=="hungary" & df_full_information$type=="informed_general"] <- sum(df_hungary_effect$variable_pred_weighted)/sum(df_hungary_effect$weight)
-df_hungary_effect_imm <- data.frame(model_data_hungary$free_move_protect_services, model_data_hungary$WEIGHTEX1)
+df_hungary_effect_imm <- data.frame(model_data_hungary$free_move_protect_jobs, model_data_hungary$WEIGHTEX1)
 names(df_hungary_effect_imm)[1:2] <- c("variable","weight")
 df_hungary_effect_imm$variable_weighted <- df_hungary_effect_imm$variable * df_hungary_effect_imm$weight
 model_data_hungary$know_score_imm_binary_original <- model_data_hungary$know_score_imm_binary
@@ -425,7 +425,7 @@ df_hungary_effect_imm$variable_pred_weighted <- df_hungary_effect_imm$variable_p
 df_full_information$effect[df_full_information$nationality=="hungary" & df_full_information$type=="informed_immigration"] <- sum(df_hungary_effect_imm$variable_pred_weighted)/sum(df_hungary_effect_imm$weight)
 
 # poland
-df_poland_effect <- data.frame(model_data_poland$free_move_protect_services, model_data_poland$WEIGHTEX1)
+df_poland_effect <- data.frame(model_data_poland$free_move_protect_jobs, model_data_poland$WEIGHTEX1)
 names(df_poland_effect)[1:2] <- c("variable","weight")
 df_poland_effect$variable_weighted <- df_poland_effect$variable * df_poland_effect$weight
 df_full_information$effect[df_full_information$nationality=="poland" & df_full_information$type=="actual"] <- sum(df_poland_effect$variable_weighted)/sum(df_poland_effect$weight)
@@ -434,7 +434,7 @@ model_data_poland$know_score_general_binary <- 1
 df_poland_effect$variable_pred <- predict(m_econ_gen_poland, type = "response", newdata = model_data_poland)
 df_poland_effect$variable_pred_weighted <- df_poland_effect$variable_pred * df_poland_effect$weight
 df_full_information$effect[df_full_information$nationality=="poland" & df_full_information$type=="informed_general"] <- sum(df_poland_effect$variable_pred_weighted)/sum(df_poland_effect$weight)
-df_poland_effect_imm <- data.frame(model_data_poland$free_move_protect_services, model_data_poland$WEIGHTEX1)
+df_poland_effect_imm <- data.frame(model_data_poland$free_move_protect_jobs, model_data_poland$WEIGHTEX1)
 names(df_poland_effect_imm)[1:2] <- c("variable","weight")
 df_poland_effect_imm$variable_weighted <- df_poland_effect_imm$variable * df_poland_effect_imm$weight
 model_data_poland$know_score_imm_binary_original <- model_data_poland$know_score_imm_binary
@@ -444,7 +444,7 @@ df_poland_effect_imm$variable_pred_weighted <- df_poland_effect_imm$variable_pre
 df_full_information$effect[df_full_information$nationality=="poland" & df_full_information$type=="informed_immigration"] <- sum(df_poland_effect_imm$variable_pred_weighted)/sum(df_poland_effect_imm$weight)
 
 # romania
-df_romania_effect <- data.frame(model_data_romania$free_move_protect_services, model_data_romania$WEIGHTEX1)
+df_romania_effect <- data.frame(model_data_romania$free_move_protect_jobs, model_data_romania$WEIGHTEX1)
 names(df_romania_effect)[1:2] <- c("variable","weight")
 df_romania_effect$variable_weighted <- df_romania_effect$variable * df_romania_effect$weight
 df_full_information$effect[df_full_information$nationality=="romania" & df_full_information$type=="actual"] <- sum(df_romania_effect$variable_weighted)/sum(df_romania_effect$weight)
@@ -453,7 +453,7 @@ model_data_romania$know_score_general_binary <- 1
 df_romania_effect$variable_pred <- predict(m_econ_gen_romania, type = "response", newdata = model_data_romania)
 df_romania_effect$variable_pred_weighted <- df_romania_effect$variable_pred * df_romania_effect$weight
 df_full_information$effect[df_full_information$nationality=="romania" & df_full_information$type=="informed_general"] <- sum(df_romania_effect$variable_pred_weighted)/sum(df_romania_effect$weight)
-df_romania_effect_imm <- data.frame(model_data_romania$free_move_protect_services, model_data_romania$WEIGHTEX1)
+df_romania_effect_imm <- data.frame(model_data_romania$free_move_protect_jobs, model_data_romania$WEIGHTEX1)
 names(df_romania_effect_imm)[1:2] <- c("variable","weight")
 df_romania_effect_imm$variable_weighted <- df_romania_effect_imm$variable * df_romania_effect_imm$weight
 model_data_romania$know_score_imm_binary_original <- model_data_romania$know_score_imm_binary
@@ -463,7 +463,7 @@ df_romania_effect_imm$variable_pred_weighted <- df_romania_effect_imm$variable_p
 df_full_information$effect[df_full_information$nationality=="romania" & df_full_information$type=="informed_immigration"] <- sum(df_romania_effect_imm$variable_pred_weighted)/sum(df_romania_effect_imm$weight)
 
 # spain
-df_spain_effect <- data.frame(model_data_spain$free_move_protect_services, model_data_spain$WEIGHTEX1)
+df_spain_effect <- data.frame(model_data_spain$free_move_protect_jobs, model_data_spain$WEIGHTEX1)
 names(df_spain_effect)[1:2] <- c("variable","weight")
 df_spain_effect$variable_weighted <- df_spain_effect$variable * df_spain_effect$weight
 df_full_information$effect[df_full_information$nationality=="spain" & df_full_information$type=="actual"] <- sum(df_spain_effect$variable_weighted)/sum(df_spain_effect$weight)
@@ -472,7 +472,7 @@ model_data_spain$know_score_general_binary <- 1
 df_spain_effect$variable_pred <- predict(m_econ_gen_spain, type = "response", newdata = model_data_spain)
 df_spain_effect$variable_pred_weighted <- df_spain_effect$variable_pred * df_spain_effect$weight
 df_full_information$effect[df_full_information$nationality=="spain" & df_full_information$type=="informed_general"] <- sum(df_spain_effect$variable_pred_weighted)/sum(df_spain_effect$weight)
-df_spain_effect_imm <- data.frame(model_data_spain$free_move_protect_services, model_data_spain$WEIGHTEX1)
+df_spain_effect_imm <- data.frame(model_data_spain$free_move_protect_jobs, model_data_spain$WEIGHTEX1)
 names(df_spain_effect_imm)[1:2] <- c("variable","weight")
 df_spain_effect_imm$variable_weighted <- df_spain_effect_imm$variable * df_spain_effect_imm$weight
 model_data_spain$know_score_imm_binary_original <- model_data_spain$know_score_imm_binary
@@ -482,7 +482,7 @@ df_spain_effect_imm$variable_pred_weighted <- df_spain_effect_imm$variable_pred 
 df_full_information$effect[df_full_information$nationality=="spain" & df_full_information$type=="informed_immigration"] <- sum(df_spain_effect_imm$variable_pred_weighted)/sum(df_spain_effect_imm$weight)
 
 # sweden
-df_sweden_effect <- data.frame(model_data_sweden$free_move_protect_services, model_data_sweden$WEIGHTEX1)
+df_sweden_effect <- data.frame(model_data_sweden$free_move_protect_jobs, model_data_sweden$WEIGHTEX1)
 names(df_sweden_effect)[1:2] <- c("variable","weight")
 df_sweden_effect$variable_weighted <- df_sweden_effect$variable * df_sweden_effect$weight
 df_full_information$effect[df_full_information$nationality=="sweden" & df_full_information$type=="actual"] <- sum(df_sweden_effect$variable_weighted)/sum(df_sweden_effect$weight)
@@ -491,7 +491,7 @@ model_data_sweden$know_score_general_binary <- 1
 df_sweden_effect$variable_pred <- predict(m_econ_gen_sweden, type = "response", newdata = model_data_sweden)
 df_sweden_effect$variable_pred_weighted <- df_sweden_effect$variable_pred * df_sweden_effect$weight
 df_full_information$effect[df_full_information$nationality=="sweden" & df_full_information$type=="informed_general"] <- sum(df_sweden_effect$variable_pred_weighted)/sum(df_sweden_effect$weight)
-df_sweden_effect_imm <- data.frame(model_data_sweden$free_move_protect_services, model_data_sweden$WEIGHTEX1)
+df_sweden_effect_imm <- data.frame(model_data_sweden$free_move_protect_jobs, model_data_sweden$WEIGHTEX1)
 names(df_sweden_effect_imm)[1:2] <- c("variable","weight")
 df_sweden_effect_imm$variable_weighted <- df_sweden_effect_imm$variable * df_sweden_effect_imm$weight
 model_data_sweden$know_score_imm_binary_original <- model_data_sweden$know_score_imm_binary
@@ -501,7 +501,7 @@ df_sweden_effect_imm$variable_pred_weighted <- df_sweden_effect_imm$variable_pre
 df_full_information$effect[df_full_information$nationality=="sweden" & df_full_information$type=="informed_immigration"] <- sum(df_sweden_effect_imm$variable_pred_weighted)/sum(df_sweden_effect_imm$weight)
 
 # uk
-df_uk_effect <- data.frame(model_data_uk$free_move_protect_services, model_data_uk$WEIGHTEX1)
+df_uk_effect <- data.frame(model_data_uk$free_move_protect_jobs, model_data_uk$WEIGHTEX1)
 names(df_uk_effect)[1:2] <- c("variable","weight")
 df_uk_effect$variable_weighted <- df_uk_effect$variable * df_uk_effect$weight
 df_full_information$effect[df_full_information$nationality=="uk" & df_full_information$type=="actual"] <- sum(df_uk_effect$variable_weighted)/sum(df_uk_effect$weight)
@@ -510,7 +510,7 @@ model_data_uk$know_score_general_binary <- 1
 df_uk_effect$variable_pred <- predict(m_econ_gen_uk, type = "response", newdata = model_data_uk)
 df_uk_effect$variable_pred_weighted <- df_uk_effect$variable_pred * df_uk_effect$weight
 df_full_information$effect[df_full_information$nationality=="uk" & df_full_information$type=="informed_general"] <- sum(df_uk_effect$variable_pred_weighted)/sum(df_uk_effect$weight)
-df_uk_effect_imm <- data.frame(model_data_uk$free_move_protect_services, model_data_uk$WEIGHTEX1)
+df_uk_effect_imm <- data.frame(model_data_uk$free_move_protect_jobs, model_data_uk$WEIGHTEX1)
 names(df_uk_effect_imm)[1:2] <- c("variable","weight")
 df_uk_effect_imm$variable_weighted <- df_uk_effect_imm$variable * df_uk_effect_imm$weight
 model_data_uk$know_score_imm_binary_original <- model_data_uk$know_score_imm_binary
@@ -690,7 +690,7 @@ imm_sd <- sqrt(imm_var)
 imm_n <- length(df_all_effects_imm$variable_pred_weighted)
 
 # equivalency test
-bound <- 10*0.05 # 5% of scale (which ranges from 0-10)
+bound <- 4*0.05 # 5% of scale (which ranges from 1-5)
 alpha <- 0.025
 TOSTtwo.raw(m1=general_mean, 
             m2=imm_mean, 
