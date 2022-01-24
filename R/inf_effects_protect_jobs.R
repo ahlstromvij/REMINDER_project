@@ -680,12 +680,12 @@ df_all_effects_imm <- rbind(df_germany_effect_imm,
 
 # calculate weighted means, sd:s, and n
 general_mean <- sum(df_all_effects_general$variable_pred_weighted)/sum(df_all_effects_general$weight)
-general_var <- wtd.var(df_all_effects_general$variable_pred_weighted, df_all_effects_general$weight)
+general_var <- wtd.var(df_all_effects_general$variable_pred, df_all_effects_general$weight)
 general_sd <- sqrt(general_var)
 general_n <- length(df_all_effects_general$variable_pred_weighted)
 
 imm_mean <- sum(df_all_effects_imm$variable_pred_weighted)/sum(df_all_effects_imm$weight)
-imm_var <- wtd.var(df_all_effects_imm$variable_pred_weighted, df_all_effects_imm$weight)
+imm_var <- wtd.var(df_all_effects_imm$variable_pred, df_all_effects_imm$weight)
 imm_sd <- sqrt(imm_var)
 imm_n <- length(df_all_effects_imm$variable_pred_weighted)
 
