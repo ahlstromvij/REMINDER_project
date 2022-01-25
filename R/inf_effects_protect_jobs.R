@@ -636,7 +636,7 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
                 position=position_dodge(.9)) +
   scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray75", "informed_immigration" = "gray50")) +
   theme_minimal() +
-  scale_y_continuous(limits=c(1,5),oob = squish) +
+  scale_y_continuous(breaks=seq(1, 5, by = 1), limits=c(1,5),oob = squish) +
   labs(
     title = "Restrict free movement to protect native workers",
     subtitle = "1 = strongly disagree; 5 = strongly agree"
@@ -654,7 +654,7 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
                 position=position_dodge(.9)) +
   scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray75", "informed_immigration" = "gray50")) +
   theme_minimal() +
-  scale_y_continuous(limits=c(1,5),oob = squish) +
+  scale_y_continuous(breaks=seq(1, 5, by = 1), limits=c(1,5),oob = squish) +
   labs(
     title = "Restrict free movement to protect native workers",
     subtitle = "1 = strongly disagree; 5 = strongly agree"

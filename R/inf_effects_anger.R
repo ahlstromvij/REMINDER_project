@@ -636,7 +636,7 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
                 position=position_dodge(.9)) +
   scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray75", "informed_immigration" = "gray50")) +
   theme_minimal() +
-  scale_y_continuous(limits=c(1,7),oob = squish) +
+  scale_y_continuous(breaks=seq(1, 7, by = 1), limits=c(1,7),oob = squish) +
   labs(
     title = "Feel anger when thinking of immigration to [country]",
     subtitle = "1 = not at all; 7 = a lot"
@@ -654,7 +654,7 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
                 position=position_dodge(.9)) +
   scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray75", "informed_immigration" = "gray50")) +
   theme_minimal() +
-  scale_y_continuous(limits=c(1,7),oob = squish) +
+  scale_y_continuous(breaks=seq(1, 7, by = 1), limits=c(1,7),oob = squish) +
   labs(
     title = "Feel anger when thinking of immigration to [country]",
     subtitle = "1 = not at all; 7 = a lot"
