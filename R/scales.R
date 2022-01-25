@@ -90,5 +90,10 @@ model_data$know_score_imm_binary[model_data$know_score_imm >= max_know_score_imm
 model_data$know_score_imm_binary[model_data$know_score_imm < max_know_score_imm] <- 0
 table(model_data$know_score_imm_binary)
 
+# create combined binary knowledge variables for 'full information'
+model_data$know_score_combo_binary <- NA
+model_data$know_score_combo_binary <- ifelse(model_data$know_score_general_binary==1 & model_data$know_score_imm_binary==1,1,0)
+table(model_data$know_score_combo_binary)
+
 # save df as CSV
 write.csv(model_data, "data/model_data_IRT.csv", row.names = FALSE)
