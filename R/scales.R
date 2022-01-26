@@ -3,6 +3,7 @@ set.seed(100)
 # load packages
 library(psych)
 library(mirt)
+library(ggplot2)
 
 # read in data
 model_data <- read.csv("data/model_data.csv")
@@ -77,17 +78,23 @@ itemfit(know_scale_imm, empirical.plot = 3)
 
 # create binary knowledge variables for 'full information'
 quantile(model_data$know_score_general)
-max_know_score_general <- quantile(model_data$know_score_general, 0.75) # 75th percentile
+table(model_data$know_score_general)
+ggplot(model_data, aes(x=know_score_general)) + 
+  geom_histogram(color="black", fill="white", binwidth=0.1)
+max_know_score_general <- 0.7
 model_data$know_score_general_binary <- NA
-model_data$know_score_general_binary[model_data$know_score_general >= max_know_score_general] <- 1
-model_data$know_score_general_binary[model_data$know_score_general < max_know_score_general] <- 0
+model_data$know_score_general_binary[model_data$know_score_general > max_know_score_general] <- 1
+model_data$know_score_general_binary[model_data$know_score_general <= max_know_score_general] <- 0
 table(model_data$know_score_general_binary)
 
 quantile(model_data$know_score_imm)
-max_know_score_imm <- quantile(model_data$know_score_imm, 0.75) # going for 90th or 100th percentile here gives too small of an 'informed' category
+table(model_data$know_score_imm)
+ggplot(model_data, aes(x=know_score_imm)) + 
+  geom_histogram(color="black", fill="white", binwidth=0.1)
+max_know_score_imm <- 0.7
 model_data$know_score_imm_binary <- NA
-model_data$know_score_imm_binary[model_data$know_score_imm >= max_know_score_imm] <- 1
-model_data$know_score_imm_binary[model_data$know_score_imm < max_know_score_imm] <- 0
+model_data$know_score_imm_binary[model_data$know_score_imm > max_know_score_imm] <- 1
+model_data$know_score_imm_binary[model_data$know_score_imm <= max_know_score_imm] <- 0
 table(model_data$know_score_imm_binary)
 
 # create combined binary knowledge variables for 'full information'
