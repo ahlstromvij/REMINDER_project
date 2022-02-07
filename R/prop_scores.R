@@ -96,31 +96,5 @@ bal.plot(covs_general, treat = model_data$know_score_imm_binary, estimand = "ATE
 bal.plot(covs_general, treat = model_data$know_score_imm_binary, estimand = "ATE", weights = model_data$weight.ATE_imm, method = "weighting", var.name = "religion", which = "both")
 bal.plot(covs_general, treat = model_data$know_score_imm_binary, estimand = "ATE", weights = model_data$weight.ATE_imm, method = "weighting", var.name = "ideology_left_right", which = "both")
 
-# calculate propensity scores for combined knowledge scale
-p_scores_combo <- glm(know_score_combo_binary ~
-                      gender +
-                      age +
-                      education_ISCED +
-                      in_paid_work +
-                      religion +
-                      ideology_left_right,
-                    data = model_data, 
-                    family = "binomial")
-summary(p_scores_combo)
-
-model_data$ps_value_combo <- predict(p_scores_combo, type="response")
-head(model_data$ps_value_combo)
-model_data$weight.ATE_combo <- ifelse(model_data$know_score_combo_binary == 1, 1/model_data$ps_value_imm, 1/(1-model_data$ps_value_imm))
-head(model_data$weight.ATE_combo)
-hist(model_data$weight.ATE_combo)
-
-# check balance using balance plots
-bal.plot(covs_general, treat = model_data$know_score_combo_binary, estimand = "ATE", weights = model_data$weight.ATE_combo, method = "weighting", var.name = "gender", which = "both")
-bal.plot(covs_general, treat = model_data$know_score_combo_binary, estimand = "ATE", weights = model_data$weight.ATE_combo, method = "weighting", var.name = "age", which = "both")
-bal.plot(covs_general, treat = model_data$know_score_combo_binary, estimand = "ATE", weights = model_data$weight.ATE_combo, method = "weighting", var.name = "education_ISCED", which = "both")
-bal.plot(covs_general, treat = model_data$know_score_combo_binary, estimand = "ATE", weights = model_data$weight.ATE_combo, method = "weighting", var.name = "in_paid_work", which = "both")
-bal.plot(covs_general, treat = model_data$know_score_combo_binary, estimand = "ATE", weights = model_data$weight.ATE_combo, method = "weighting", var.name = "religion", which = "both")
-bal.plot(covs_general, treat = model_data$know_score_combo_binary, estimand = "ATE", weights = model_data$weight.ATE_combo, method = "weighting", var.name = "ideology_left_right", which = "both")
-
 # save df as CSV
 write.csv(model_data, "data/model_data_IRT_propscores.csv", row.names = FALSE)
