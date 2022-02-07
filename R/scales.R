@@ -51,9 +51,9 @@ itemfit(know_scale_gen, empirical.plot = 3)
 
 
 # immigration knowledge scale
-know_items_imm <- data.frame(model_data$mig_know_asylum,
+know_items_imm <- data.frame(#model_data$mig_know_asylum,
                              model_data$mig_know_free_move,
-                             #model_data$mig_know_schengen) # unidimensional if removed
+                             model_data$mig_know_schengen, # unidimensional if removed
                              model_data$mig_know_syrians)
 
 know_scale_imm <- mirt(data=know_items_imm,
@@ -96,11 +96,6 @@ model_data$know_score_imm_binary <- NA
 model_data$know_score_imm_binary[model_data$know_score_imm > max_know_score_imm] <- 1
 model_data$know_score_imm_binary[model_data$know_score_imm <= max_know_score_imm] <- 0
 table(model_data$know_score_imm_binary)
-
-# create combined binary knowledge variables for 'full information'
-model_data$know_score_combo_binary <- NA
-model_data$know_score_combo_binary <- ifelse(model_data$know_score_general_binary==1 & model_data$know_score_imm_binary==1,1,0)
-table(model_data$know_score_combo_binary)
 
 # save df as CSV
 write.csv(model_data, "data/model_data_IRT.csv", row.names = FALSE)
