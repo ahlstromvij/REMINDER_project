@@ -60,17 +60,14 @@ model_data_sweden <- subset(model_data, nationality=="sweden")
 model_data_uk <- subset(model_data, nationality=="uk")
 
 # create df to collect knowledge effects and confidence intervals
-df_knowledge <- data.frame("nationality" = rep(c("germany","hungary","poland","romania","spain","sweden","uk"),3),
-                           "type" = c(rep("general",7),rep("immigration",7),rep("combined",7)),
+df_knowledge <- data.frame("nationality" = rep(c("germany","hungary","poland","romania","spain","sweden","uk"),2),
+                           "type" = c(rep("general",7),rep("immigration",7)),
                            "effect" = NA,
                            "lwr" = NA,
                            "upr" = NA)
 
-# information effects on perceptions about impacts on economy
-# higher = better for economy
-
 # germany
-m_econ_gen_germany <- lm(imm_anger ~ know_score_general_binary +
+m_gen_germany <- lm(imm_anger ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -79,34 +76,34 @@ m_econ_gen_germany <- lm(imm_anger ~ know_score_general_binary +
                            ideology_left_right,
                          data = model_data_germany, 
                          weights = (weight.ATE_general))
-summary(m_econ_gen_germany)
+summary(m_gen_germany)
 
 # robust SEs
-m_econ_gen_germany_vcov <- vcovHC(m_econ_gen_germany, type="HC1")
-coeftest(m_econ_gen_germany, vcov = m_econ_gen_germany_vcov)
-df_knowledge$effect[df_knowledge$nationality=="germany" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_germany, vcov = m_econ_gen_germany_vcov)[2,1]
-coefci(m_econ_gen_germany, vcov = m_econ_gen_germany_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="germany" & df_knowledge$type=="general"] <- coefci(m_econ_gen_germany, vcov = m_econ_gen_germany_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="germany" & df_knowledge$type=="general"] <- coefci(m_econ_gen_germany, vcov = m_econ_gen_germany_vcov)[2,2]
+m_gen_germany_vcov <- vcovHC(m_gen_germany, type="HC1")
+coeftest(m_gen_germany, vcov = m_gen_germany_vcov)
+df_knowledge$effect[df_knowledge$nationality=="germany" & df_knowledge$type=="general"] <- coeftest(m_gen_germany, vcov = m_gen_germany_vcov)[2,1]
+coefci(m_gen_germany, vcov = m_gen_germany_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="germany" & df_knowledge$type=="general"] <- coefci(m_gen_germany, vcov = m_gen_germany_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="germany" & df_knowledge$type=="general"] <- coefci(m_gen_germany, vcov = m_gen_germany_vcov)[2,2]
 
-plot(m_econ_gen_germany, 1)
+plot(m_gen_germany, 1)
 # Used to check the linear relationship assumptions. A horizontal line, without distinct patterns 
 # is an indication for a linear relationship, what is good.
 # If the residual plot indicates a non-linear relationship in the data, then a simple approach is 
 # to use non-linear transformations of the predictors, such as log(x), sqrt(x) and x^2, in the 
 # regression model.
 
-plot(m_econ_gen_germany, 2)
+plot(m_gen_germany, 2)
 # Used to examine whether the residuals are normally distributed. It’s good if residuals points 
 # follow the straight dashed line.
 
-plot(m_econ_gen_germany, 3)
+plot(m_gen_germany, 3)
 # Used to check the homogeneity of variance of the residuals (homoscedasticity). Horizontal line 
 # with equally spread points is a good indication of homoscedasticity.
 # A possible solution to reduce the heteroscedasticity problem is to use a log or square root 
 # transformation of the outcome variable (y).
 
-plot(m_econ_gen_germany, 5)
+plot(m_gen_germany, 5)
 # Residuals vs Leverage. Used to identify influential cases, that is extreme values that might 
 # influence the regression results when included or excluded from the analysis. 
 # Observations whose standardized residuals are greater than 3 in absolute value are possible outliers.
@@ -115,7 +112,7 @@ plot(m_econ_gen_germany, 5)
 # indicates an observation with high leverage (P. Bruce and Bruce 2017); where, p is the number of 
 # predictors and n is the number of observations.
 
-m_econ_imm_germany <- lm(imm_anger ~ know_score_imm_binary +
+m_imm_germany <- lm(imm_anger ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -124,37 +121,18 @@ m_econ_imm_germany <- lm(imm_anger ~ know_score_imm_binary +
                            ideology_left_right,
                          data = model_data_germany, 
                          weights = (weight.ATE_imm))
-summary(m_econ_imm_germany)
-m_econ_imm_germany_vcov <- vcovHC(m_econ_imm_germany, type="HC1")
-coeftest(m_econ_imm_germany, vcov = m_econ_imm_germany_vcov)
-df_knowledge$effect[df_knowledge$nationality=="germany" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_germany, vcov = m_econ_imm_germany_vcov)[2,1]
-coefci(m_econ_imm_germany, vcov = m_econ_imm_germany_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="germany" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_germany, vcov = m_econ_imm_germany_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="germany" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_germany, vcov = m_econ_imm_germany_vcov)[2,2]
+summary(m_imm_germany)
+m_germany_vcov <- vcovHC(m_imm_germany, type="HC1")
+coeftest(m_imm_germany, vcov = m_germany_vcov)
+df_knowledge$effect[df_knowledge$nationality=="germany" & df_knowledge$type=="immigration"] <- coeftest(m_imm_germany, vcov = m_germany_vcov)[2,1]
+coefci(m_imm_germany, vcov = m_germany_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="germany" & df_knowledge$type=="immigration"] <- coefci(m_imm_germany, vcov = m_germany_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="germany" & df_knowledge$type=="immigration"] <- coefci(m_imm_germany, vcov = m_germany_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_imm_germany)
-
-m_econ_combo_germany <- lm(imm_anger ~ know_score_combo_binary +
-                             gender +
-                             age +
-                             education_ISCED +
-                             in_paid_work +
-                             religion +
-                             ideology_left_right,
-                           data = model_data_germany, 
-                           weights = (weight.ATE_combo))
-summary(m_econ_combo_germany)
-m_econ_combo_germany_vcov <- vcovHC(m_econ_combo_germany, type="HC1")
-coeftest(m_econ_combo_germany, vcov = m_econ_combo_germany_vcov)
-df_knowledge$effect[df_knowledge$nationality=="germany" & df_knowledge$type=="combined"] <- coeftest(m_econ_combo_germany, vcov = m_econ_combo_germany_vcov)[2,1]
-coefci(m_econ_combo_germany, vcov = m_econ_combo_germany_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="germany" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_germany, vcov = m_econ_combo_germany_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="germany" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_germany, vcov = m_econ_combo_germany_vcov)[2,2]
-par(mfrow = c(2, 2))
-plot(m_econ_combo_germany)
+plot(m_imm_germany)
 
 # hungary
-m_econ_gen_hungary <- lm(imm_anger ~ know_score_general_binary +
+m_gen_hungary <- lm(imm_anger ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -163,17 +141,17 @@ m_econ_gen_hungary <- lm(imm_anger ~ know_score_general_binary +
                            ideology_left_right,
                          data = model_data_hungary, 
                          weights = (weight.ATE_general))
-summary(m_econ_gen_hungary)
-m_econ_gen_hungary_vcov <- vcovHC(m_econ_gen_hungary, type="HC1")
-coeftest(m_econ_gen_hungary, vcov = m_econ_gen_hungary_vcov)
-df_knowledge$effect[df_knowledge$nationality=="hungary" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_hungary, vcov = m_econ_gen_hungary_vcov)[2,1]
-coefci(m_econ_gen_hungary, vcov = m_econ_gen_hungary_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="hungary" & df_knowledge$type=="general"] <- coefci(m_econ_gen_hungary, vcov = m_econ_gen_hungary_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="hungary" & df_knowledge$type=="general"] <- coefci(m_econ_gen_hungary, vcov = m_econ_gen_hungary_vcov)[2,2]
+summary(m_gen_hungary)
+m_gen_hungary_vcov <- vcovHC(m_gen_hungary, type="HC1")
+coeftest(m_gen_hungary, vcov = m_gen_hungary_vcov)
+df_knowledge$effect[df_knowledge$nationality=="hungary" & df_knowledge$type=="general"] <- coeftest(m_gen_hungary, vcov = m_gen_hungary_vcov)[2,1]
+coefci(m_gen_hungary, vcov = m_gen_hungary_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="hungary" & df_knowledge$type=="general"] <- coefci(m_gen_hungary, vcov = m_gen_hungary_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="hungary" & df_knowledge$type=="general"] <- coefci(m_gen_hungary, vcov = m_gen_hungary_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_gen_hungary)
+plot(m_gen_hungary)
 
-m_econ_imm_hungary <- lm(imm_anger ~ know_score_imm_binary +
+m_imm_hungary <- lm(imm_anger ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -182,37 +160,18 @@ m_econ_imm_hungary <- lm(imm_anger ~ know_score_imm_binary +
                            ideology_left_right,
                          data = model_data_hungary, 
                          weights = (weight.ATE_imm))
-summary(m_econ_imm_hungary)
-m_econ_imm_hungary_vcov <- vcovHC(m_econ_imm_hungary, type="HC1")
-coeftest(m_econ_imm_hungary, vcov = m_econ_imm_hungary_vcov)
-df_knowledge$effect[df_knowledge$nationality=="hungary" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_hungary, vcov = m_econ_imm_hungary_vcov)[2,1]
-coefci(m_econ_imm_hungary, vcov = m_econ_imm_hungary_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="hungary" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_hungary, vcov = m_econ_imm_hungary_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="hungary" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_hungary, vcov = m_econ_imm_hungary_vcov)[2,2]
+summary(m_imm_hungary)
+m_imm_hungary_vcov <- vcovHC(m_imm_hungary, type="HC1")
+coeftest(m_imm_hungary, vcov = m_imm_hungary_vcov)
+df_knowledge$effect[df_knowledge$nationality=="hungary" & df_knowledge$type=="immigration"] <- coeftest(m_imm_hungary, vcov = m_imm_hungary_vcov)[2,1]
+coefci(m_imm_hungary, vcov = m_imm_hungary_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="hungary" & df_knowledge$type=="immigration"] <- coefci(m_imm_hungary, vcov = m_imm_hungary_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="hungary" & df_knowledge$type=="immigration"] <- coefci(m_imm_hungary, vcov = m_imm_hungary_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_imm_hungary)
-
-m_econ_combo_hungary <- lm(imm_anger ~ know_score_combo_binary +
-                             gender +
-                             age +
-                             education_ISCED +
-                             in_paid_work +
-                             religion +
-                             ideology_left_right,
-                           data = model_data_hungary, 
-                           weights = (weight.ATE_combo))
-summary(m_econ_combo_hungary)
-m_econ_combo_hungary_vcov <- vcovHC(m_econ_combo_hungary, type="HC1")
-coeftest(m_econ_combo_hungary, vcov = m_econ_combo_hungary_vcov)
-df_knowledge$effect[df_knowledge$nationality=="hungary" & df_knowledge$type=="combined"] <- coeftest(m_econ_combo_hungary, vcov = m_econ_combo_hungary_vcov)[2,1]
-coefci(m_econ_combo_hungary, vcov = m_econ_combo_hungary_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="hungary" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_hungary, vcov = m_econ_combo_hungary_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="hungary" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_hungary, vcov = m_econ_combo_hungary_vcov)[2,2]
-par(mfrow = c(2, 2))
-plot(m_econ_combo_hungary)
+plot(m_imm_hungary)
 
 # poland
-m_econ_gen_poland <- lm(imm_anger ~ know_score_general_binary +
+m_gen_poland <- lm(imm_anger ~ know_score_general_binary +
                           gender +
                           age +
                           education_ISCED +
@@ -221,17 +180,17 @@ m_econ_gen_poland <- lm(imm_anger ~ know_score_general_binary +
                           ideology_left_right,
                         data = model_data_poland, 
                         weights = (weight.ATE_general))
-summary(m_econ_gen_poland)
-m_econ_gen_poland_vcov <- vcovHC(m_econ_gen_poland, type="HC1")
-coeftest(m_econ_gen_poland, vcov = m_econ_gen_poland_vcov)
-df_knowledge$effect[df_knowledge$nationality=="poland" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_poland, vcov = m_econ_gen_poland_vcov)[2,1]
-coefci(m_econ_gen_poland, vcov = m_econ_gen_poland_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="poland" & df_knowledge$type=="general"] <- coefci(m_econ_gen_poland, vcov = m_econ_gen_poland_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="poland" & df_knowledge$type=="general"] <- coefci(m_econ_gen_poland, vcov = m_econ_gen_poland_vcov)[2,2]
+summary(m_gen_poland)
+m_gen_poland_vcov <- vcovHC(m_gen_poland, type="HC1")
+coeftest(m_gen_poland, vcov = m_gen_poland_vcov)
+df_knowledge$effect[df_knowledge$nationality=="poland" & df_knowledge$type=="general"] <- coeftest(m_gen_poland, vcov = m_gen_poland_vcov)[2,1]
+coefci(m_gen_poland, vcov = m_gen_poland_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="poland" & df_knowledge$type=="general"] <- coefci(m_gen_poland, vcov = m_gen_poland_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="poland" & df_knowledge$type=="general"] <- coefci(m_gen_poland, vcov = m_gen_poland_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_gen_poland)
+plot(m_gen_poland)
 
-m_econ_imm_poland <- lm(imm_anger ~ know_score_imm_binary +
+m_imm_poland <- lm(imm_anger ~ know_score_imm_binary +
                           gender +
                           age +
                           education_ISCED +
@@ -240,37 +199,18 @@ m_econ_imm_poland <- lm(imm_anger ~ know_score_imm_binary +
                           ideology_left_right,
                         data = model_data_poland, 
                         weights = (weight.ATE_imm))
-summary(m_econ_imm_poland)
-m_econ_imm_poland_vcov <- vcovHC(m_econ_imm_poland, type="HC1")
-coeftest(m_econ_imm_poland, vcov = m_econ_imm_poland_vcov)
-df_knowledge$effect[df_knowledge$nationality=="poland" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_poland, vcov = m_econ_imm_poland_vcov)[2,1]
-coefci(m_econ_imm_poland, vcov = m_econ_imm_poland_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="poland" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_poland, vcov = m_econ_imm_poland_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="poland" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_poland, vcov = m_econ_imm_poland_vcov)[2,2]
+summary(m_imm_poland)
+m_imm_poland_vcov <- vcovHC(m_imm_poland, type="HC1")
+coeftest(m_imm_poland, vcov = m_imm_poland_vcov)
+df_knowledge$effect[df_knowledge$nationality=="poland" & df_knowledge$type=="immigration"] <- coeftest(m_imm_poland, vcov = m_imm_poland_vcov)[2,1]
+coefci(m_imm_poland, vcov = m_imm_poland_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="poland" & df_knowledge$type=="immigration"] <- coefci(m_imm_poland, vcov = m_imm_poland_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="poland" & df_knowledge$type=="immigration"] <- coefci(m_imm_poland, vcov = m_imm_poland_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_imm_poland)
-
-m_econ_combo_poland <- lm(imm_anger ~ know_score_combo_binary +
-                            gender +
-                            age +
-                            education_ISCED +
-                            in_paid_work +
-                            religion +
-                            ideology_left_right,
-                          data = model_data_poland, 
-                          weights = (weight.ATE_combo))
-summary(m_econ_combo_poland)
-m_econ_combo_poland_vcov <- vcovHC(m_econ_combo_poland, type="HC1")
-coeftest(m_econ_combo_poland, vcov = m_econ_combo_poland_vcov)
-df_knowledge$effect[df_knowledge$nationality=="poland" & df_knowledge$type=="combined"] <- coeftest(m_econ_combo_poland, vcov = m_econ_combo_poland_vcov)[2,1]
-coefci(m_econ_combo_poland, vcov = m_econ_combo_poland_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="poland" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_poland, vcov = m_econ_combo_poland_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="poland" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_poland, vcov = m_econ_combo_poland_vcov)[2,2]
-par(mfrow = c(2, 2))
-plot(m_econ_combo_poland)
+plot(m_imm_poland)
 
 # romania
-m_econ_gen_romania <- lm(imm_anger ~ know_score_general_binary +
+m_gen_romania <- lm(imm_anger ~ know_score_general_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -279,17 +219,17 @@ m_econ_gen_romania <- lm(imm_anger ~ know_score_general_binary +
                            ideology_left_right,
                          data = model_data_romania, 
                          weights = (weight.ATE_general))
-summary(m_econ_gen_romania)
-m_econ_gen_romania_vcov <- vcovHC(m_econ_gen_romania, type="HC1")
-coeftest(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)
-df_knowledge$effect[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)[2,1]
-coefci(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coefci(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coefci(m_econ_gen_romania, vcov = m_econ_gen_romania_vcov)[2,2]
+summary(m_gen_romania)
+m_gen_romania_vcov <- vcovHC(m_gen_romania, type="HC1")
+coeftest(m_gen_romania, vcov = m_gen_romania_vcov)
+df_knowledge$effect[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coeftest(m_gen_romania, vcov = m_gen_romania_vcov)[2,1]
+coefci(m_gen_romania, vcov = m_gen_romania_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coefci(m_gen_romania, vcov = m_gen_romania_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="romania" & df_knowledge$type=="general"] <- coefci(m_gen_romania, vcov = m_gen_romania_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_gen_romania)
+plot(m_gen_romania)
 
-m_econ_imm_romania <- lm(imm_anger ~ know_score_imm_binary +
+m_imm_romania <- lm(imm_anger ~ know_score_imm_binary +
                            gender +
                            age +
                            education_ISCED +
@@ -298,37 +238,18 @@ m_econ_imm_romania <- lm(imm_anger ~ know_score_imm_binary +
                            ideology_left_right,
                          data = model_data_romania, 
                          weights = (weight.ATE_imm))
-summary(m_econ_imm_romania)
-m_econ_imm_romania_vcov <- vcovHC(m_econ_imm_romania, type="HC1")
-coeftest(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)
-df_knowledge$effect[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)[2,1]
-coefci(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_romania, vcov = m_econ_imm_romania_vcov)[2,2]
+summary(m_imm_romania)
+m_imm_romania_vcov <- vcovHC(m_imm_romania, type="HC1")
+coeftest(m_imm_romania, vcov = m_imm_romania_vcov)
+df_knowledge$effect[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coeftest(m_imm_romania, vcov = m_imm_romania_vcov)[2,1]
+coefci(m_imm_romania, vcov = m_imm_romania_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coefci(m_imm_romania, vcov = m_imm_romania_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="romania" & df_knowledge$type=="immigration"] <- coefci(m_imm_romania, vcov = m_imm_romania_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_imm_romania)
-
-m_econ_combo_romania <- lm(imm_anger ~ know_score_combo_binary +
-                             gender +
-                             age +
-                             education_ISCED +
-                             in_paid_work +
-                             religion +
-                             ideology_left_right,
-                           data = model_data_romania, 
-                           weights = (weight.ATE_combo))
-summary(m_econ_combo_romania)
-m_econ_combo_romania_vcov <- vcovHC(m_econ_combo_romania, type="HC1")
-coeftest(m_econ_combo_romania, vcov = m_econ_combo_romania_vcov)
-df_knowledge$effect[df_knowledge$nationality=="romania" & df_knowledge$type=="combined"] <- coeftest(m_econ_combo_romania, vcov = m_econ_combo_romania_vcov)[2,1]
-coefci(m_econ_combo_romania, vcov = m_econ_combo_romania_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="romania" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_romania, vcov = m_econ_combo_romania_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="romania" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_romania, vcov = m_econ_combo_romania_vcov)[2,2]
-par(mfrow = c(2, 2))
-plot(m_econ_combo_romania)
+plot(m_imm_romania)
 
 # spain
-m_econ_gen_spain <- lm(imm_anger ~ know_score_general_binary +
+m_gen_spain <- lm(imm_anger ~ know_score_general_binary +
                          gender +
                          age +
                          education_ISCED +
@@ -337,17 +258,17 @@ m_econ_gen_spain <- lm(imm_anger ~ know_score_general_binary +
                          ideology_left_right,
                        data = model_data_spain, 
                        weights = (weight.ATE_general))
-summary(m_econ_gen_spain)
-m_econ_gen_spain_vcov <- vcovHC(m_econ_gen_spain, type="HC1")
-coeftest(m_econ_gen_spain, vcov = m_econ_gen_spain_vcov)
-df_knowledge$effect[df_knowledge$nationality=="spain" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_spain, vcov = m_econ_gen_spain_vcov)[2,1]
-coefci(m_econ_gen_spain, vcov = m_econ_gen_spain_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="spain" & df_knowledge$type=="general"] <- coefci(m_econ_gen_spain, vcov = m_econ_gen_spain_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="spain" & df_knowledge$type=="general"] <- coefci(m_econ_gen_spain, vcov = m_econ_gen_spain_vcov)[2,2]
+summary(m_gen_spain)
+m_gen_spain_vcov <- vcovHC(m_gen_spain, type="HC1")
+coeftest(m_gen_spain, vcov = m_gen_spain_vcov)
+df_knowledge$effect[df_knowledge$nationality=="spain" & df_knowledge$type=="general"] <- coeftest(m_gen_spain, vcov = m_gen_spain_vcov)[2,1]
+coefci(m_gen_spain, vcov = m_gen_spain_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="spain" & df_knowledge$type=="general"] <- coefci(m_gen_spain, vcov = m_gen_spain_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="spain" & df_knowledge$type=="general"] <- coefci(m_gen_spain, vcov = m_gen_spain_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_gen_spain)
+plot(m_gen_spain)
 
-m_econ_imm_spain <- lm(imm_anger ~ know_score_imm_binary +
+m_imm_spain <- lm(imm_anger ~ know_score_imm_binary +
                          gender +
                          age +
                          education_ISCED +
@@ -356,37 +277,18 @@ m_econ_imm_spain <- lm(imm_anger ~ know_score_imm_binary +
                          ideology_left_right,
                        data = model_data_spain, 
                        weights = (weight.ATE_imm))
-summary(m_econ_imm_spain)
-m_econ_imm_spain_vcov <- vcovHC(m_econ_imm_spain, type="HC1")
-coeftest(m_econ_imm_spain, vcov = m_econ_imm_spain_vcov)
-df_knowledge$effect[df_knowledge$nationality=="spain" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_spain, vcov = m_econ_imm_spain_vcov)[2,1]
-coefci(m_econ_imm_spain, vcov = m_econ_imm_spain_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="spain" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_spain, vcov = m_econ_imm_spain_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="spain" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_spain, vcov = m_econ_imm_spain_vcov)[2,2]
+summary(m_imm_spain)
+m_imm_spain_vcov <- vcovHC(m_imm_spain, type="HC1")
+coeftest(m_imm_spain, vcov = m_imm_spain_vcov)
+df_knowledge$effect[df_knowledge$nationality=="spain" & df_knowledge$type=="immigration"] <- coeftest(m_imm_spain, vcov = m_imm_spain_vcov)[2,1]
+coefci(m_imm_spain, vcov = m_imm_spain_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="spain" & df_knowledge$type=="immigration"] <- coefci(m_imm_spain, vcov = m_imm_spain_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="spain" & df_knowledge$type=="immigration"] <- coefci(m_imm_spain, vcov = m_imm_spain_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_imm_spain)
-
-m_econ_combo_spain <- lm(imm_anger ~ know_score_combo_binary +
-                           gender +
-                           age +
-                           education_ISCED +
-                           in_paid_work +
-                           religion +
-                           ideology_left_right,
-                         data = model_data_spain, 
-                         weights = (weight.ATE_combo))
-summary(m_econ_combo_spain)
-m_econ_combo_spain_vcov <- vcovHC(m_econ_combo_spain, type="HC1")
-coeftest(m_econ_combo_spain, vcov = m_econ_combo_spain_vcov)
-df_knowledge$effect[df_knowledge$nationality=="spain" & df_knowledge$type=="combined"] <- coeftest(m_econ_combo_spain, vcov = m_econ_combo_spain_vcov)[2,1]
-coefci(m_econ_combo_spain, vcov = m_econ_combo_spain_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="spain" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_spain, vcov = m_econ_combo_spain_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="spain" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_spain, vcov = m_econ_combo_spain_vcov)[2,2]
-par(mfrow = c(2, 2))
-plot(m_econ_combo_spain)
+plot(m_imm_spain)
 
 # sweden
-m_econ_gen_sweden <- lm(imm_anger ~ know_score_general_binary +
+m_gen_sweden <- lm(imm_anger ~ know_score_general_binary +
                           gender +
                           age +
                           education_ISCED +
@@ -395,17 +297,17 @@ m_econ_gen_sweden <- lm(imm_anger ~ know_score_general_binary +
                           ideology_left_right,
                         data = model_data_sweden, 
                         weights = (weight.ATE_general))
-summary(m_econ_gen_sweden)
-m_econ_gen_sweden_vcov <- vcovHC(m_econ_gen_sweden, type="HC1")
-coeftest(m_econ_gen_sweden, vcov = m_econ_gen_sweden_vcov)
-df_knowledge$effect[df_knowledge$nationality=="sweden" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_sweden, vcov = m_econ_gen_sweden_vcov)[2,1]
-coefci(m_econ_gen_sweden, vcov = m_econ_gen_sweden_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="sweden" & df_knowledge$type=="general"] <- coefci(m_econ_gen_sweden, vcov = m_econ_gen_sweden_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="sweden" & df_knowledge$type=="general"] <- coefci(m_econ_gen_sweden, vcov = m_econ_gen_sweden_vcov)[2,2]
+summary(m_gen_sweden)
+m_gen_sweden_vcov <- vcovHC(m_gen_sweden, type="HC1")
+coeftest(m_gen_sweden, vcov = m_gen_sweden_vcov)
+df_knowledge$effect[df_knowledge$nationality=="sweden" & df_knowledge$type=="general"] <- coeftest(m_gen_sweden, vcov = m_gen_sweden_vcov)[2,1]
+coefci(m_gen_sweden, vcov = m_gen_sweden_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="sweden" & df_knowledge$type=="general"] <- coefci(m_gen_sweden, vcov = m_gen_sweden_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="sweden" & df_knowledge$type=="general"] <- coefci(m_gen_sweden, vcov = m_gen_sweden_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_gen_sweden)
+plot(m_gen_sweden)
 
-m_econ_imm_sweden <- lm(imm_anger ~ know_score_imm_binary +
+m_imm_sweden <- lm(imm_anger ~ know_score_imm_binary +
                           gender +
                           age +
                           education_ISCED +
@@ -414,37 +316,18 @@ m_econ_imm_sweden <- lm(imm_anger ~ know_score_imm_binary +
                           ideology_left_right,
                         data = model_data_sweden, 
                         weights = (weight.ATE_imm))
-summary(m_econ_imm_sweden)
-m_econ_imm_sweden_vcov <- vcovHC(m_econ_imm_sweden, type="HC1")
-coeftest(m_econ_imm_sweden, vcov = m_econ_imm_sweden_vcov)
-df_knowledge$effect[df_knowledge$nationality=="sweden" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_sweden, vcov = m_econ_imm_sweden_vcov)[2,1]
-coefci(m_econ_imm_sweden, vcov = m_econ_imm_sweden_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="sweden" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_sweden, vcov = m_econ_imm_sweden_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="sweden" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_sweden, vcov = m_econ_imm_sweden_vcov)[2,2]
+summary(m_imm_sweden)
+m_imm_sweden_vcov <- vcovHC(m_imm_sweden, type="HC1")
+coeftest(m_imm_sweden, vcov = m_imm_sweden_vcov)
+df_knowledge$effect[df_knowledge$nationality=="sweden" & df_knowledge$type=="immigration"] <- coeftest(m_imm_sweden, vcov = m_imm_sweden_vcov)[2,1]
+coefci(m_imm_sweden, vcov = m_imm_sweden_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="sweden" & df_knowledge$type=="immigration"] <- coefci(m_imm_sweden, vcov = m_imm_sweden_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="sweden" & df_knowledge$type=="immigration"] <- coefci(m_imm_sweden, vcov = m_imm_sweden_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_imm_sweden)
-
-m_econ_combo_sweden <- lm(imm_anger ~ know_score_combo_binary +
-                            gender +
-                            age +
-                            education_ISCED +
-                            in_paid_work +
-                            religion +
-                            ideology_left_right,
-                          data = model_data_sweden, 
-                          weights = (weight.ATE_combo))
-summary(m_econ_combo_sweden)
-m_econ_combo_sweden_vcov <- vcovHC(m_econ_combo_sweden, type="HC1")
-coeftest(m_econ_combo_sweden, vcov = m_econ_combo_sweden_vcov)
-df_knowledge$effect[df_knowledge$nationality=="sweden" & df_knowledge$type=="combined"] <- coeftest(m_econ_combo_sweden, vcov = m_econ_combo_sweden_vcov)[2,1]
-coefci(m_econ_combo_sweden, vcov = m_econ_combo_sweden_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="sweden" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_sweden, vcov = m_econ_combo_sweden_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="sweden" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_sweden, vcov = m_econ_combo_sweden_vcov)[2,2]
-par(mfrow = c(2, 2))
-plot(m_econ_combo_sweden)
+plot(m_imm_sweden)
 
 # uk
-m_econ_gen_uk <- lm(imm_anger ~ know_score_general_binary +
+m_gen_uk <- lm(imm_anger ~ know_score_general_binary +
                       gender +
                       age +
                       education_ISCED +
@@ -453,17 +336,17 @@ m_econ_gen_uk <- lm(imm_anger ~ know_score_general_binary +
                       ideology_left_right,
                     data = model_data_uk, 
                     weights = (weight.ATE_general))
-summary(m_econ_gen_uk)
-m_econ_gen_uk_vcov <- vcovHC(m_econ_gen_uk, type="HC1")
-coeftest(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)
-df_knowledge$effect[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coeftest(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)[2,1]
-coefci(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coefci(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coefci(m_econ_gen_uk, vcov = m_econ_gen_uk_vcov)[2,2]
+summary(m_gen_uk)
+m_gen_uk_vcov <- vcovHC(m_gen_uk, type="HC1")
+coeftest(m_gen_uk, vcov = m_gen_uk_vcov)
+df_knowledge$effect[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coeftest(m_gen_uk, vcov = m_gen_uk_vcov)[2,1]
+coefci(m_gen_uk, vcov = m_gen_uk_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coefci(m_gen_uk, vcov = m_gen_uk_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="uk" & df_knowledge$type=="general"] <- coefci(m_gen_uk, vcov = m_gen_uk_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_gen_uk)
+plot(m_gen_uk)
 
-m_econ_imm_uk <- lm(imm_anger ~ know_score_imm_binary +
+m_imm_uk <- lm(imm_anger ~ know_score_imm_binary +
                       gender +
                       age +
                       education_ISCED +
@@ -472,48 +355,34 @@ m_econ_imm_uk <- lm(imm_anger ~ know_score_imm_binary +
                       ideology_left_right,
                     data = model_data_uk, 
                     weights = (weight.ATE_imm))
-summary(m_econ_imm_uk)
-m_econ_imm_uk_vcov <- vcovHC(m_econ_imm_uk, type="HC1")
-coeftest(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)
-df_knowledge$effect[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coeftest(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)[2,1]
-coefci(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coefci(m_econ_imm_uk, vcov = m_econ_imm_uk_vcov)[2,2]
+summary(m_imm_uk)
+m_imm_uk_vcov <- vcovHC(m_imm_uk, type="HC1")
+coeftest(m_imm_uk, vcov = m_imm_uk_vcov)
+df_knowledge$effect[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coeftest(m_imm_uk, vcov = m_imm_uk_vcov)[2,1]
+coefci(m_imm_uk, vcov = m_imm_uk_vcov)
+df_knowledge$lwr[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coefci(m_imm_uk, vcov = m_imm_uk_vcov)[2,1]
+df_knowledge$upr[df_knowledge$nationality=="uk" & df_knowledge$type=="immigration"] <- coefci(m_imm_uk, vcov = m_imm_uk_vcov)[2,2]
 par(mfrow = c(2, 2))
-plot(m_econ_imm_uk)
+plot(m_imm_uk)
 
-m_econ_combo_uk <- lm(imm_anger ~ know_score_combo_binary +
-                        gender +
-                        age +
-                        education_ISCED +
-                        in_paid_work +
-                        religion +
-                        ideology_left_right,
-                      data = model_data_uk, 
-                      weights = (weight.ATE_combo))
-summary(m_econ_combo_uk)
-m_econ_combo_uk_vcov <- vcovHC(m_econ_combo_uk, type="HC1")
-coeftest(m_econ_combo_uk, vcov = m_econ_combo_uk_vcov)
-df_knowledge$effect[df_knowledge$nationality=="uk" & df_knowledge$type=="combined"] <- coeftest(m_econ_combo_uk, vcov = m_econ_combo_uk_vcov)[2,1]
-coefci(m_econ_combo_uk, vcov = m_econ_combo_uk_vcov)
-df_knowledge$lwr[df_knowledge$nationality=="uk" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_uk, vcov = m_econ_combo_uk_vcov)[2,1]
-df_knowledge$upr[df_knowledge$nationality=="uk" & df_knowledge$type=="combined"] <- coefci(m_econ_combo_uk, vcov = m_econ_combo_uk_vcov)[2,2]
-par(mfrow = c(2, 2))
-plot(m_econ_combo_uk)
-
-# plot knowledge effects
+# plot knowledge coefficients
+jpeg(file="plots/effect_anger.jpeg", width=950, height=500)
 ggplot(df_knowledge, aes(nationality, effect)) +
   geom_point() +
   geom_errorbar(aes(ymin = lwr, ymax = upr), width=0.2) +
   facet_grid(. ~ type) +
   geom_hline(yintercept=0, linetype="dashed", color = "red") +
+  labs(
+    title = "Knowledge effect on anger",
+  ) +
   coord_flip()
+dev.off()
 
-# calculate information effects
+# calculate aggregate information effects
 
 # create df to collect information effects
-df_full_information <- data.frame("nationality" = rep(c("germany","hungary","poland","romania","spain","sweden","uk"),4),
-                                  "type" = c(rep("actual",7),rep("informed_general",7),rep("informed_immigration",7),rep("informed_combo",7)),
+df_full_information <- data.frame("nationality" = rep(c("germany","hungary","poland","romania","spain","sweden","uk"),3),
+                                  "type" = c(rep("actual",7),rep("informed_general",7),rep("informed_immigration",7)),
                                   "effect" = NA)
 
 # germany
@@ -529,7 +398,7 @@ df_full_information$effect[df_full_information$nationality=="germany" & df_full_
 model_data_germany$know_score_general_binary_original <- model_data_germany$know_score_general_binary
 model_data_germany$know_score_general_binary <- 1
 model_data_germany$know_score_general_binary <- factor(model_data_germany$know_score_general_binary)
-df_germany_effect$variable_pred <- predict(m_econ_gen_germany, type = "response", newdata = model_data_germany)
+df_germany_effect$variable_pred <- predict(m_gen_germany, type = "response", newdata = model_data_germany)
 df_germany_effect$variable_pred_weighted <- df_germany_effect$variable_pred * df_germany_effect$weight
 df_full_information$effect[df_full_information$nationality=="germany" & df_full_information$type=="informed_general"] <- sum(df_germany_effect$variable_pred_weighted)/sum(df_germany_effect$weight)
 
@@ -540,20 +409,9 @@ df_germany_effect_imm$variable_weighted <- df_germany_effect_imm$variable * df_g
 model_data_germany$know_score_imm_binary_original <- model_data_germany$know_score_imm_binary
 model_data_germany$know_score_imm_binary <- 1
 model_data_germany$know_score_imm_binary <- factor(model_data_germany$know_score_imm_binary)
-df_germany_effect_imm$variable_pred <- predict(m_econ_imm_germany, type = "response", newdata = model_data_germany)
+df_germany_effect_imm$variable_pred <- predict(m_imm_germany, type = "response", newdata = model_data_germany)
 df_germany_effect_imm$variable_pred_weighted <- df_germany_effect_imm$variable_pred * df_germany_effect_imm$weight
 df_full_information$effect[df_full_information$nationality=="germany" & df_full_information$type=="informed_immigration"] <- sum(df_germany_effect_imm$variable_pred_weighted)/sum(df_germany_effect_imm$weight)
-
-# predicted weighted support for affirmative - combined
-df_germany_effect_combo <- data.frame(model_data_germany$imm_anger, model_data_germany$WEIGHTEX1)
-names(df_germany_effect_combo)[1:2] <- c("variable","weight")
-df_germany_effect_combo$variable_weighted <- df_germany_effect_combo$variable * df_germany_effect_combo$weight
-model_data_germany$know_score_imm_combo_original <- model_data_germany$know_score_combo_binary
-model_data_germany$know_score_combo_binary <- 1
-model_data_germany$know_score_combo_binary <- factor(model_data_germany$know_score_combo_binary)
-df_germany_effect_combo$variable_pred <- predict(m_econ_combo_germany, type = "response", newdata = model_data_germany)
-df_germany_effect_combo$variable_pred_weighted <- df_germany_effect_combo$variable_pred * df_germany_effect_combo$weight
-df_full_information$effect[df_full_information$nationality=="germany" & df_full_information$type=="informed_combo"] <- sum(df_germany_effect_combo$variable_pred_weighted)/sum(df_germany_effect_combo$weight)
 
 # hungary
 df_hungary_effect <- data.frame(model_data_hungary$imm_anger, model_data_hungary$WEIGHTEX1)
@@ -563,7 +421,7 @@ df_full_information$effect[df_full_information$nationality=="hungary" & df_full_
 model_data_hungary$know_score_general_binary_original <- model_data_hungary$know_score_general_binary
 model_data_hungary$know_score_general_binary <- 1
 model_data_hungary$know_score_general_binary <- factor(model_data_hungary$know_score_general_binary)
-df_hungary_effect$variable_pred <- predict(m_econ_gen_hungary, type = "response", newdata = model_data_hungary)
+df_hungary_effect$variable_pred <- predict(m_gen_hungary, type = "response", newdata = model_data_hungary)
 df_hungary_effect$variable_pred_weighted <- df_hungary_effect$variable_pred * df_hungary_effect$weight
 df_full_information$effect[df_full_information$nationality=="hungary" & df_full_information$type=="informed_general"] <- sum(df_hungary_effect$variable_pred_weighted)/sum(df_hungary_effect$weight)
 
@@ -573,19 +431,9 @@ df_hungary_effect_imm$variable_weighted <- df_hungary_effect_imm$variable * df_h
 model_data_hungary$know_score_imm_binary_original <- model_data_hungary$know_score_imm_binary
 model_data_hungary$know_score_imm_binary <- 1
 model_data_hungary$know_score_imm_binary <- factor(model_data_hungary$know_score_imm_binary)
-df_hungary_effect_imm$variable_pred <- predict(m_econ_imm_hungary, type = "response", newdata = model_data_hungary)
+df_hungary_effect_imm$variable_pred <- predict(m_imm_hungary, type = "response", newdata = model_data_hungary)
 df_hungary_effect_imm$variable_pred_weighted <- df_hungary_effect_imm$variable_pred * df_hungary_effect_imm$weight
 df_full_information$effect[df_full_information$nationality=="hungary" & df_full_information$type=="informed_immigration"] <- sum(df_hungary_effect_imm$variable_pred_weighted)/sum(df_hungary_effect_imm$weight)
-
-df_hungary_effect_combo <- data.frame(model_data_hungary$imm_anger, model_data_hungary$WEIGHTEX1)
-names(df_hungary_effect_combo)[1:2] <- c("variable","weight")
-df_hungary_effect_combo$variable_weighted <- df_hungary_effect_combo$variable * df_hungary_effect_combo$weight
-model_data_hungary$know_score_combo_binary_original <- model_data_hungary$know_score_combo_binary
-model_data_hungary$know_score_combo_binary <- 1
-model_data_hungary$know_score_combo_binary <- factor(model_data_hungary$know_score_combo_binary)
-df_hungary_effect_combo$variable_pred <- predict(m_econ_combo_hungary, type = "response", newdata = model_data_hungary)
-df_hungary_effect_combo$variable_pred_weighted <- df_hungary_effect_combo$variable_pred * df_hungary_effect_combo$weight
-df_full_information$effect[df_full_information$nationality=="hungary" & df_full_information$type=="informed_combo"] <- sum(df_hungary_effect_combo$variable_pred_weighted)/sum(df_hungary_effect_combo$weight)
 
 # poland
 df_poland_effect <- data.frame(model_data_poland$imm_anger, model_data_poland$WEIGHTEX1)
@@ -595,7 +443,7 @@ df_full_information$effect[df_full_information$nationality=="poland" & df_full_i
 model_data_poland$know_score_general_binary_original <- model_data_poland$know_score_general_binary
 model_data_poland$know_score_general_binary <- 1
 model_data_poland$know_score_general_binary <- factor(model_data_poland$know_score_general_binary)
-df_poland_effect$variable_pred <- predict(m_econ_gen_poland, type = "response", newdata = model_data_poland)
+df_poland_effect$variable_pred <- predict(m_gen_poland, type = "response", newdata = model_data_poland)
 df_poland_effect$variable_pred_weighted <- df_poland_effect$variable_pred * df_poland_effect$weight
 df_full_information$effect[df_full_information$nationality=="poland" & df_full_information$type=="informed_general"] <- sum(df_poland_effect$variable_pred_weighted)/sum(df_poland_effect$weight)
 
@@ -605,19 +453,9 @@ df_poland_effect_imm$variable_weighted <- df_poland_effect_imm$variable * df_pol
 model_data_poland$know_score_imm_binary_original <- model_data_poland$know_score_imm_binary
 model_data_poland$know_score_imm_binary <- 1
 model_data_poland$know_score_imm_binary <- factor(model_data_poland$know_score_imm_binary)
-df_poland_effect_imm$variable_pred <- predict(m_econ_imm_poland, type = "response", newdata = model_data_poland)
+df_poland_effect_imm$variable_pred <- predict(m_imm_poland, type = "response", newdata = model_data_poland)
 df_poland_effect_imm$variable_pred_weighted <- df_poland_effect_imm$variable_pred * df_poland_effect_imm$weight
 df_full_information$effect[df_full_information$nationality=="poland" & df_full_information$type=="informed_immigration"] <- sum(df_poland_effect_imm$variable_pred_weighted)/sum(df_poland_effect_imm$weight)
-
-df_poland_effect_combo <- data.frame(model_data_poland$imm_anger, model_data_poland$WEIGHTEX1)
-names(df_poland_effect_combo)[1:2] <- c("variable","weight")
-df_poland_effect_combo$variable_weighted <- df_poland_effect_combo$variable * df_poland_effect_combo$weight
-model_data_poland$know_score_combo_binary_original <- model_data_poland$know_score_combo_binary
-model_data_poland$know_score_combo_binary <- 1
-model_data_poland$know_score_combo_binary <- factor(model_data_poland$know_score_combo_binary)
-df_poland_effect_combo$variable_pred <- predict(m_econ_combo_poland, type = "response", newdata = model_data_poland)
-df_poland_effect_combo$variable_pred_weighted <- df_poland_effect_combo$variable_pred * df_poland_effect_combo$weight
-df_full_information$effect[df_full_information$nationality=="poland" & df_full_information$type=="informed_combo"] <- sum(df_poland_effect_combo$variable_pred_weighted)/sum(df_poland_effect_combo$weight)
 
 # romania
 df_romania_effect <- data.frame(model_data_romania$imm_anger, model_data_romania$WEIGHTEX1)
@@ -627,7 +465,7 @@ df_full_information$effect[df_full_information$nationality=="romania" & df_full_
 model_data_romania$know_score_general_binary_original <- model_data_romania$know_score_general_binary
 model_data_romania$know_score_general_binary <- 1
 model_data_romania$know_score_general_binary <- factor(model_data_romania$know_score_general_binary)
-df_romania_effect$variable_pred <- predict(m_econ_gen_romania, type = "response", newdata = model_data_romania)
+df_romania_effect$variable_pred <- predict(m_gen_romania, type = "response", newdata = model_data_romania)
 df_romania_effect$variable_pred_weighted <- df_romania_effect$variable_pred * df_romania_effect$weight
 df_full_information$effect[df_full_information$nationality=="romania" & df_full_information$type=="informed_general"] <- sum(df_romania_effect$variable_pred_weighted)/sum(df_romania_effect$weight)
 
@@ -637,19 +475,9 @@ df_romania_effect_imm$variable_weighted <- df_romania_effect_imm$variable * df_r
 model_data_romania$know_score_imm_binary_original <- model_data_romania$know_score_imm_binary
 model_data_romania$know_score_imm_binary <- 1
 model_data_romania$know_score_imm_binary <- factor(model_data_romania$know_score_imm_binary)
-df_romania_effect_imm$variable_pred <- predict(m_econ_imm_romania, type = "response", newdata = model_data_romania)
+df_romania_effect_imm$variable_pred <- predict(m_imm_romania, type = "response", newdata = model_data_romania)
 df_romania_effect_imm$variable_pred_weighted <- df_romania_effect_imm$variable_pred * df_romania_effect_imm$weight
 df_full_information$effect[df_full_information$nationality=="romania" & df_full_information$type=="informed_immigration"] <- sum(df_romania_effect_imm$variable_pred_weighted)/sum(df_romania_effect_imm$weight)
-
-df_romania_effect_combo <- data.frame(model_data_romania$imm_anger, model_data_romania$WEIGHTEX1)
-names(df_romania_effect_combo)[1:2] <- c("variable","weight")
-df_romania_effect_combo$variable_weighted <- df_romania_effect_combo$variable * df_romania_effect_combo$weight
-model_data_romania$know_score_combo_binary_original <- model_data_romania$know_score_combo_binary
-model_data_romania$know_score_combo_binary <- 1
-model_data_romania$know_score_combo_binary <- factor(model_data_romania$know_score_combo_binary)
-df_romania_effect_combo$variable_pred <- predict(m_econ_combo_romania, type = "response", newdata = model_data_romania)
-df_romania_effect_combo$variable_pred_weighted <- df_romania_effect_combo$variable_pred * df_romania_effect_combo$weight
-df_full_information$effect[df_full_information$nationality=="romania" & df_full_information$type=="informed_combo"] <- sum(df_romania_effect_combo$variable_pred_weighted)/sum(df_romania_effect_combo$weight)
 
 # spain
 df_spain_effect <- data.frame(model_data_spain$imm_anger, model_data_spain$WEIGHTEX1)
@@ -659,7 +487,7 @@ df_full_information$effect[df_full_information$nationality=="spain" & df_full_in
 model_data_spain$know_score_general_binary_original <- model_data_spain$know_score_general_binary
 model_data_spain$know_score_general_binary <- 1
 model_data_spain$know_score_general_binary <- factor(model_data_spain$know_score_general_binary)
-df_spain_effect$variable_pred <- predict(m_econ_gen_spain, type = "response", newdata = model_data_spain)
+df_spain_effect$variable_pred <- predict(m_gen_spain, type = "response", newdata = model_data_spain)
 df_spain_effect$variable_pred_weighted <- df_spain_effect$variable_pred * df_spain_effect$weight
 df_full_information$effect[df_full_information$nationality=="spain" & df_full_information$type=="informed_general"] <- sum(df_spain_effect$variable_pred_weighted)/sum(df_spain_effect$weight)
 
@@ -669,19 +497,9 @@ df_spain_effect_imm$variable_weighted <- df_spain_effect_imm$variable * df_spain
 model_data_spain$know_score_imm_binary_original <- model_data_spain$know_score_imm_binary
 model_data_spain$know_score_imm_binary <- 1
 model_data_spain$know_score_imm_binary <- factor(model_data_spain$know_score_imm_binary)
-df_spain_effect_imm$variable_pred <- predict(m_econ_imm_spain, type = "response", newdata = model_data_spain)
+df_spain_effect_imm$variable_pred <- predict(m_imm_spain, type = "response", newdata = model_data_spain)
 df_spain_effect_imm$variable_pred_weighted <- df_spain_effect_imm$variable_pred * df_spain_effect_imm$weight
 df_full_information$effect[df_full_information$nationality=="spain" & df_full_information$type=="informed_immigration"] <- sum(df_spain_effect_imm$variable_pred_weighted)/sum(df_spain_effect_imm$weight)
-
-df_spain_effect_combo <- data.frame(model_data_spain$imm_anger, model_data_spain$WEIGHTEX1)
-names(df_spain_effect_combo)[1:2] <- c("variable","weight")
-df_spain_effect_combo$variable_weighted <- df_spain_effect_combo$variable * df_spain_effect_combo$weight
-model_data_spain$know_score_combo_binary_original <- model_data_spain$know_score_combo_binary
-model_data_spain$know_score_combo_binary <- 1
-model_data_spain$know_score_combo_binary <- factor(model_data_spain$know_score_combo_binary)
-df_spain_effect_combo$variable_pred <- predict(m_econ_combo_spain, type = "response", newdata = model_data_spain)
-df_spain_effect_combo$variable_pred_weighted <- df_spain_effect_combo$variable_pred * df_spain_effect_combo$weight
-df_full_information$effect[df_full_information$nationality=="spain" & df_full_information$type=="informed_combo"] <- sum(df_spain_effect_combo$variable_pred_weighted)/sum(df_spain_effect_combo$weight)
 
 # sweden
 df_sweden_effect <- data.frame(model_data_sweden$imm_anger, model_data_sweden$WEIGHTEX1)
@@ -691,7 +509,7 @@ df_full_information$effect[df_full_information$nationality=="sweden" & df_full_i
 model_data_sweden$know_score_general_binary_original <- model_data_sweden$know_score_general_binary
 model_data_sweden$know_score_general_binary <- 1
 model_data_sweden$know_score_general_binary <- factor(model_data_sweden$know_score_general_binary)
-df_sweden_effect$variable_pred <- predict(m_econ_gen_sweden, type = "response", newdata = model_data_sweden)
+df_sweden_effect$variable_pred <- predict(m_gen_sweden, type = "response", newdata = model_data_sweden)
 df_sweden_effect$variable_pred_weighted <- df_sweden_effect$variable_pred * df_sweden_effect$weight
 df_full_information$effect[df_full_information$nationality=="sweden" & df_full_information$type=="informed_general"] <- sum(df_sweden_effect$variable_pred_weighted)/sum(df_sweden_effect$weight)
 
@@ -701,19 +519,9 @@ df_sweden_effect_imm$variable_weighted <- df_sweden_effect_imm$variable * df_swe
 model_data_sweden$know_score_imm_binary_original <- model_data_sweden$know_score_imm_binary
 model_data_sweden$know_score_imm_binary <- 1
 model_data_sweden$know_score_imm_binary <- factor(model_data_sweden$know_score_imm_binary)
-df_sweden_effect_imm$variable_pred <- predict(m_econ_imm_sweden, type = "response", newdata = model_data_sweden)
+df_sweden_effect_imm$variable_pred <- predict(m_imm_sweden, type = "response", newdata = model_data_sweden)
 df_sweden_effect_imm$variable_pred_weighted <- df_sweden_effect_imm$variable_pred * df_sweden_effect_imm$weight
 df_full_information$effect[df_full_information$nationality=="sweden" & df_full_information$type=="informed_immigration"] <- sum(df_sweden_effect_imm$variable_pred_weighted)/sum(df_sweden_effect_imm$weight)
-
-df_sweden_effect_combo <- data.frame(model_data_sweden$imm_anger, model_data_sweden$WEIGHTEX1)
-names(df_sweden_effect_combo)[1:2] <- c("variable","weight")
-df_sweden_effect_combo$variable_weighted <- df_sweden_effect_combo$variable * df_sweden_effect_combo$weight
-model_data_sweden$know_score_combo_binary_original <- model_data_sweden$know_score_combo_binary
-model_data_sweden$know_score_combo_binary <- 1
-model_data_sweden$know_score_combo_binary <- factor(model_data_sweden$know_score_combo_binary)
-df_sweden_effect_combo$variable_pred <- predict(m_econ_combo_sweden, type = "response", newdata = model_data_sweden)
-df_sweden_effect_combo$variable_pred_weighted <- df_sweden_effect_combo$variable_pred * df_sweden_effect_combo$weight
-df_full_information$effect[df_full_information$nationality=="sweden" & df_full_information$type=="informed_combo"] <- sum(df_sweden_effect_combo$variable_pred_weighted)/sum(df_sweden_effect_combo$weight)
 
 # uk
 df_uk_effect <- data.frame(model_data_uk$imm_anger, model_data_uk$WEIGHTEX1)
@@ -723,7 +531,7 @@ df_full_information$effect[df_full_information$nationality=="uk" & df_full_infor
 model_data_uk$know_score_general_binary_original <- model_data_uk$know_score_general_binary
 model_data_uk$know_score_general_binary <- 1
 model_data_uk$know_score_general_binary <- factor(model_data_uk$know_score_general_binary)
-df_uk_effect$variable_pred <- predict(m_econ_gen_uk, type = "response", newdata = model_data_uk)
+df_uk_effect$variable_pred <- predict(m_gen_uk, type = "response", newdata = model_data_uk)
 df_uk_effect$variable_pred_weighted <- df_uk_effect$variable_pred * df_uk_effect$weight
 df_full_information$effect[df_full_information$nationality=="uk" & df_full_information$type=="informed_general"] <- sum(df_uk_effect$variable_pred_weighted)/sum(df_uk_effect$weight)
 
@@ -733,19 +541,9 @@ df_uk_effect_imm$variable_weighted <- df_uk_effect_imm$variable * df_uk_effect_i
 model_data_uk$know_score_imm_binary_original <- model_data_uk$know_score_imm_binary
 model_data_uk$know_score_imm_binary <- 1
 model_data_uk$know_score_imm_binary <- factor(model_data_uk$know_score_imm_binary)
-df_uk_effect_imm$variable_pred <- predict(m_econ_imm_uk, type = "response", newdata = model_data_uk)
+df_uk_effect_imm$variable_pred <- predict(m_imm_uk, type = "response", newdata = model_data_uk)
 df_uk_effect_imm$variable_pred_weighted <- df_uk_effect_imm$variable_pred * df_uk_effect_imm$weight
 df_full_information$effect[df_full_information$nationality=="uk" & df_full_information$type=="informed_immigration"] <- sum(df_uk_effect_imm$variable_pred_weighted)/sum(df_uk_effect_imm$weight)
-
-df_uk_effect_combo <- data.frame(model_data_uk$imm_anger, model_data_uk$WEIGHTEX1)
-names(df_uk_effect_combo)[1:2] <- c("variable","weight")
-df_uk_effect_combo$variable_weighted <- df_uk_effect_combo$variable * df_uk_effect_combo$weight
-model_data_uk$know_score_combo_binary_original <- model_data_uk$know_score_combo_binary
-model_data_uk$know_score_combo_binary <- 1
-model_data_uk$know_score_combo_binary <- factor(model_data_uk$know_score_combo_binary)
-df_uk_effect_combo$variable_pred <- predict(m_econ_combo_uk, type = "response", newdata = model_data_uk)
-df_uk_effect_combo$variable_pred_weighted <- df_uk_effect_combo$variable_pred * df_uk_effect_combo$weight
-df_full_information$effect[df_full_information$nationality=="uk" & df_full_information$type=="informed_combo"] <- sum(df_uk_effect_combo$variable_pred_weighted)/sum(df_uk_effect_combo$weight)
 
 # add bootstrapped confidence intervals
 meanfun <- function(data, indices) {
@@ -760,138 +558,110 @@ mean_wt_germany <- mean(df_germany_effect$weight)
 boot_germany_actual <- boot(df_germany_effect$variable_weighted, meanfun, R=1000)
 boot_germany_general <- boot(df_germany_effect$variable_pred_weighted, meanfun, R=1000)
 boot_germany_imm <- boot(df_germany_effect_imm$variable_pred_weighted, meanfun, R=1000)
-boot_germany_combo <- boot(df_germany_effect_combo$variable_pred_weighted, meanfun, R=1000)
 plot(boot_germany_actual)
 plot(boot_germany_general)
 plot(boot_germany_imm)
-plot(boot_germany_combo)
 df_full_information$lwr[df_full_information$nationality=="germany" & df_full_information$type=="actual"] <- boot.ci(boot_germany_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_germany
 df_full_information$upr[df_full_information$nationality=="germany" & df_full_information$type=="actual"] <- boot.ci(boot_germany_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_germany
 df_full_information$lwr[df_full_information$nationality=="germany" & df_full_information$type=="informed_general"] <- boot.ci(boot_germany_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_germany
 df_full_information$upr[df_full_information$nationality=="germany" & df_full_information$type=="informed_general"] <- boot.ci(boot_germany_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_germany
 df_full_information$lwr[df_full_information$nationality=="germany" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_germany_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_germany
 df_full_information$upr[df_full_information$nationality=="germany" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_germany_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_germany
-df_full_information$lwr[df_full_information$nationality=="germany" & df_full_information$type=="informed_combo"] <- boot.ci(boot_germany_combo, conf = 0.95, type = "basic")$basic[4]/mean_wt_germany
-df_full_information$upr[df_full_information$nationality=="germany" & df_full_information$type=="informed_combo"] <- boot.ci(boot_germany_combo, conf = 0.95, type = "basic")$basic[5]/mean_wt_germany
 
 mean_wt_hungary <- mean(df_hungary_effect$weight)
 boot_hungary_actual <- boot(df_hungary_effect$variable_weighted, meanfun, R=1000)
 boot_hungary_general <- boot(df_hungary_effect$variable_pred_weighted, meanfun, R=1000)
 boot_hungary_imm <- boot(df_hungary_effect_imm$variable_pred_weighted, meanfun, R=1000)
-boot_hungary_combo <- boot(df_hungary_effect_combo$variable_pred_weighted, meanfun, R=1000)
 plot(boot_hungary_actual)
 plot(boot_hungary_general)
 plot(boot_hungary_imm)
-plot(boot_hungary_combo)
 df_full_information$lwr[df_full_information$nationality=="hungary" & df_full_information$type=="actual"] <- boot.ci(boot_hungary_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_hungary
 df_full_information$upr[df_full_information$nationality=="hungary" & df_full_information$type=="actual"] <- boot.ci(boot_hungary_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_hungary
 df_full_information$lwr[df_full_information$nationality=="hungary" & df_full_information$type=="informed_general"] <- boot.ci(boot_hungary_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_hungary
 df_full_information$upr[df_full_information$nationality=="hungary" & df_full_information$type=="informed_general"] <- boot.ci(boot_hungary_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_hungary
 df_full_information$lwr[df_full_information$nationality=="hungary" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_hungary_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_hungary
 df_full_information$upr[df_full_information$nationality=="hungary" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_hungary_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_hungary
-df_full_information$lwr[df_full_information$nationality=="hungary" & df_full_information$type=="informed_combo"] <- boot.ci(boot_hungary_combo, conf = 0.95, type = "basic")$basic[4]/mean_wt_hungary
-df_full_information$upr[df_full_information$nationality=="hungary" & df_full_information$type=="informed_combo"] <- boot.ci(boot_hungary_combo, conf = 0.95, type = "basic")$basic[5]/mean_wt_hungary
 
 mean_wt_poland <- mean(df_poland_effect$weight)
 boot_poland_actual <- boot(df_poland_effect$variable_weighted, meanfun, R=1000)
 boot_poland_general <- boot(df_poland_effect$variable_pred_weighted, meanfun, R=1000)
 boot_poland_imm <- boot(df_poland_effect_imm$variable_pred_weighted, meanfun, R=1000)
-boot_poland_combo <- boot(df_poland_effect_combo$variable_pred_weighted, meanfun, R=1000)
 plot(boot_poland_actual)
 plot(boot_poland_general)
 plot(boot_poland_imm)
-plot(boot_poland_combo)
 df_full_information$lwr[df_full_information$nationality=="poland" & df_full_information$type=="actual"] <- boot.ci(boot_poland_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_poland
 df_full_information$upr[df_full_information$nationality=="poland" & df_full_information$type=="actual"] <- boot.ci(boot_poland_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_poland
 df_full_information$lwr[df_full_information$nationality=="poland" & df_full_information$type=="informed_general"] <- boot.ci(boot_poland_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_poland
 df_full_information$upr[df_full_information$nationality=="poland" & df_full_information$type=="informed_general"] <- boot.ci(boot_poland_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_poland
 df_full_information$lwr[df_full_information$nationality=="poland" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_poland_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_poland
 df_full_information$upr[df_full_information$nationality=="poland" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_poland_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_poland
-df_full_information$lwr[df_full_information$nationality=="poland" & df_full_information$type=="informed_combo"] <- boot.ci(boot_poland_combo, conf = 0.95, type = "basic")$basic[4]/mean_wt_poland
-df_full_information$upr[df_full_information$nationality=="poland" & df_full_information$type=="informed_combo"] <- boot.ci(boot_poland_combo, conf = 0.95, type = "basic")$basic[5]/mean_wt_poland
 
 mean_wt_romania <- mean(df_romania_effect$weight)
 boot_romania_actual <- boot(df_romania_effect$variable_weighted, meanfun, R=1000)
 boot_romania_general <- boot(df_romania_effect$variable_pred_weighted, meanfun, R=1000)
 boot_romania_imm <- boot(df_romania_effect_imm$variable_pred_weighted, meanfun, R=1000)
-boot_romania_combo <- boot(df_romania_effect_combo$variable_pred_weighted, meanfun, R=1000)
 plot(boot_romania_actual)
 plot(boot_romania_general)
 plot(boot_romania_imm)
-plot(boot_romania_combo)
 df_full_information$lwr[df_full_information$nationality=="romania" & df_full_information$type=="actual"] <- boot.ci(boot_romania_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_romania
 df_full_information$upr[df_full_information$nationality=="romania" & df_full_information$type=="actual"] <- boot.ci(boot_romania_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_romania
 df_full_information$lwr[df_full_information$nationality=="romania" & df_full_information$type=="informed_general"] <- boot.ci(boot_romania_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_romania
 df_full_information$upr[df_full_information$nationality=="romania" & df_full_information$type=="informed_general"] <- boot.ci(boot_romania_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_romania
 df_full_information$lwr[df_full_information$nationality=="romania" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_romania_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_romania
 df_full_information$upr[df_full_information$nationality=="romania" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_romania_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_romania
-df_full_information$lwr[df_full_information$nationality=="romania" & df_full_information$type=="informed_combo"] <- boot.ci(boot_romania_combo, conf = 0.95, type = "basic")$basic[4]/mean_wt_romania
-df_full_information$upr[df_full_information$nationality=="romania" & df_full_information$type=="informed_combo"] <- boot.ci(boot_romania_combo, conf = 0.95, type = "basic")$basic[5]/mean_wt_romania
 
 mean_wt_spain <- mean(df_spain_effect$weight)
 boot_spain_actual <- boot(df_spain_effect$variable_weighted, meanfun, R=1000)
 boot_spain_general <- boot(df_spain_effect$variable_pred_weighted, meanfun, R=1000)
 boot_spain_imm <- boot(df_spain_effect_imm$variable_pred_weighted, meanfun, R=1000)
-boot_spain_combo <- boot(df_spain_effect_combo$variable_pred_weighted, meanfun, R=1000)
 plot(boot_spain_actual)
 plot(boot_spain_general)
 plot(boot_spain_imm)
-plot(boot_spain_combo)
 df_full_information$lwr[df_full_information$nationality=="spain" & df_full_information$type=="actual"] <- boot.ci(boot_spain_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_spain
 df_full_information$upr[df_full_information$nationality=="spain" & df_full_information$type=="actual"] <- boot.ci(boot_spain_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_spain
 df_full_information$lwr[df_full_information$nationality=="spain" & df_full_information$type=="informed_general"] <- boot.ci(boot_spain_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_spain
 df_full_information$upr[df_full_information$nationality=="spain" & df_full_information$type=="informed_general"] <- boot.ci(boot_spain_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_spain
 df_full_information$lwr[df_full_information$nationality=="spain" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_spain_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_spain
 df_full_information$upr[df_full_information$nationality=="spain" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_spain_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_spain
-df_full_information$lwr[df_full_information$nationality=="spain" & df_full_information$type=="informed_combo"] <- boot.ci(boot_spain_combo, conf = 0.95, type = "basic")$basic[4]/mean_wt_spain
-df_full_information$upr[df_full_information$nationality=="spain" & df_full_information$type=="informed_combo"] <- boot.ci(boot_spain_combo, conf = 0.95, type = "basic")$basic[5]/mean_wt_spain
 
 mean_wt_sweden <- mean(df_sweden_effect$weight)
 boot_sweden_actual <- boot(df_sweden_effect$variable_weighted, meanfun, R=1000)
 boot_sweden_general <- boot(df_sweden_effect$variable_pred_weighted, meanfun, R=1000)
 boot_sweden_imm <- boot(df_sweden_effect_imm$variable_pred_weighted, meanfun, R=1000)
-boot_sweden_combo <- boot(df_sweden_effect_combo$variable_pred_weighted, meanfun, R=1000)
 plot(boot_sweden_actual)
 plot(boot_sweden_general)
 plot(boot_sweden_imm)
-plot(boot_sweden_combo)
 df_full_information$lwr[df_full_information$nationality=="sweden" & df_full_information$type=="actual"] <- boot.ci(boot_sweden_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_sweden
 df_full_information$upr[df_full_information$nationality=="sweden" & df_full_information$type=="actual"] <- boot.ci(boot_sweden_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_sweden
 df_full_information$lwr[df_full_information$nationality=="sweden" & df_full_information$type=="informed_general"] <- boot.ci(boot_sweden_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_sweden
 df_full_information$upr[df_full_information$nationality=="sweden" & df_full_information$type=="informed_general"] <- boot.ci(boot_sweden_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_sweden
 df_full_information$lwr[df_full_information$nationality=="sweden" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_sweden_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_sweden
 df_full_information$upr[df_full_information$nationality=="sweden" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_sweden_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_sweden
-df_full_information$lwr[df_full_information$nationality=="sweden" & df_full_information$type=="informed_combo"] <- boot.ci(boot_sweden_combo, conf = 0.95, type = "basic")$basic[4]/mean_wt_sweden
-df_full_information$upr[df_full_information$nationality=="sweden" & df_full_information$type=="informed_combo"] <- boot.ci(boot_sweden_combo, conf = 0.95, type = "basic")$basic[5]/mean_wt_sweden
 
 mean_wt_uk <- mean(df_uk_effect$weight)
 boot_uk_actual <- boot(df_uk_effect$variable_weighted, meanfun, R=1000)
 boot_uk_general <- boot(df_uk_effect$variable_pred_weighted, meanfun, R=1000)
 boot_uk_imm <- boot(df_uk_effect_imm$variable_pred_weighted, meanfun, R=1000)
-boot_uk_combo <- boot(df_uk_effect_combo$variable_pred_weighted, meanfun, R=1000)
 plot(boot_uk_actual)
 plot(boot_uk_general)
 plot(boot_uk_imm)
-plot(boot_uk_combo)
 df_full_information$lwr[df_full_information$nationality=="uk" & df_full_information$type=="actual"] <- boot.ci(boot_uk_actual, conf = 0.95, type = "basic")$basic[4]/mean_wt_uk
 df_full_information$upr[df_full_information$nationality=="uk" & df_full_information$type=="actual"] <- boot.ci(boot_uk_actual, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
 df_full_information$lwr[df_full_information$nationality=="uk" & df_full_information$type=="informed_general"] <- boot.ci(boot_uk_general, conf = 0.95, type = "basic")$basic[4]/mean_wt_uk
 df_full_information$upr[df_full_information$nationality=="uk" & df_full_information$type=="informed_general"] <- boot.ci(boot_uk_general, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
 df_full_information$lwr[df_full_information$nationality=="uk" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_uk_imm, conf = 0.95, type = "basic")$basic[4]/mean_wt_uk
 df_full_information$upr[df_full_information$nationality=="uk" & df_full_information$type=="informed_immigration"] <- boot.ci(boot_uk_imm, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
-df_full_information$lwr[df_full_information$nationality=="uk" & df_full_information$type=="informed_combo"] <- boot.ci(boot_uk_combo, conf = 0.95, type = "basic")$basic[4]/mean_wt_uk
-df_full_information$upr[df_full_information$nationality=="uk" & df_full_information$type=="informed_combo"] <- boot.ci(boot_uk_combo, conf = 0.95, type = "basic")$basic[5]/mean_wt_uk
 
 # plot effects with confidence intervals
 jpeg(file="plots/anger.jpeg", width=950, height=500)
 df_full_information$type <- factor(df_full_information$type,
-                                   levels = c("actual", "informed_general", "informed_immigration", "informed_combo"))
+                                   levels = c("actual", "informed_general", "informed_immigration"))
 ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) + 
   geom_bar(stat="identity", color="black", 
            position=position_dodge()) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), width=.2,
                 position=position_dodge(.9)) +
-  scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray80", "informed_immigration" = "gray60", "informed_combo" = "gray40")) +
+  scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray80", "informed_immigration" = "gray60")) +
   theme_minimal() +
   scale_y_continuous(breaks=seq(1, 7, by = 1), limits=c(1,7),oob = squish) +
   labs(
@@ -909,7 +679,7 @@ ggplot(df_full_information, aes(x=nationality, y=effect, fill=type)) +
            position=position_dodge()) +
   geom_errorbar(aes(ymin=lwr, ymax=upr), width=.2,
                 position=position_dodge(.9)) +
-  scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray80", "informed_immigration" = "gray60", "informed_combo" = "gray40")) +
+  scale_fill_manual("legend", values = c("actual" = "gray100", "informed_general" = "gray80", "informed_immigration" = "gray60")) +
   theme_minimal() +
   scale_y_continuous(breaks=seq(1, 7, by = 1), limits=c(1,7),oob = squish) +
   labs(
