@@ -23,12 +23,11 @@ The R scripts in the `R` folder are meant to be run in the following order:
 4. `scales.R` - Reads in the data from the previous step and builds scales using IRT modeling. Outputs `data/model_data_IRT.csv`.
 5. `prop_scores.R` - Reads in the data from the previous step and calculates propensity scores for both knowledge scales. Outputs `data/model_data_IRT_propscores.csv`.
 
-The following scripts calculate information effects on the basis of the data from step 5 for five dependent variables, and performs an equivalency test on the (aggregate) mean outcomes for the two knowledge scales:
+The following scripts calculate information effects on the basis of the data from step 5 for four dependent variables, and performs an equivalency test on the (aggregate) mean outcomes for the two knowledge scales:
 
 - `inf_effects_econ.R` - Effect on perceptions of the economic impact of immigration.
 - `inf_effects_protect_jobs.R` - Effect on desire to restrict free movement to protect jobs.
 - `inf_effects_fear.R` - Effect on fear of immigration.
-- `inf_effects_anger.R` - Effect on anger over immigration.
 - `inf_effects_nat_identity.R` - Effect on perception that EU is a threat to national identity.
 
 The plots in the `plots` folder show the information effects for each of these four variables by country.
