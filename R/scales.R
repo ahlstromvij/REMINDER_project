@@ -24,9 +24,9 @@ par(mfrow=c(1, 1))
 psych::fa.parallel(all_items, cor="tet") # 4 factors
 
 # let's look at these with efa
-efa <- fa(all_items, nfactors = 4)
-print(efa$loadings, cutoff = 0.3)
-# three of the immigration items well load on one factor; two general on another
+efa_poly <- fa.poly(all_items, nfactors=4)
+print(efa_poly$fa$loadings, cutoff = 0.3)
+# three of the immigration items load well on one factor; two general on another
 
 # let's try to remove the fourth immigration item (asylum)
 all_items <- data.frame(model_data$gen_know_ep,
@@ -42,8 +42,8 @@ par(mfrow=c(1, 1))
 psych::fa.parallel(all_items, cor="tet") # 3 factors
 
 # let's look at these with efa
-efa <- fa(all_items, nfactors = 3)
-print(efa$loadings, cutoff = 0.3)
+efa_poly <- fa.poly(all_items, nfactors=3)
+print(efa_poly$fa$loadings, cutoff = 0.3)
 # know_party variable is still the one on the third factor
 
 # let's see what happens if we run a parallel analysis on just the three general items
@@ -79,16 +79,14 @@ psych::fa.parallel(know_items_imm, cor="tet")
 # fair in terms of fit by using cfa.
 
 # cfa on unidimensional model with six items
+# lavaan with dichotomous data: https://lavaan.ugent.be/tutorial/cat.html
 mod_1f_6_items <- 'knowledge =~ gen_know_ep + gen_know_party + gen_know_switzerland + mig_know_free_move + mig_know_schengen + mig_know_syrians'
-mod_1f_6_items.fit <- cfa(mod_1f_6_items, data=model_data)
+mod_1f_6_items.fit <- cfa(mod_1f_6_items, data=model_data, ordered = TRUE)
 summary(mod_1f_6_items.fit, standardized=TRUE)
-semPaths(mod_1f_6_items.fit, "std")
-
-# we can ignore the P-value (Chi-square) as this will inevitably be significant in large samples.
 # the Std.all column gives the type of loadings we would see in efa correlations between items and its latent. we want > 0.3.
 
 # let's create a data-frame where we'll save fit measures for our models
-fit_measures <- data.frame("measure" = c("RMSEA","CFI","TLI","AIC","AGFI","X2","df"),
+fit_measures <- data.frame("measure" = c("RMSEA","CFI","TLI","AGFI","X2","df"),
                            "1f_6_items" = NA,
                            "1f_5_items" = NA,
                            "2f_6_items" = NA,
@@ -97,7 +95,6 @@ fit_measures <- data.frame("measure" = c("RMSEA","CFI","TLI","AIC","AGFI","X2","
 fit_measures$X1f_6_items <- c(fitmeasures(mod_1f_6_items.fit)["rmsea"], 
                               fitmeasures(mod_1f_6_items.fit)["cfi"], 
                               fitmeasures(mod_1f_6_items.fit)["tli"], 
-                              fitmeasures(mod_1f_6_items.fit)["aic"], 
                               fitmeasures(mod_1f_6_items.fit)["agfi"], 
                               fitmeasures(mod_1f_6_items.fit)["chisq"], 
                               fitmeasures(mod_1f_6_items.fit)["df"])
@@ -107,21 +104,18 @@ fit_measures$X1f_6_items <- round(fit_measures$X1f_6_items,3)
 # want root mean square error of approximation (RMSEA) <0.06. (Dima 2018)
 # want Comparative Fit Index (CFI) >0.95 (Dima 2018)
 # want Tucker-Lewis index (TLI) >0.95 (Dima 2018)
-# aic: smaller is better, only comparative
 # agfi: adjusted goodness of fit; 0-1, higher better
 # chisq: the chi-square statistic we obtain from the maximum likelihood statistic (similar to the EFA)
 # df: degrees of freedom
 
 # cfa on unidimensional model with five items
 mod_1f_5_items <- 'knowledge =~ gen_know_ep + gen_know_switzerland + mig_know_free_move + mig_know_schengen + mig_know_syrians'
-mod_1f_5_items.fit <- cfa(mod_1f_5_items, data=model_data)
+mod_1f_5_items.fit <- cfa(mod_1f_5_items, data=model_data, ordered = TRUE)
 summary(mod_1f_5_items.fit, standardized=TRUE)
-semPaths(mod_1f_5_items.fit, "std")
 
 fit_measures$X1f_5_items <- c(fitmeasures(mod_1f_5_items.fit)["rmsea"], 
                               fitmeasures(mod_1f_5_items.fit)["cfi"], 
                               fitmeasures(mod_1f_5_items.fit)["tli"], 
-                              fitmeasures(mod_1f_5_items.fit)["aic"], 
                               fitmeasures(mod_1f_5_items.fit)["agfi"], 
                               fitmeasures(mod_1f_5_items.fit)["chisq"],
                               fitmeasures(mod_1f_5_items.fit)["df"])
@@ -131,14 +125,12 @@ fit_measures$X1f_5_items <- round(fit_measures$X1f_5_items,3)
 mod_2f_6_items <- '
 gen_knowledge =~ gen_know_ep + gen_know_party + gen_know_switzerland
 mig_knowledge =~ mig_know_free_move + mig_know_schengen + mig_know_syrians'
-mod_2f_6_items.fit <- cfa(mod_2f_6_items, data=model_data)
+mod_2f_6_items.fit <- cfa(mod_2f_6_items, data=model_data, ordered = TRUE)
 summary(mod_2f_6_items.fit, standardized=TRUE)
-semPaths(mod_2f_6_items.fit, "std")
 
 fit_measures$X2f_6_items <- c(fitmeasures(mod_2f_6_items.fit)["rmsea"], 
                               fitmeasures(mod_2f_6_items.fit)["cfi"], 
                               fitmeasures(mod_2f_6_items.fit)["tli"], 
-                              fitmeasures(mod_2f_6_items.fit)["aic"], 
                               fitmeasures(mod_2f_6_items.fit)["agfi"], 
                               fitmeasures(mod_2f_6_items.fit)["chisq"], 
                               fitmeasures(mod_2f_6_items.fit)["df"])
@@ -148,21 +140,19 @@ fit_measures$X2f_6_items <- round(fit_measures$X2f_6_items,3)
 mod_2f_5_items <- '
 gen_knowledge =~ gen_know_ep + gen_know_switzerland
 mig_knowledge =~ mig_know_free_move + mig_know_schengen + mig_know_syrians'
-mod_2f_5_items.fit <- cfa(mod_2f_5_items, data=model_data)
+mod_2f_5_items.fit <- cfa(mod_2f_5_items, data=model_data, ordered = TRUE)
 summary(mod_2f_5_items.fit, standardized=TRUE)
-semPaths(mod_2f_5_items.fit, "std")
 
 fit_measures$X2f_5_items <- c(fitmeasures(mod_2f_5_items.fit)["rmsea"], 
                               fitmeasures(mod_2f_5_items.fit)["cfi"], 
                               fitmeasures(mod_2f_5_items.fit)["tli"], 
-                              fitmeasures(mod_2f_5_items.fit)["aic"], 
                               fitmeasures(mod_2f_5_items.fit)["agfi"], 
                               fitmeasures(mod_2f_5_items.fit)["chisq"],
                               fitmeasures(mod_2f_5_items.fit)["df"])
 fit_measures$X2f_5_items <- round(fit_measures$X2f_5_items,3)
 
 # we see that the 5-item two-dimensional model is the 'best' one in terms of fit; arguably, it has excellent fit.
-# but the only one that does not exhibit good fit is the 6-item unidimensional model.
+# but both unidimensional models exhibit very good fit as well, albeit the 5-item one more than the 6-item.
 
 # we can also test whether the improved fit is significant in moving from 1 to 2 dimensions
 anova(mod_1f_5_items.fit,
