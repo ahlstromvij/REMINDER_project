@@ -4,8 +4,8 @@ set.seed(100)
 library(psych)
 library(ggplot2)
 library(lavaan)
-library(semPlot)
 library(mirt)
+library(polycor)
 
 # read in data
 model_data <- read.csv("data/model_data.csv")
@@ -23,7 +23,7 @@ all_items <- data.frame(model_data$gen_know_ep,
 par(mfrow=c(1, 1))
 psych::fa.parallel(all_items, cor="tet") # 4 factors
 
-# let's look at these with efa
+# let's look at these with efa, using polychoric correlations
 efa_poly <- fa.poly(all_items, nfactors=4)
 print(efa_poly$fa$loadings, cutoff = 0.3)
 # three of the immigration items load well on one factor; two general on another
@@ -76,7 +76,7 @@ psych::fa.parallel(know_items_imm, cor="tet")
 
 # so it seems there's evidence of at least two dimensions: one for general knowledge, and one for immigration knowledge.
 # but let's investigate further by looking at how a couple of different unidimensional and two-dimensional models
-# fair in terms of fit by using cfa.
+# fare in terms of fit by using cfa.
 
 # cfa on unidimensional model with six items
 # lavaan with dichotomous data: https://lavaan.ugent.be/tutorial/cat.html
@@ -162,7 +162,7 @@ anova(mod_1f_6_items.fit,
 
 # in conclusion: the result of parallel analysis and superior fit of the two-dimensional models offers
 # evidence that general knowledge and immigration knowledge constitute separate latent traits.
-# at the same time, the fully acceptable fit of mod_1f_5_items.fit means that we should not treat
+# at the same time, the really quite good fit of the two unidimensional models means that we should not treat
 # the generalist assumption as obviously misguided.
 
 # the way to proceed then is as follows: create two scales, in line with the evidence of two-dimensionality.
@@ -223,7 +223,7 @@ itemfit(know_scale_gen, empirical.plot = 3)
 # immigration knowledge scale
 know_items_imm <- data.frame(#model_data$mig_know_asylum,
                              model_data$mig_know_free_move,
-                             model_data$mig_know_schengen, # unidimensional if removed
+                             model_data$mig_know_schengen,
                              model_data$mig_know_syrians)
 
 know_scale_imm <- mirt(data=know_items_imm,
