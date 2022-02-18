@@ -221,8 +221,7 @@ itemfit(know_scale_gen, empirical.plot = 3)
 
 
 # immigration knowledge scale
-know_items_imm <- data.frame(#model_data$mig_know_asylum,
-                             model_data$mig_know_free_move,
+know_items_imm <- data.frame(model_data$mig_know_free_move,
                              model_data$mig_know_schengen,
                              model_data$mig_know_syrians)
 
