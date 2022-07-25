@@ -136,7 +136,7 @@ for(i in 1:length(df$part_in_W2)) {
 }
 
 # general political knowledge
-# coding NAs as 0 (i.e., not knowing)
+# coding NAs as 0 (i.e., not knowing): Zaller (1992: 339) and Althaus (2003: 105)
 df <- cbind(df, all_data$W2_Q82_1)
 names(df)[ncol(df)] <- "gen_know_switzerland" # correct = 2
 table(df$gen_know_switzerland)
