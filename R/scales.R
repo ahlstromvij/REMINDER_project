@@ -6,6 +6,7 @@ library(ggplot2)
 library(lavaan)
 library(mirt)
 library(polycor)
+library(texreg)
 
 # read in data
 model_data <- read.csv("data/model_data.csv")
@@ -25,7 +26,7 @@ psych::fa.parallel(all_items, cor="tet") # 4 factors
 
 # let's look at these with efa, using polychoric correlations
 efa_poly <- fa.poly(all_items, nfactors=4)
-print(efa_poly$fa$loadings, cutoff = 0.3)
+print(efa_poly$fa$loadings, cutoff=0.3)
 # three of the immigration items load well on one factor; two general on another
 
 # let's try to remove the fourth immigration item (asylum)
@@ -102,6 +103,7 @@ fit_measures$X1f_6_items <- round(fit_measures$X1f_6_items,3)
 
 # explanation of measures here: https://stats.oarc.ucla.edu/spss/seminars/introduction-to-factor-analysis/a-practical-introduction-to-factor-analysis-confirmatory-factor-analysis/
 # want root mean square error of approximation (RMSEA) <0.06. (Dima 2018)
+# RMSEA values less than 0.05 or 0.01 correspond to good and very good fit respectively (Andrews 2021)
 # want Comparative Fit Index (CFI) >0.95 (Dima 2018)
 # want Tucker-Lewis index (TLI) >0.95 (Dima 2018)
 # agfi: adjusted goodness of fit; 0-1, higher better
@@ -136,7 +138,7 @@ fit_measures$X2f_6_items <- c(fitmeasures(mod_2f_6_items.fit)["rmsea"],
                               fitmeasures(mod_2f_6_items.fit)["df"])
 fit_measures$X2f_6_items <- round(fit_measures$X2f_6_items,3)
 
-# cfa on two-dimensional model with six items
+# cfa on two-dimensional model with five items
 mod_2f_5_items <- '
 gen_knowledge =~ gen_know_ep + gen_know_switzerland
 mig_knowledge =~ mig_know_free_move + mig_know_schengen + mig_know_syrians'
@@ -239,7 +241,7 @@ summary(model_data$know_score_imm)
 par(mfrow=c(1, 1))
 psych::fa.parallel(know_items_imm, cor="tet") # unidimensional
 
-Q3resid <- data.frame(residuals(know_scale_imm, type="Q3")) # max = -0.436
+Q3resid <- data.frame(residuals(know_scale_imm, type="Q3"))
 
 itemfit(know_scale_imm, empirical.plot = 1)
 itemfit(know_scale_imm, empirical.plot = 2)
@@ -265,6 +267,35 @@ model_data$know_score_imm_binary <- NA
 model_data$know_score_imm_binary[model_data$know_score_imm > max_know_score_imm] <- 1
 model_data$know_score_imm_binary[model_data$know_score_imm <= max_know_score_imm] <- 0
 table(model_data$know_score_imm_binary)
+
+# construct validity
+m_gen <- lm(know_score_general ~
+              gender + # men know more
+              age + # older know more
+              education_ISCED, # more educated know more
+            data = model_data)
+summary(m_gen)
+
+m_imm <- lm(know_score_imm ~
+              gender + # men know more
+              age + # older know more
+              education_ISCED, # more educated know more
+            data = model_data)
+summary(m_imm)
+
+# print regression tables
+texreg::wordreg(list(m_gen,m_imm),
+               file="tables/construct_validity_table.docx",
+               single.row = TRUE, 
+               caption = "Main effects (OLS with robust standard errors)",
+               custom.model.names=c("General knowledge",
+                                    "Immigration knowledge"),
+               custom.coef.names = c("(Intercept)", "Male", "Age", "Education"),
+               caption.above = TRUE,
+               float.pos = "h!",
+               custom.note="%stars.",
+               stars = c(0.001, 0.01, 0.05),
+               digits=3)
 
 # save df as CSV
 write.csv(model_data, "data/model_data_IRT.csv", row.names = FALSE)
