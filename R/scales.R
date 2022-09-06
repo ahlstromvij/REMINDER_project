@@ -207,7 +207,8 @@ coef(know_scale_gen, IRTpars=T)
 model_data$know_score_general <- fscores(know_scale_gen)[,1]
 
 # look at quick summary of scores (e.g., min, max, and mean)
-summary(model_data$know_score_general)
+summary(model_data$know_score_general) # mean of 0
+sd(model_data$know_score_general) # sd of 0.74
 
 # unidimensionality evaluated through scree plot
 par(mfrow=c(1, 1))
@@ -236,7 +237,8 @@ plot(know_scale_imm, type="trace")
 plot(know_scale_imm, type="info")
 coef(know_scale_imm, IRTpars=T)
 model_data$know_score_imm <- fscores(know_scale_imm)[,1]
-summary(model_data$know_score_imm)
+summary(model_data$know_score_imm) # mean of 0
+sd(model_data$know_score_imm) # sd of 0.7
 
 par(mfrow=c(1, 1))
 psych::fa.parallel(know_items_imm, cor="tet") # unidimensional
@@ -256,7 +258,7 @@ max_know_score_general <- 0.7
 model_data$know_score_general_binary <- NA
 model_data$know_score_general_binary[model_data$know_score_general > max_know_score_general] <- 1
 model_data$know_score_general_binary[model_data$know_score_general <= max_know_score_general] <- 0
-table(model_data$know_score_general_binary)
+prop.table(table(model_data$know_score_general_binary))
 
 quantile(model_data$know_score_imm)
 table(model_data$know_score_imm)
@@ -267,6 +269,7 @@ model_data$know_score_imm_binary <- NA
 model_data$know_score_imm_binary[model_data$know_score_imm > max_know_score_imm] <- 1
 model_data$know_score_imm_binary[model_data$know_score_imm <= max_know_score_imm] <- 0
 table(model_data$know_score_imm_binary)
+prop.table(table(model_data$know_score_imm_binary))
 
 # construct validity
 m_gen <- lm(know_score_general ~
