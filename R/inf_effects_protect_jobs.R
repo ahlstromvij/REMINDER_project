@@ -47,7 +47,6 @@ class(model_data$mig_know_asylum) # integer
 class(model_data$mig_know_syrians) # integer
 model_data$know_score_general_binary <- factor(model_data$know_score_general_binary) # factor
 model_data$know_score_imm_binary <- factor(model_data$know_score_imm_binary) # factor
-model_data$know_score_combo_binary <- factor(model_data$know_score_combo_binary) # factor
 
 # subset by nationality
 table(model_data$nationality)
@@ -366,12 +365,25 @@ par(mfrow = c(2, 2))
 plot(m_imm_uk)
 
 # plot knowledge coefficients
-jpeg(file="plots/effect_jobs.jpeg", width=950, height=500)
+var_names <- c(
+  `general` = "General knowledge",
+  `immigration` = "Immigration knowledge")
+
+png(file="plots/effect_jobs.png", width = 9, height = 6, units = 'in', res = 300)
 ggplot(df_knowledge, aes(nationality, effect)) +
   geom_point() +
   geom_errorbar(aes(ymin = lwr, ymax = upr), width=0.2) +
-  facet_grid(. ~ type) +
+  facet_grid(. ~ type, labeller = as_labeller(var_names)) +
   geom_hline(yintercept=0, linetype="dashed", color = "red") +
+  ylab("Effect") +
+  xlab("Nationality") +
+  scale_x_discrete(labels=c("uk" = "UK", 
+                            "sweden" = "Sweden",
+                            "spain" = "Spain",
+                            "romania" = "Romania",
+                            "poland" = "Poland",
+                            "hungary" = "Hungary",
+                            "germany" = "Germany")) +
   labs(
     title = "Knowledge effect on desire to protect jobs",
   ) +
