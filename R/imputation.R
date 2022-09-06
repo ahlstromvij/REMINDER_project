@@ -83,5 +83,25 @@ imp_data <- as.data.frame(impute.transcan(impute_arg, imputation=1, data=df_W2, 
 head(imp_data, 20)
 model_data <- cbind(imp_data, df_W2[,33:46])
 
+# create table 1
+table1 <- model_data %>% 
+  group_by(nationality) %>% 
+  summarise(mean_age = mean(age, na.rm=T),
+            male = sum(gender=="male"),
+            female = sum(gender=="female"),
+            ISCED_0 = sum(education_ISCED==0),
+            ISCED_1 = sum(education_ISCED==1),
+            ISCED_2 = sum(education_ISCED==2),
+            ISCED_3 = sum(education_ISCED==3),
+            ISCED_4 = sum(education_ISCED==4),
+            ISCED_5 = sum(education_ISCED==5),
+            ISCED_6 = sum(education_ISCED==6),
+            ISCED_7 = sum(education_ISCED==7),
+            ISCED_8 = sum(education_ISCED==8),
+  )
+
+# write table to CSV
+write.csv(table1, "tables/table1.csv", row.names = FALSE)
+
 # save df as CSV
 write.csv(model_data, "data/model_data.csv", row.names = FALSE)
