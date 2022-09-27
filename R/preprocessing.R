@@ -51,7 +51,7 @@ names(df)[ncol(df)] <- "in_paid_work"
 df$in_paid_work[df$in_paid_work==2] <- 0
 
 df <- cbind(df, all_data$W2_Q87) 
-names(df)[ncol(df)] <- "religion" # lots of NAs
+names(df)[ncol(df)] <- "religion" # many NAs
 
 # ideology
 df <- cbind(df, all_data$W1_Q8) 
@@ -136,7 +136,7 @@ for(i in 1:length(df$part_in_W2)) {
 }
 
 # general political knowledge
-# coding NAs as 0 (i.e., not knowing): Zaller (1992: 339) and Althaus (2003: 105)
+# coding NAs as 0 (i.e., as not knowing), in line with Zaller (1992: 339) and Althaus (2003: 105)
 df <- cbind(df, all_data$W2_Q82_1)
 names(df)[ncol(df)] <- "gen_know_switzerland" # correct = 2
 table(df$gen_know_switzerland)
