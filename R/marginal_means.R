@@ -136,7 +136,7 @@ emmeans_function(m_anes,
 dev.off()
 
 # reminder data - all nationalities
-reminder_data <- read_csv("data/model_data_IRT_propscores.csv")
+reminder_data <- read_csv("data/model_data_IRT.csv")
 table(reminder_data$nationality)
 reminder_data <- reminder_data %>% 
   mutate(education_ISCED = factor(education_ISCED,
