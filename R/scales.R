@@ -22,11 +22,11 @@ all_items <- data.frame(model_data$gen_know_ep,
 
 # parallel analysis with scree plot
 par(mfrow=c(1, 1))
-psych::fa.parallel(all_items, cor="tet") # 4 factors
+psych::fa.parallel(all_items, fa="fa") # 4 factors
 
 # let's look at these with efa, using polychoric correlations
-efa_poly <- fa.poly(all_items, nfactors=4)
-print(efa_poly$fa$loadings, cutoff=0.3)
+efa_poly <- fa.poly(all_items, 4)
+print(efa_poly$fa$loadings)
 # three of the immigration items load well on one factor; two general on another
 
 # let's try to remove the fourth immigration item (asylum)
