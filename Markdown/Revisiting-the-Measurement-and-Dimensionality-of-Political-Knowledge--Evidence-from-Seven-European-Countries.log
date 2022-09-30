@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.28)  29 SEP 2022 13:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.9.28)  30 SEP 2022 10:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -567,24 +567,24 @@ File: l3backend-pdftex.def 2022-08-30 L3 backend support: PDF output (pdfTeX)
 ) (./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.aux)
 \openout1 = `Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 126.
-LaTeX Font Info:    ... okay on input line 126.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 123.
+LaTeX Font Info:    ... okay on input line 123.
 (/Users/ahlstromvij/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -625,84 +625,107 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 126.
+Package hyperref Info: Link coloring OFF on input line 123.
 (./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.out) (./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.out)
 \@outlinefile=\write5
 \openout5 = `Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.out'.
 
 \c@lstlisting=\count336
-LaTeX Font Info:    Trying to load font information for U+msa on input line 196.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 194.
 (/Users/ahlstromvij/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 196.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 194.
 (/Users/ahlstromvij/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 196.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 194.
 (/Users/ahlstromvij/Library/TinyTeX/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-\c@FNCT@1=\count337
+\c@FNCT@Both authors contributed equally to the development, analysis, and drafting of this paper, and should be considered as joint-first authors.=\count337
 [1
 
 
 {/Users/ahlstromvij/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 
-LaTeX Warning: Hyper reference `FN' on page 2 undefined on input line 196.
+LaTeX Warning: Hyper reference `FN' on page 2 undefined on input line 194.
 
 
-LaTeX Warning: Reference `FN' on page 2 undefined on input line 196.
+LaTeX Warning: Reference `FN' on page 2 undefined on input line 194.
 
 [2]
-Overfull \hbox (7.88426pt too wide) in paragraph at lines 251--277
+Overfull \hbox (7.88426pt too wide) in paragraph at lines 249--275
 []\OT1/cmr/m/n/12 Yet, de-spite its method-olog-i-cal cen-tral-ity, this as-sump-tion has re-mained largely untested
  []
 
 [3] [4] [5] [6] [7] [8] [9]
-<Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots1-1.pdf, id=128, 794.97pt x 867.24pt>
+<Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots1-1.pdf, id=134, 794.97pt x 505.89pt>
 File: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots1-1.pdf Graphic file (type pdf)
 <use Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots1-1.pdf>
-Package pdftex.def Info: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots1-1.pdf  used on input line 660.
-(pdftex.def)             Requested size: 452.9679pt x 494.15991pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[10] [11 <./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots1-1.pdf>]
-<Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots2-1.pdf, id=149, 794.97pt x 867.24pt>
+Package pdftex.def Info: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots1-1.pdf  used on input line 658.
+(pdftex.def)             Requested size: 452.9679pt x 288.25993pt.
+<Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots2-1.pdf, id=135, 794.97pt x 505.89pt>
 File: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots2-1.pdf Graphic file (type pdf)
 <use Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots2-1.pdf>
-Package pdftex.def Info: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots2-1.pdf  used on input line 721.
-(pdftex.def)             Requested size: 452.9679pt x 494.15991pt.
+Package pdftex.def Info: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots2-1.pdf  used on input line 662.
+(pdftex.def)             Requested size: 452.9679pt x 288.25993pt.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 730.
+[10 <./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots1-1.pdf>]
+<Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3a-1.pdf, id=155, 794.97pt x 1156.32pt>
+File: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3a-1.pdf Graphic file (type pdf)
+<use Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3a-1.pdf>
+Package pdftex.def Info: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3a-1.pdf  used on input line 688.
+(pdftex.def)             Requested size: 452.9679pt x 658.87988pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3b-1.pdf, id=156, 794.97pt x 1156.32pt>
+File: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3b-1.pdf Graphic file (type pdf)
+<use Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3b-1.pdf>
+Package pdftex.def Info: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3b-1.pdf  used on input line 692.
+(pdftex.def)             Requested size: 452.9679pt x 658.87988pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[11 <./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots2-1.pdf>]
+<Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots4-1.pdf, id=173, 794.97pt x 505.89pt>
+File: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots4-1.pdf Graphic file (type pdf)
+<use Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots4-1.pdf>
+Package pdftex.def Info: Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots4-1.pdf  used on input line 747.
+(pdftex.def)             Requested size: 452.9679pt x 288.25993pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[12] [13]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 823.
 (/Users/ahlstromvij/Library/TinyTeX/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 730.
-[12] [13 <./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots2-1.pdf>] (./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.aux)
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 823.
+[14] [15 <./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3a-1.pdf>] [16 <./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3b-1.pdf>] [17 <./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots4-1.pdf>] (./Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.aux)
 
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.out' has not changed.
-(rerunfilecheck)             Checksum: 303D8F75CC35206A2A547D8D6E32442F;1974.
+(rerunfilecheck)             Checksum: 74754C0520A8B17130681CCF1F8E1ED7;2068.
  ) 
 Here is how much of TeX's memory you used:
- 14559 strings out of 477035
- 235543 string characters out of 5827464
- 584212 words of memory out of 5000000
- 35394 multiletter control sequences out of 15000+600000
- 480999 words of font info for 77 fonts, out of 8000000 for 9000
+ 14602 strings out of 477035
+ 240224 string characters out of 5827464
+ 585351 words of memory out of 5000000
+ 35423 multiletter control sequences out of 15000+600000
+ 481346 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 72i,12n,77p,570b,575s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </Users/ahlstromvij/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0700.600pk> </Users/ahlstromvij/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.pdf (13 pages, 208073 bytes).
+ 72i,12n,77p,567b,575s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ </Users/ahlstromvij/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0700.600pk> </Users/ahlstromvij/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1000.600pk></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></Users/ahlstromvij/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries.pdf (17 pages, 264564 bytes).
 PDF statistics:
- 244 PDF objects out of 1000 (max. 8388607)
- 195 compressed objects within 2 object streams
- 46 named destinations out of 1000 (max. 500000)
- 99 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 312 PDF objects out of 1000 (max. 8388607)
+ 250 compressed objects within 3 object streams
+ 56 named destinations out of 1000 (max. 500000)
+ 122 words of extra memory for PDF output out of 10000 (max. 10000000)
 
