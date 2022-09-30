@@ -175,9 +175,10 @@ means_by_nationality <- function(nationalities, knowledge_var) {
   for (i in 1:length(nationalities)) {
     m <- lm(glue::glue("{knowledge_var} ~ age_cat + gender + education_ISCED"),
             data = subset(reminder_data, nationality==nationalities[i]))
-    plot_list[[i]] <- emmeans_function(m,
-                                       c("education_ISCED","gender","age_cat"),
-                                       c("Highest level of education","Gender","Age bracket"))
+    plot <- emmeans_function(m,
+                             c("education_ISCED","gender","age_cat"),
+                             c("Highest level of education","Gender","Age bracket"))
+    plot_list[[i]] <- annotate_figure(plot, top = text_grob(str_to_upper(nationalities[i], locale = "en"), color = "black", size = 12))
   }
   return(ggarrange(plotlist = plot_list, nrow=7))
 }
