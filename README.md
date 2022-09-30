@@ -10,10 +10,10 @@ Knowledge matters for the political preferences people form, and the choices the
 Using 2018 survey data from seven European countries (Germany, Hungary, Poland, Romania, Spain, Sweden, UK) that, unusually, includes knowledge questions about both general politics as well as about EU immigration (N = 10,749), we combine several approaches to test the core expectations of the generalist assumption: 
 
 - First, exploratory and confirmatory factor analyses suggest that the two sets of questions are plausibly unidimensional. 
-- Second, after constructing Item Response Theory (IRT) knowledge scales from the items, we demonstrate how both scales also display similar associations with key respondent features (gender, age, and education) that align with prior expectations about who typically holds more political knowledge. 
-- Finally, using two reference sets from BES (Wave 17) and ANES (2019 Pilot study), we show that the estimated marginal mean level of general political knowledge by education, gender, age and (where available) income exhibit the same pattern not only on the two scales above, but also on independent scales measuring knowledge on public health and climate change. 
+- Second, after constructing Item Response Theory (IRT) knowledge scales from the items, we demonstrate how both scales display similar associations with key respondent features -- gender, age, and education -- known to be correlated with political knowledge, and also with two reference sets containing established measures of general political knowledge from BES and ANES, including when broken down by country. 
+- Finally, we show that the estimated marginal mean level of political as well as immigration knowledge by aforementioned respondent features exhibit similar patterns with independent scales measuring knowledge on public health and climate change, suggesting that the evidence from the previous steps was not an artifact of immigration knowledge being a unique case. 
 
-We conclude that the preponderance of evidence points to the generalist assumption being defensible at least as it relates to the range of areas considered here, i.e., immigration, public health, and climate change. However, we caution against deploying it uncritically and offer our code as a means of enabling others to conduct similar stress-tests.
+We conclude that the preponderance of evidence points to the generalist assumption standing up to scrutiny. However, we caution against deploying it uncritically and offer our code as a means of enabling others to conduct similar stress-tests.
 
 ## Files
 
