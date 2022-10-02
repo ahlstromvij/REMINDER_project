@@ -161,11 +161,11 @@ knowledge (and vice versa). As the list of geographical areas and issue
 domains of interest to political scientists grow, the weight put on this
 assumption increases significantly; so, is it warranted? Using 2018
 survey data from seven European countries (Germany, Hungary, Poland,
-Romania, Spain, Sweden, UK) that, unusually, includes knowledge
+Romania, Spain, Sweden, and the UK) that, unusually, includes knowledge
 questions about both general politics as well as about EU immigration (N
 = 10,749), we combine several approaches to test the core expectations
 of the generalist assumption: First, exploratory and confirmatory factor
-analyses suggest that the two sets of questions are plausibly
+analyses suggest that the combined set of questions is plausibly
 unidimensional. Second, after constructing Item Response Theory (IRT)
 knowledge scales from the items, we demonstrate how both scales display
 similar associations with key respondent features -- gender, age, and
@@ -173,10 +173,10 @@ education -- known to be correlated with political knowledge, and also
 with two reference sets containing established measures of general
 political knowledge from BES and ANES, including when broken down by
 country. Finally, we show that the estimated marginal mean level of
-political as well as immigration knowledge by aforementioned respondent
-features exhibit similar patterns with independent scales measuring
-knowledge on public health and climate change, suggesting that the
-evidence from the previous steps was not an artefact of immigration
+general political as well as immigration knowledge by aforementioned
+respondent features exhibit similar patterns with independent scales
+measuring knowledge on public health and climate change, suggesting that
+the evidence from the previous steps was not an artefact of immigration
 knowledge being a unique case. We conclude that the preponderance of
 evidence points to the generalist assumption standing up to scrutiny.
 However, we caution against deploying it uncritically and offer our code
@@ -209,7 +209,7 @@ risk of operating in bad faith.
 
 For these reasons, political scientists are rightly concerned with the
 relationship between knowledge and political opinion (Kuklinski et
-al.~2000; Munger et al.~2020). A large body of work -- largely
+al.~2000; Munger et al.~2020). A growing body of work -- largely
 experimental in nature -- has demonstrated how citizens across diverse
 contexts respond to factual interventions in predictable ways (Walter et
 al.~2020), notably by moving their beliefs towards more factually
@@ -219,56 +219,57 @@ extent such knowledge shifts attitudes and preferences in particular
 directions is less clear, particularly when it comes to specific issues
 such as immigration which evoke strong partisan cleavages (Blinder and
 Schaffner 2019; Grigorieff, Roth, and Ubfal 2020; Hopkins, Sides, and
-Citrin 2018). Moreover, bespoke experimental designs, while highly
-internally valid, are often not an option for many researchers and
-projects due to resource constraints, especially for large-scale,
-comparative investigations.
+Citrin 2018).
 
-What follows therefore draws on parallel developments in information
-effects research which typically uses existing observational data to
-model to what extent holding different levels of knowledge matter for
-political behaviours, including vote choice (Bartels 1996; Blais et
-al.~2009; Delli Carpini and Keeter 1996; Oscarsson 2007) as well as
-preferences and attitudes on specific issues (Althaus 2003; Ahlstrom-Vij
-2021). However, political attitudes encompass a wide range of specific
-issues: immigration, climate, welfare, foreign policy, to name but a
-few. In order to make judgments about the role of information across
-such domains, an assumption is typically made in the information effects
-literature: people who are knowledgeable in one area of politics will be
-knowledgeable in others as well (e.g., Zaller 1986 and 1992; Delli
-Carpini and Keeter 1996). We call this the generalist assumption. The
-attraction of that assumption should be obvious: if it holds,
+Moreover, bespoke experimental designs, while highly internally valid,
+are often not an option for many researchers and projects due to
+resource constraints, especially for large-scale, comparative
+investigations. What follows therefore draws on parallel developments in
+information effects research which typically uses existing observational
+data to model to what extent holding different levels of knowledge
+matter for political behaviours, including vote choice (Bartels 1996;
+Blais et al.~2009; Delli Carpini and Keeter 1996; Oscarsson 2007) as
+well as preferences and attitudes on specific issues (Althaus 2003;
+Ahlstrom-Vij 2021). However, political attitudes encompass a wide range
+of specific issues: immigration, climate, welfare, foreign policy, to
+name but a few. In order to make judgments about the role of information
+across such domains, an assumption is typically made in the information
+effects literature: people who are knowledgeable in one area of politics
+will be knowledgeable in others as well (e.g., Zaller 1986 and 1992;
+Delli Carpini and Keeter 1996). We call this the generalist assumption.
+
+The attraction of that assumption should be obvious: if it holds,
 researchers can use a general knowledge scale to measure the extent to
 which people are politically informed across specific domains, even in
 the absence of items directly concerned with the particular topics
-represented within those domains.
-
-Yet, despite its methodological centrality, this assumption has remained
-largely untested (although see Delli Carpini and Keeter 1996 for an
-early exception that we will be returning to below), partly due to the
-lack of available survey instruments which contain both general and
-issue-specific factual items. In response, we present analysis using
-data from a cross-national European survey that, unusually, contains
-data on respondents' knowledge both about general politics and on a
-specific issue---in this case, immigration---as well as their attitudes
-on that issue (Meltzer et al.~2019). By applying several methods to
-assess the dimensionality and construct validity of these different
-types of knowledge questions, we conclude that the generalist assumption
-is defensible but should not be invoked uncritically. Instead,
-researchers using available knowledge questions on observational surveys
-would be well-served by stress-testing their conclusions using other
-data where available. Finally, in line with Open Science principles, we
-publicly offer our approach (its code and method) as a template for
-others.\footnote{See https://github.com/ahlstromvij/REMINDER\_project.
-  More broadly, we hope our approach enables other researchers to
-  replicate our analyses for their own purposes in so far as they either
-  (a) have data sets with different knowledge items and want to evaluate
-  for dimensionality in order to decide on what scale to use; or (b) are
-  collecting data and want to run a pilot with different items, use our
-  approach, and then potentially save funds and time (and respond to
-  quality concerns relating to survey attentiveness) on only collecting
-  on the items that this analysis suggests that they need (e.g.~by
-  skipping domain specific items if not needed).}
+represented within those domains. Yet, despite its methodological
+centrality, this assumption has remained largely untested (although see
+Delli Carpini and Keeter 1996 for an early exception that we will be
+returning to below), partly due to the lack of available survey
+instruments which contain both general and issue-specific factual items.
+In response, we present analysis using data from a cross-national
+European survey that, unusually, contains data on respondents' knowledge
+both about general politics and on a specific issue -- in this case,
+immigration -- as well as their attitudes on that issue (Meltzer et
+al.~2019). By applying several methods to assess the dimensionality and
+construct validity of these different types of knowledge questions, and
+by comparing the resulting scales to a variety of other instruments, we
+conclude that the generalist assumption is defensible but should not be
+invoked uncritically. Instead, researchers using available knowledge
+questions on observational surveys would be well-served by
+stress-testing their conclusions using other data where available.
+Finally, in line with Open Science principles, we publicly offer our
+approach (its code and method) as a template for others.\footnote{See
+  https://github.com/ahlstromvij/REMINDER\_project. More broadly, we
+  hope our approach enables other researchers to replicate our analyses
+  for their own purposes in so far as they either (a) have data sets
+  with different knowledge items and want to evaluate for dimensionality
+  in order to decide on what scale to use; or (b) are collecting data
+  and want to run a pilot with different items, use our approach, and
+  then potentially save funds and time (and respond to quality concerns
+  relating to survey attentiveness) on only collecting on the items that
+  this analysis suggests that they need (e.g.~by skipping domain
+  specific items if not needed).}
 
 \hypertarget{the-generalist-assumption-about-political-knowledge}{%
 \section{The Generalist Assumption about Political
@@ -285,9 +286,9 @@ general are habitually attentive to communications on most particular
 issues as well'' (Zaller 1992, 43). That same assumption is investigated
 and defended by Delli Carpini and Keeter (1996), and relied upon in both
 Bartels's (1996) and Althaus's (2003) highly influential work on
-so-called information effects, i.e.~differences between actual
-preference reports and modeled estimates of the preferences reports
-respondents likely would have given, had they been fully informed.
+information effects, measuring differences between actual preference
+reports and modeled estimates of the preferences reports respondents
+likely would have given, had they been fully informed.
 
 In operationalizing the relevant notion of informedness, Bartels relies
 upon interviewer ratings of respondents' ``general level of information
@@ -306,19 +307,19 @@ expanding, but so also is the list of the specific political and policy
 issues that feature either directly or indirectly in models of voter
 attitude and choice in a range of political circumstances.
 
-At the same time, there has been a growth in experimental work on the
-role of knowledge and information on specific policy matters, one such
-area being immigration. For example, providing corrective information
-about the levels and impacts of immigration appears to reduce
-misconceptions and change attitudes (Grigorieff, Roth, and Ubfal 2020),
-as well as policy preferences in some circumstances (Blinder and
-Schaffner 2019; Facchini, Margalit, and Nakata 2022), although the
-presence and direction of these effects is not consistent (Jørgensen and
-Osmundsen 2020). Clearly, further work is needed, but due to resource
-constraints, much of that research will need to be observational rather
-than experimental, in which case researchers will in many cases need to
-rely on available general knowledge items even when concerned with
-specific policies issues. This puts further pressure on the generalist
+In parallell, there has been a growth in experimental work on the role
+of knowledge and information on specific policy matters, one such area
+being immigration. For example, providing corrective information about
+the levels and impacts of immigration appears to reduce misconceptions
+and change attitudes (Grigorieff, Roth, and Ubfal 2020), as well as
+policy preferences in some circumstances (Blinder and Schaffner 2019;
+Facchini, Margalit, and Nakata 2022), although the presence and
+direction of these effects is not consistent (Jørgensen and Osmundsen
+2020). Clearly, further work is needed, but due to resource constraints,
+much of that research will need to be observational rather than
+experimental, in which case researchers will in many cases need to rely
+on available general knowledge items even when concerned with specific
+policies issues. This puts further pressure on the generalist
 assumption.
 
 So, does that assumption hold? That is the question we set out to answer
@@ -366,12 +367,10 @@ The original REMINDER study used a panel design comprising three waves
 across 2017-18, whose sampling procedures used quotas by age, gender,
 and region (at NUTS2 level) to approximate representativeness for each
 country's adult population. We use data from the second wave (collected
-between June 6-July 16, 2018) because our outcomes of interest were only
+between June 6-July 16, 2018) because our items of interest were only
 asked in that wave alongside the two sets of knowledge questions. Our
 sample covers 10,749 respondents, with a breakdown of demographic
-details appearing in Table \ref{tab:tab1}. We conducted multiple
-imputation for missing values (1.3\% of values across all variables
-used) using the Hmisc package in R (Harrell Jr.~et al.~2020).
+details appearing in Table \ref{tab:tab1}.
 
 \begin{table}
 
@@ -434,7 +433,7 @@ than any other nationality'' (true).
 \subsection{Methods}\label{methods}}
 
 In evaluating the generalist assumption, we apply a three-step approach
-that builds on that taken by Delli Carpini and Keeter in their early
+that expands on that taken by Delli Carpini and Keeter in their early
 work on knowledge scales, and is in our case also line with recent
 interest in open science by making available all code used for the
 analyses. First, we use a combination of exploratory and confirmatory
@@ -450,13 +449,12 @@ also use two additional reference datasets from BES (Wave 17) and ANES
 (2019 Pilot study), in order to calculate estimated marginal mean level
 of general political knowledge by education, gender, and age, and
 investigate whether these exhibit the same patterns as the two scales
-above, and moreover hold even if we break down the levels by
-nationality. Third, in order to rule out that our results are an
-artifact of immigration knowledge being uniquely related to general
-political knowledge, we also compare the patterns on our general and
-immigration knowledge scales with two, independent scales measuring
-knowledge on other, issue-specific matters, namely: public health and
-climate change.
+above, and moreover hold even if we break down the data by nationality.
+Third, in order to rule out that our results are an artifact of
+immigration knowledge being uniquely related to general political
+knowledge, we also compare the patterns on our general and immigration
+knowledge scales with two, independent scales measuring knowledge on
+other, issue-specific matters, namely: public health and climate change.
 
 \hypertarget{empirical-analysis}{%
 \section{Empirical Analysis}\label{empirical-analysis}}
@@ -612,12 +610,12 @@ that it is consistent with both scales measuring the same fundamental
 underlying trait.
 
 In a further test of construct validation, we also compare the two
-scales developed here, with two established scales of political
-knowledge, from the BES and ANES, respectively. In the case of BES, we
-use Wave 17 of the 2014-2023 British Election Study Internet Panel
-(Fieldhouse et al.~2020) (N = 34,366). That data set contains the
-following knowledge items, which together form a scale satisfying
-standard assumptions for an IRT model (as above):
+scales developed here, with established measures of political knowledge
+from the BES and ANES, respectively. In the case of BES, we use Wave 17
+of the 2014-2023 British Election Study Internet Panel (Fieldhouse et
+al.~2020) (N = 34,366). That data set contains the following knowledge
+items, which together form a scale satisfying standard assumptions for
+an IRT model (as above):
 
 \begin{quote}
 (BES1) No-one may stand for parliament unless they pay a deposit
@@ -679,8 +677,8 @@ nationalities in the data set in Figures \ref{fig:emmeans_plots3a} and
 sizes render the results somewhat more noisy, the observations made in
 relation to the aggregated data generally hold also in the case of the
 individual countries as well. This offers some evidence that the
-generalist assumption is likelyrobust in the face of geographical
-segmentation as well.
+generalist assumption is robust in the face of geographical segmentation
+as well.
 
 \begin{figure}[!h]
 \includegraphics[width=1\linewidth]{Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files/figure-latex/emmeans_plots3a-1} \caption{Estimated marginal means for general knowledge scale by country}\label{fig:emmeans_plots3a}
@@ -761,6 +759,48 @@ distribution, especially given the potential for higher levels of
 awareness among younger compared to older people, in light of how the
 former have a greater number of years of exposure to the effects of
 climate change ahead of them.
+
+\hypertarget{guidance-for-researchers}{%
+\section{Guidance for researchers}\label{guidance-for-researchers}}
+
+We mentioned at the outset that one ambition with revisiting the
+dimensionality of knowledge was to outline a series of steps that that
+be replicated by others in need to of evaluating the dimensionality of
+their knowledge scales(s). In light of that, and the steps taken as part
+of our analysis above, we recommend the following:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Start by conducting a parallel analysis on the total set of knowledge
+  items, and then investigate the loadings from an exploratory factor
+  analysis (EFA) on those same items.\\
+\item
+  Let your EFA inform a confirmatory factor analysis that compares a
+  unidimensional model to one or several multi-dimensional models,
+  depending on the number of factors suggested by the EFA, and in order
+  to see whether the former exhibits a good enough fit to compete with
+  the multi-dimensional model(s). If it can, this would count towards
+  unidimensionality.\\
+\item
+  Construct two or more knowledge scales, depending on the
+  dimensionality under investigation, and then use each scale as an
+  outcome in a regression model, with gender, education, and age as
+  predictors. See if there any similarities in coefficients between the
+  two. High similarity would count towards unidimensionality.\\
+\item
+  Calculate marginal mean levels of knowledge by gender, education, and
+  age, respectively for each of your scales, and compare the patterns in
+  these levels to those exhibited in Figures \ref{fig:emmeans_plots1},
+  \ref{fig:emmeans_plots2} and \ref{fig:emmeans_plots4}. Similarity with
+  the patterns found ere would count towards unidimensionality.
+\end{enumerate}
+
+For any given project, all or only some of these steps will be
+appropriate or possible. However, it is our hope that the above steps
+will nonetheless offer helpful guidance for researchers concerned with
+questions about the dimensionality of their knowledge scales.
 
 \hypertarget{discussion}{%
 \section{Discussion}\label{discussion}}
