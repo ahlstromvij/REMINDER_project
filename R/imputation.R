@@ -12,6 +12,10 @@ df_W2 <- read.csv("data/df_preprocessed_W2.csv")
 vis_miss(df_W2[,c(1:24,26:32)]) # ignoring quality control, weights, and W2 flag
 # 1.3% missing
 
+df_W2 %>% 
+  select(age, gender, education_ISCED, nationality, gen_know_switzerland:mig_know_syrians) %>% 
+  vis_miss()
+
 # make sure each variable is of the correct class
 class(df_W2$gender) # factor
 class(df_W2$age) # integer
