@@ -1,0 +1,274 @@
+---
+title: Supporting Information
+#date: "`r Sys.Date()`"
+fontsize: 11pt
+#spacing: halfline # could also be oneline
+#classoptions:
+#  - endnotes
+# abstract: |
+# keywords:
+bibliography: mybibfile.bib
+output: rticles::oup_article
+#header-includes:
+#  - \usepackage[nomarkers,tablesfirst]{endfloat} # For figures and tables at end
+#  - \usepackage{lineno} # For line numbering
+#  - \linenumbers # For line numbering
+---
+
+```{r setup, include=FALSE, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE) # By default, hide code; set to TRUE to see code
+knitr::opts_chunk$set(fig.pos = 'h') # Places figures in text
+knitr::opts_chunk$set(out.width = '100%', dpi=300) # Figure resolution and size
+knitr::opts_chunk$set(fig.env="figure") # Latex figure environment
+
+library(tidyverse)
+library(kableExtra)
+library(psych)
+library(mirt)
+library(ltm)
+
+set.seed(100)
+reminder_data <- read_csv("../../data/model_data_IRT.csv")
+bes_data <- read_csv("../../data/bes_data.csv")
+anes_data <- read_csv("../../data/anes_data.csv")
+covid_data <- read_csv("../../data/covid_data.csv")
+epcc_data <- read_csv("../../data/epcc_data.csv")
+```
+
+```{r reminder_scales, include=FALSE, echo=FALSE}
+know_items_gen <- data.frame(reminder_data$gen_know_ep,
+                             reminder_data$gen_know_party,
+                             reminder_data$gen_know_switzerland)
+
+# fit 2PL (two parameter) model
+know_scale_gen <- mirt(data=know_items_gen,
+                        model=1,
+                        itemtype = "2PL")
+
+# have a look at how well the items load (we want > 0.3 in F1 column)
+know_scale_gen_summary <- summary(know_scale_gen)
+
+# plot individual item trace lines (steepness shows how well it discriminates)
+plot(know_scale_gen, type="trace")
+
+# plot test information (shows where on the scale it discriminates well, with theta = 0 representing mean ability)
+plot(know_scale_gen, type="info")
+
+# look at how discriminating the individual items are (ideally want discrimination [i.e., a] values > 1)
+coef(know_scale_gen, IRTpars=T)
+
+# save scores to df
+reminder_data$know_score_general <- fscores(know_scale_gen)[,1]
+
+# look at quick summary of scores (e.g., min, max, and mean)
+summary(reminder_data$know_score_general) # mean of 0
+sd(reminder_data$know_score_general) # sd of 0.74
+
+# unidimensionality evaluated through scree plot
+par(mfrow=c(1, 1))
+psych::fa.parallel(know_items_gen, cor="tet") # unidimensional
+
+# Q3 for local independence (ideally no higher than +/-0.2, but short scales tend to give higher values)
+Q3resid_general <- data.frame(residuals(know_scale_gen, type="Q3")) # max is -0.411
+
+# evaluate model fit visually
+itemfit(know_scale_gen, empirical.plot = 1)
+itemfit(know_scale_gen, empirical.plot = 2)
+itemfit(know_scale_gen, empirical.plot = 3)
+
+# same for immigration knowledge scale
+know_items_imm <- data.frame(reminder_data$mig_know_free_move,
+                             reminder_data$mig_know_schengen,
+                             reminder_data$mig_know_syrians)
+
+know_scale_imm <- mirt(data=know_items_imm,
+                       model=1,
+                       itemtype = "2PL")
+
+know_scale_imm_summary <- summary(know_scale_imm)
+plot(know_scale_imm, type="trace")
+plot(know_scale_imm, type="info")
+coef(know_scale_imm, IRTpars=T)
+reminder_data$know_score_imm <- fscores(know_scale_imm)[,1]
+summary(reminder_data$know_score_imm) # mean of 0
+sd(reminder_data$know_score_imm) # sd of 0.7
+
+par(mfrow=c(1, 1))
+psych::fa.parallel(know_items_imm, cor="tet") # unidimensional
+
+Q3resid_imm <- data.frame(residuals(know_scale_imm, type="Q3"))
+
+itemfit(know_scale_imm, empirical.plot = 1)
+itemfit(know_scale_imm, empirical.plot = 2)
+itemfit(know_scale_imm, empirical.plot = 3)
+```
+
+# REMINDER knowledge scales
+
+Both the general and the immigration scale derived from the REMINDER data set [@reminder2020] were constructed using `mirt` [@chalmers2012]. 
+
+## General knowledge scale
+
+The three general items loaded well onto the factor: G1 at `r round(know_scale_gen_summary$rotF[2],3)`, G2 at `r round(know_scale_gen_summary$rotF[3],3)`, and G3 at `r round(know_scale_gen_summary$rotF[1],3)`. The discrimination value for each was acceptable (in each case greater than 1), and the test information plot suggested that the test provided most information right below $\theta$ = 0, corresponding to mean estimated ability. Unidimensionality was investigated using parallel analysis by way of the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value was `r round(min(Q3resid_general),3)`. Yen suggests a cut-off value of 0.2, but as pointed out by @deayala2009, a Q3 test tends to give inflated negative values for short tests. Indeed, Yen's own suggestion was in the context of scales with at least 17 items. For that reason, a value of `r round(min(Q3resid_general),3)` would seem acceptable, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(reminder_data$know_score_general),3)` to `r round(max(reminder_data$know_score_general),3)`, with a mean of `r round(mean(reminder_data$know_score_general),3)`.
+
+## Immigration knowledge scale
+
+The three immigration items loaded well onto the factor as well: I1 at `r round(know_scale_imm_summary$rotF[1],3)`, I2 at `r round(know_scale_imm_summary$rotF[2],3)`, and I4 at `r round(know_scale_imm_summary$rotF[3],3)` The discrimination values where acceptable, with all greater than 1, except for I4 at 0.891. Parallel analysis suggested one factor/dimension, and the test information plot showed the scale to discriminate best right below $\theta$ = 0. Local independence was investigated using Yen's Q3, with the largest value being `r round(min(Q3resid_imm),3)`, which in light of the above observation about short scales should be considered acceptable. The empirical plots suggested an acceptable fit. The measured $\theta$ values ranged from `r round(min(reminder_data$know_score_imm),3)` to `r round(max(reminder_data$know_score_imm),3)`, with a mean of `r round(mean(reminder_data$know_score_imm),3)`.
+
+```{r bes_scale, include=FALSE, echo=FALSE}
+know_items_bes <- data.frame(as.numeric(bes_data$x01_2),
+                              as.numeric(bes_data$x01_4),
+                              as.numeric(bes_data$x01_5),
+                              as.numeric(bes_data$x01_6))
+
+know_scale_bes<- mirt(data=know_items_bes,
+                       model=1,
+                       itemtype = "2PL")
+
+know_scale_bes_summary <- summary(know_scale_bes)
+plot(know_scale_bes, type="trace")
+plot(know_scale_bes, type="info")
+coef(know_scale_bes, IRTpars=T)
+bes_data$ability <- fscores(know_scale_bes)[,1]
+summary(bes_data$ability) # mean of 0
+sd(bes_data$ability) # sd of 0.7
+
+par(mfrow=c(1, 1))
+psych::fa.parallel(know_items_imm, cor="tet") # unidimensional
+
+Q3resid_bes <- data.frame(residuals(know_scale_bes, type="Q3"))
+
+itemfit(know_scale_bes, empirical.plot = 1)
+itemfit(know_scale_bes, empirical.plot = 2)
+itemfit(know_scale_bes, empirical.plot = 3)
+itemfit(know_scale_bes, empirical.plot = 4)
+
+write_csv(bes_data, "../../data/bes_data.csv")
+```
+
+# BES knowledge scale
+
+The BES data was taken from Wave 17 of the 2014-2023 British Election Study Internet Panel [@fiedhouse2020] (N = 34,366). 0.4% of the data was missing across the variables used (education, age, gender, and four knowledge items). These were imputed using multiple imputation in R's `Hmisc` package (@harrell2022). The BES knowledge scale, too, was constructed using `mirt` [@chalmers2012]. The four items loaded well onto the factors: BES1 at `r round(know_scale_bes_summary$rotF[1],3)`, BES2 at `r round(know_scale_bes_summary$rotF[2],3)`, BES3 at `r round(know_scale_bes_summary$rotF[3],3)`, and BES4 at `r round(know_scale_bes_summary$rotF[4],3)` The discrimination value for each was acceptable, in each case greater than 1, and the test information plot suggested that the test provided most information right below $\theta$ = 0. Unidimensionality was investigated using parallel analysis in the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value was `r round(min(Q3resid_bes),3)`. For reasons discussed above, this would seem an acceptable value, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(bes_data$ability),3)` to `r round(max(bes_data$ability),3)`, with a mean of `r round(mean(bes_data$ability),3)`.
+
+# ANES knowledge scale
+
+```{r anes_scale, include=FALSE, echo=FALSE}
+know_items_anes <- data.frame(as.numeric(anes_data$pk_cjus_correct),
+                         as.numeric(anes_data$pk_germ_correct),
+                         as.numeric(anes_data$pk_sen))
+
+know_scale_anes<- mirt(data=know_items_anes,
+                       model=1,
+                       itemtype = "2PL")
+know_scale_anes_summary <- summary(know_scale_anes)
+
+plot(know_scale_anes, type="trace")
+plot(know_scale_anes, type="info")
+coef(know_scale_anes, IRTpars=T)
+anes_data$ability <- fscores(know_scale_anes)[,1]
+summary(anes_data$ability) # mean of 0
+sd(anes_data$ability) # sd of 0.7
+
+par(mfrow=c(1, 1))
+psych::fa.parallel(know_items_anes, cor="tet") # unidimensional
+
+Q3resid_anes <- data.frame(residuals(know_scale_anes, type="Q3"))
+
+itemfit(know_scale_anes, empirical.plot = 1)
+itemfit(know_scale_anes, empirical.plot = 2)
+itemfit(know_scale_anes, empirical.plot = 3)
+
+write_csv(anes_data, "../../data/anes_data.csv")
+```
+
+The ANES data was taken from the 2019 Pilot Study [@anes2019] (N = 3,000). 0.2% of the data was missing across the variables used (education, age, gender, and three knowledge items). These were imputed using multiple imputation in R's `Hmisc` package (@harrell2022). The knowledge scale was constructed using `mirt` [@chalmers2012]. The three items loaded well onto the factors: ANES1 at `r round(know_scale_anes_summary$rotF[1],3)`, ANES2 at `r round(know_scale_anes_summary$rotF[2],3)`, and ANES3 at `r round(know_scale_anes_summary$rotF[3],3)` The discrimination value for each was acceptable, in each case greater than 1, and the test information plot suggested that the test provided most information at around $\theta$ = 0. Unidimensionality was investigated using parallel analysis in the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value is `r round(min(Q3resid_anes),3)`. For reasons discussed above, this would seem an acceptable value, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(anes_data$ability),3)` to `r round(max(anes_data$ability),3)`, with a mean of `r round(mean(anes_data$ability),3)`.
+
+# Climate change knowledge scale
+
+```{r climate_scale, include=FALSE, echo=FALSE}
+# create knowledge scale
+know_items_climate <- data.frame(epcc_data$cc_climate_changing,
+                         epcc_data$cc_causes,
+                         epcc_data$cc_scientists_agree)
+
+know_scale_climate <- mirt(data=know_items_climate,
+                       model=1,
+                       itemtype = "2PL",
+                       verbose=FALSE)
+know_scale_climate_summary <- summary(know_scale_climate)
+
+plot(know_scale_climate, type="trace")
+plot(know_scale_climate, type="info")
+coef(know_scale_climate, IRTpars=T)
+
+epcc_data$knowledge <- fscores(know_scale_climate)[,1] # each person's expected score
+
+# Unidimensionality evaluated through scree plot
+par(mfrow=c(1, 1))
+psych::fa.parallel(know_items_climate, cor="poly")
+# Suggests one factor (unidimensional)
+
+# Q3 for local independence
+Q3resid_epcc <- data.frame(residuals(know_scale_climate, type="Q3"))
+
+itemfit(know_scale_climate, empirical.plot = 1)
+itemfit(know_scale_climate, empirical.plot = 2)
+itemfit(know_scale_climate, empirical.plot = 3)
+
+epcc_data %>% 
+  summarise(min = min(knowledge),
+            mean = mean(knowledge),
+            sd = sd(knowledge),
+            max = max(knowledge))
+# mean of 0, sd of 0.6
+
+write_csv(epcc_data, "../../data/epcc_data.csv")
+```
+
+The data set used to construct the climate change knowledge scale was derived from the survey "Public Perceptions of Climate Change across Four European Countries: United Kingdom, France, Germany and Norway" [@pidgeon2016]. 0.5% of the data was missing across the variables used (education, age, gender, and the three knowledge items). These were imputed using multiple imputation in R's `Hmisc` package (@harrell2022). The knowledge scale was constructed using `mirt` [@chalmers2012]. The three items loaded well onto the factors: CC1 at `r round(know_scale_climate_summary$rotF[1],3)`, CC2 at `r round(know_scale_climate_summary$rotF[2],3)`, and CC3 at `r round(know_scale_climate_summary$rotF[3],3)`. The discrimination value for each was acceptable, in each case greater than 1, except for COV3, which had a discrimination value of 0.827. The test information plot suggested that the test provided most information at around $\theta$ = -1.5. Unidimensionality was investigated using parallel analysis in the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value was `r round(min(Q3resid_epcc),3)`. For reasons discussed above, this would seem an acceptable value, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(epcc_data$knowledge),3)` to `r round(max(epcc_data$knowledge),3)`, with a mean of `r round(mean(epcc_data$knowledge),3)`.
+
+# COVID knowledge scale
+
+```{r covid_scale, include=FALSE, echo=FALSE}
+# create knowledge scale
+know_items_covid <- data.frame(covid_data$k_scale_hot,
+                        covid_data$k_scale_vaccine,
+                        covid_data$k_scale_recover)
+
+know_scale_covid <- mirt(data=know_items_covid,
+                       model=1,
+                       itemtype = "2PL",
+                       verbose=FALSE)
+know_scale_covid_summary <- summary(know_scale_covid)
+know_scale_covid_summary
+
+plot(know_scale_covid, type="trace")
+plot(know_scale_covid, type="info")
+coef(know_scale_covid, IRTpars=T)
+
+covid_data$know <- fscores(know_scale_covid)[,1] # each person's expected score
+
+# Unidimensionality evaluated through scree plot
+par(mfrow=c(1, 1))
+psych::fa.parallel(know_items_covid, cor="poly")
+# Suggests one factor (unidimensional)
+
+# Q3 for local independence
+Q3resid_covid <- data.frame(residuals(know_scale_covid, type="Q3"))
+
+itemfit(know_scale_covid, empirical.plot = 1)
+itemfit(know_scale_covid, empirical.plot = 2)
+itemfit(know_scale_covid, empirical.plot = 3)
+
+covid_data %>% 
+  summarise(min = min(know),
+            mean = mean(know),
+            sd = sd(know),
+            max = max(know))
+
+write_csv(covid_data, "../../data/covid_data.csv")
+```
+
+The data set used to construct the COVID knowledge scale was derived from a separate survey administered by the authors in connection with a separate project in July 2020. The scale was constructed using `mirt` [@chalmers2012], and the three items loaded well onto the factors: COV1 at `r round(know_scale_covid_summary$rotF[1],3)`, COV2 at `r round(know_scale_covid_summary$rotF[2],3)`, and COV3 at `r round(know_scale_covid_summary$rotF[3],3)` The discrimination value for each was acceptable, in each case greater than 1, except for COV3, which had a discrimination value of 0.827. The test information plot suggested that the test provided most information at around $\theta$ = -2. Unidimensionality was investigated using parallel analysis in the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value is `r round(min(Q3resid_covid),3)`. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(covid_data$know),3)` to `r round(max(covid_data$know),3)`, with a mean of `r round(mean(covid_data$know),3)`.
+
+# References
