@@ -13,7 +13,7 @@ Using 2018 survey data from seven European countries (Germany, Hungary, Poland, 
 - Second, after constructing Item Response Theory (IRT) knowledge scales from the items, we demonstrate how both scales display similar associations with key respondent features -- gender, age, and education -- known to be correlated with political knowledge, and also with two reference sets containing established measures of general political knowledge from BES and ANES, including when broken down by country. 
 - Finally, we show that the estimated marginal mean level of political as well as immigration knowledge by aforementioned respondent features exhibit similar patterns with independent scales measuring knowledge on public health and climate change, suggesting that the evidence from the previous steps was not an artifact of immigration knowledge being a unique case. 
 
-We conclude that the preponderance of evidence points to the generalist assumption standing up to scrutiny. However, we caution against deploying it uncritically and offer our code as a means of enabling others to conduct similar stress-tests.
+We conclude that the preponderance of evidence points to the generalist assumption standing up to scrutiny. However, we caution against deploying it uncritically and offer our code as a means of enabling others to conduct similar stress-tests, and end by outlining the practical steps we propose are to be taken by researchers who want to conduct similar stress-tests on unidimensionality assumptions.
 
 ## Files
 
