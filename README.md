@@ -23,7 +23,7 @@ The R scripts in the `R` folder are meant to be run in the following order:
 2. `descriptive_stats.R` - Reads in pre-processed data from the previous step and subsets it to only include Wave 2 data, and shows some basic tables and plots by way of descriptive statistics. Outputs `data/df_preprocessed_W2.csv`.
 3. `imputation.R` - Reads in the pre-processed data from the previous step and imputes all missing values using multiple imputation, to prepare for modeling. Outputs `data/model_data.csv`. 
 4. `scales.R` - Reads in the data from the previous step, conducts a series of factor analyses to investigate dimensionality, and builds two scales using IRT modeling, and tests these for construct validity. Outputs `data/model_data_IRT.csv`.
-5. `marginal_means.R` - Reads in the data from the previous step along with a number of other data sets, to see whether the estimated mean level of knowledge on two established knowledge scale from BES and ANES exhibit similar patterns as the mean levels on the above scales and on a number of other issue-specific knowledge scales.
+5. `marginal_means.R` - Reads in the data from the previous step along with a number of other data sets, to see whether the estimated mean level of knowledge on two established knowledge scale from BES, ANES, and CCES exhibit similar patterns as the mean levels on the above scales and on a number of other issue-specific knowledge scales.
 
 All plots are saved in the `plots` folder and all tables to the `tables` folder. The accompanying manuscript along with an appendix with supporting information can be found in the `markdown` folder. 
 
