@@ -1,3 +1,4 @@
+set.seed(100)
 library(tidyverse)
 library(emmeans)
 library(ggpubr)
@@ -20,7 +21,7 @@ emmeans_function <- function(model, covariates, xlabs) {
 }
 
 # benchmark data 1: bes wave 17
-bes_data <- read_csv("data/bes_data_preprocessed-2.csv")
+bes_data <- read_csv("data/bes_data.csv")
 bes_data
 bes_data <- bes_data %>% 
   mutate(education = recode(education,
@@ -75,18 +76,17 @@ table(bes_data$gender)
 m_bes <- lm(ability ~
               age +
               gender +
-              education +
-              income_quartile,
+              education,
             data = bes_data)
 
 png(file="plots/bes_emmeans.png", width = 20, height = 6, units = 'in', res = 300)
 emmeans_function(m_bes,
-                 c("education","gender","age","income_quartile"),
-                 c("Highest level of education","Gender","Age bracket","Income quartile"))
+                 c("education","gender","age"),
+                 c("Highest level of education","Gender"))
 dev.off()
 
 # benchmark data 2: anes 2019
-anes_data <- read_csv("data/anes_data_processed-2019-imputed.csv")
+anes_data <- read_csv("data/anes_data.csv")
 table(anes_data$gender)
 anes_data <- anes_data %>% 
   mutate(educ = factor(educ,
@@ -125,14 +125,113 @@ anes_data <- anes_data %>%
 m_anes <- lm(ability ~
                age_cat +
                gender +
-               educ +
-               income_quartile,
+               educ,
              data = anes_data)
 
 png(file="plots/anes_emmeans.png", width = 20, height = 6, units = 'in', res = 300)
 emmeans_function(m_anes,
-                 c("educ","gender","age_cat","income_quartile"),
-                 c("Highest level of education","Gender","Age bracket","Income quartile"))
+                 c("educ","gender","age_cat"),
+                 c("Highest level of education","Gender"))
+dev.off()
+
+# benchmark data 3: cces 2020
+cces_data <- read_csv("data/CES20_Common_OUTPUT_vv.csv")
+
+cces_data <- cces_data %>% 
+  dplyr::select(gender, educ, birthyr, CC20_311a, CurrentGovParty, CC20_311b, CurrentSen1Party, 
+         CC20_311c, CurrentSen2Party, CC20_311d, CurrentHouseParty) %>% 
+  filter(!is.na(CurrentGovParty), !is.na(CurrentSen1Party), !is.na(CurrentSen2Party), !is.na(CurrentHouseParty)) %>% # removes 765 observations
+  na.omit %>% # removes an additional 97 observations (0.2%), for a total of 1.4%
+  mutate(gender = recode(gender,
+                         `1` = "male",
+                         `2` = "female"),
+         educ = recode(educ,
+                       `1` = "no_hs",
+                       `2` = "high_school",
+                       `3` = "some_college",
+                       `4` = "two_yr_college",
+                       `5` = "four_yr_college",
+                       `6` = "post_grad"),
+         educ = factor(educ,
+                       levels = c("no_hs",
+                                  "high_school",
+                                  "some_college",
+                                  "two_yr_college",
+                                  "four_yr_college",
+                                  "post_grad"),
+                       ordered = T),
+         age = 2020 - birthyr,
+         age_cat = cut(age, breaks=c(17, 24, 34, 44, 54, 64, Inf), 
+                       labels=c("18-24","25-34","35-45","45-54","55-64","65plus"),
+                       ordered_result = TRUE),
+         CurrentGovParty = recode(CurrentGovParty,
+                                  "Democratic" = 3,
+                                  "Republican" = 2),
+         CurrentSen1Party = recode(CurrentSen1Party,
+                                   "Democratic" = 3,
+                                   "Republican" = 2),
+         CurrentSen2Party = recode(CurrentSen2Party,
+                                   "Democratic" = 3,
+                                   "Republican" = 2,
+                                   "Independent" = 4),
+         CurrentHouseParty = recode(CurrentHouseParty,
+                                    "Democratic" = 3,
+                                    "Republican" = 2,
+                                    "Libertarian" = 4),
+         know_gov_name = case_when(CC20_311a == CurrentGovParty ~ 1,
+                                   TRUE ~ 0),
+         know_sen1_name = case_when(CC20_311b == CurrentSen1Party ~ 1,
+                                   TRUE ~ 0),
+         know_sen2_name = case_when(CC20_311c == CurrentSen2Party ~ 1,
+                                    TRUE ~ 0),
+         know_house_name = case_when(CC20_311d == CurrentHouseParty ~ 1,
+                                    TRUE ~ 0)) %>% 
+  dplyr::select(gender, age, age_cat, educ, know_gov_name, know_sen1_name, know_sen2_name, know_house_name)
+
+# create knowledge scale
+cces_know_items <- data.frame(cces_data$know_gov_name,
+                              cces_data$know_sen1_name,
+                              cces_data$know_sen2_name,
+                              cces_data$know_house_name)
+
+library(mirt)
+cces_know_irt <- mirt(data=cces_know_items,
+                       model=1,
+                       itemtype = "2PL",
+                       verbose=FALSE)
+summary(cces_know_irt)
+
+plot(cces_know_irt, type="trace")
+plot(cces_know_irt, type="info")
+coef(cces_know_irt, IRTpars=T)
+
+cces_data$knowledge <- fscores(cces_know_irt)[,1] # each person's expected score
+
+# Unidimensionality evaluated through scree plot
+par(mfrow=c(1, 1))
+psych::fa.parallel(cces_know_items, cor="poly", fa="fa")
+# Suggests one factor (unidimensional)
+
+# Q3 for local independence
+Q3resid <- data.frame(residuals(cces_know_irt, type="Q3")) # max = 0.335
+
+itemfit(cces_know_irt, empirical.plot = 1)
+itemfit(cces_know_irt, empirical.plot = 2)
+itemfit(cces_know_irt, empirical.plot = 3)
+itemfit(cces_know_irt, empirical.plot = 4)
+
+range(cces_data$knowledge)
+
+m_cces <- lm(knowledge ~
+               age_cat +
+               gender +
+               educ,
+             data = cces_data)
+
+png(file="plots/cces_emmeans.png", width = 20, height = 6, units = 'in', res = 300)
+emmeans_function(m_cces,
+                 c("educ","gender","age_cat"),
+                 c("Highest level of education","Gender","Age bracket"))
 dev.off()
 
 # reminder data - all nationalities
@@ -187,41 +286,43 @@ means_by_nationality(c("germany","hungary","poland","romania","spain","sweden","
 means_by_nationality(c("germany","hungary","poland","romania","spain","sweden","uk"), "know_score_imm")
 
 #epcc data
-epcc_data <- read_csv("data/epcc_data_processed.csv")
+epcc_data <- read_csv("data/epcc_data.csv")
 epcc_data <- epcc_data %>% 
   filter(education != "other" & education != "student") %>% 
   mutate(education = factor(education, 
                             levels=c("no_qual","gcse","alevel","degree"),
                             ordered = T),
+         education = recode(education,
+                            "no_qual" = "None",
+                            "gcse" = "GCSE",
+                            "alevel" = "A-level",
+                            "degree" = "Degree"),
+         gender = recode(gender,
+                         "male" = "Male",
+                         "female" = "Female"),
          age = factor(age,
                       levels = c("15-24",
                                  "25-34",
                                  "35-44",
                                  "45-54",
                                  "55-64",
-                                 "65plus"),
-                      ordered = T),
-         income = factor(income,
-                         levels = c("up_to_9499",
-                                    "9500_17499",
-                                    "17500_24999",
-                                    "25000plus")))
+                                 "65+"),
+                      ordered = T))
 
 m_epcc <- lm(knowledge ~
                age +
                gender +
-               income +
                education,
              data = epcc_data)
 
 png(file="plots/epcc_emmeans.png", width = 20, height = 6, units = 'in', res = 300)
 emmeans_function(m_epcc,
-                 c("education","gender","age","income"),
-                 c("Highest level of education","Gender","Age bracket","Income"))
+                 c("education","gender","age"),
+                 c("Highest level of education","Gender","Age bracket"))
 dev.off()
 
 # covid data
-covid_data <- read_csv("data/covid_processed_all_mirt.csv")
+covid_data <- read_csv("data/covid_data.csv")
 covid_data <- covid_data %>% 
   mutate(education = factor(education, 
                             levels=c("No formal education",
@@ -256,12 +357,11 @@ covid_data <- covid_data %>%
 m_covid <- lm(know ~
                 age_cat +
                 gender +
-                education +
-                income_quartiles,
+                education,
               data = covid_data)
 
 png(file="plots/covid_emmeans.png", width = 20, height = 6, units = 'in', res = 300)
 emmeans_function(m_covid,
-                 c("education","gender","age_cat","income_quartiles"),
-                 c("Education","Gender","Age bracket","Income"))
+                 c("education","gender","age_cat"),
+                 c("Education","Gender","Age bracket"))
 dev.off()

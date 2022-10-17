@@ -252,6 +252,31 @@ was evaluated using empirical plots, which suggested acceptable fit. The
 measured \(\theta\) values ranged from -1.095 to 0.902, with a mean of
 0.
 
+\hypertarget{cces-knowledge-scale}{%
+\section{CCES knowledge scale}\label{cces-knowledge-scale}}
+
+The CCES data was taken from the 2020 Cooperative Election Study
+(Ansolabehere and Luks 2021) (N = 61,000). 765 of the observations had
+missing data in place of the correct answer (e.g., the correct political
+affiliation of the relevant state governor), and could as such not be
+coded for accuracy or in accuracy. These observations where therefore
+removed. An additional 97 observations were missing at least one
+response on the knowledge questions. Given the small number of missing
+responses here, a decision was taken to simply remove these rather than
+impute them. The knowledge scale was constructed using \texttt{mirt}
+(Chalmers 2012). The three items loaded well onto the factors: CCES1 at
+0.911, CCES2 at 0.925, CCES3 at 0.913, and CCES4 at 0.86. The
+discrimination value for each was acceptable, in each case greater than
+1, and the test information plot suggested that the test provided most
+information at around \(\theta\) = 0. Unidimensionality was investigated
+using parallel analysis in the \texttt{psych} (Revelle 2022) package,
+which suggested one factor/dimension. Local independence was
+investigated using Yen's Q3 (Yen 1993). The largest Q3 value is -0.388.
+For reasons discussed above, this would seem an acceptable value, given
+the short scale. Model fit was evaluated using empirical plots, which
+suggested acceptable fit. The measured \(\theta\) values ranged from
+-1.611 to 0.635, with a mean of 0.
+
 \hypertarget{climate-change-knowledge-scale}{%
 \section{Climate change knowledge
 scale}\label{climate-change-knowledge-scale}}
@@ -263,10 +288,10 @@ Four European Countries: United Kingdom, France, Germany and Norway''
 (education, age, gender, and the three knowledge items). These were
 imputed using multiple imputation in R's \texttt{Hmisc} package (Harrell
 (2022)). The knowledge scale was constructed using \texttt{mirt}
-(Chalmers 2012). The three items loaded well onto the factors: COV1 at
-0.938, COV2 at 0.718, and COV at 0.437. The discrimination value for
-each was acceptable, in each case greater than 1, except for COV3, which
-had a discrimination value of 0.827. The test information plot suggested
+(Chalmers 2012). The three items loaded well onto the factors: CC1 at
+0.938, CC2 at 0.718, and CC3 at 0.437. The discrimination value for each
+was acceptable, in each case greater than 1, except for COV3, which had
+a discrimination value of 0.827. The test information plot suggested
 that the test provided most information at around \(\theta\) = -1.5.
 Unidimensionality was investigated using parallel analysis in the
 \texttt{psych} (Revelle 2022) package, which suggested one
@@ -284,7 +309,7 @@ The data set used to construct the COVID knowledge scale was derived
 from a separate survey administered by the authors in connection with a
 separate project in July 2020. The scale was constructed using
 \texttt{mirt} (Chalmers 2012), and the three items loaded well onto the
-factors: COV1 at 0.589, COV2 at 0.628, and COV at 0.618 The
+factors: COV1 at 0.589, COV2 at 0.628, and COV3 at 0.618 The
 discrimination value for each was acceptable, in each case greater than
 1, except for COV3, which had a discrimination value of 0.827. The test
 information plot suggested that the test provided most information at
@@ -305,6 +330,11 @@ measured \(\theta\) values ranged from -1.863 to 0.478, with a mean of
 \leavevmode\vadjust pre{\hypertarget{ref-anes2019}{}}%
 ANES. 2019. {``2019 Pilot Study.''} 2019.
 \url{https://electionstudies.org/data-center/2019-pilot-study/}.
+
+\leavevmode\vadjust pre{\hypertarget{ref-ansolabehere2021}{}}%
+Ansolabehere, Brian F. Schaffner, Stephen, and Sam Luks. 2021.
+{``Cooperative Election Study, 2020: Common Content.''} Cambridge, MA:
+Harvard University. 2021. \url{http://cces.gov.harvard.edu/}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-deayala2009}{}}%
 Ayala, R J de. 2009. \emph{The Theory and Practice of Item Response
