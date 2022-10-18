@@ -3,3 +3,10 @@
 .RData
 .Ruserdata
 .DS_Store
+.gitignore
+*.tex
+*.log
+Appendix_files
+Revisiting-the-Measurement-and-Dimensionality-of-Political-Knowledge--Evidence-from-Seven-European-Countries_files
+ignore
+CES20_Common_OUTPUT_vv.csv
