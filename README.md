@@ -1,19 +1,11 @@
-# Revisiting the Measurement and Dimensionality of Political Knowledge: Evidence from Seven European Countries
+# Is possessing general political knowledge diagnostic of holding issue-specific knowledge? Stress-testing the generalist assumption
 
 William L Allen (University of Oxford)  
 Kristoffer Ahlstrom-Vij (Birkbeck, University of London)
 
 ## Abstract
 
-Knowledge matters for the political preferences people form, and the choices they make. Despite the recent growth of experimental work, however, the bulk of research on the role of knowledge in politics still uses observational data, where researchers typically rely on batteries of general political knowledge questions to distinguish more informed voters from less informed ones. When used to explain outcomes across policy-specific domains, this practice invokes what we call a generalist assumption: possessing general knowledge is diagnostic of holding issue-specific knowledge (and vice versa). As the list of geographical areas and issue domains of interest to political scientists grow, the weight put on this assumption increases significantly; so, is it warranted?  
-
-Using 2018 survey data from seven European countries (Germany, Hungary, Poland, Romania, Spain, Sweden, UK) that, unusually, includes knowledge questions about both general politics as well as about EU immigration (N = 10,749), we combine several approaches to test the core expectations of the generalist assumption: 
-
-- First, exploratory and confirmatory factor analyses suggest that the combined set of questions is plausibly unidimensional. 
-- Second, after constructing Item Response Theory (IRT) knowledge scales from the items, we demonstrate how both scales display similar associations with key respondent features -- gender, age, and education -- known to be correlated with political knowledge, and also with two reference sets containing established measures of general political knowledge from BES and ANES, including when broken down by country. 
-- Finally, we show that the estimated marginal mean level of political as well as immigration knowledge by aforementioned respondent features exhibit similar patterns with independent scales measuring knowledge on public health and climate change, suggesting that the evidence from the previous steps was not an artifact of immigration knowledge being a unique case. 
-
-We conclude that the preponderance of evidence points to the generalist assumption standing up to scrutiny. However, we caution against deploying it uncritically and offer our code as a means of enabling others to conduct similar stress-tests, and end by outlining the practical steps we propose are to be taken by researchers who want to conduct similar stress-tests on unidimensionality assumptions.
+The practice of using general political knowledge questions to explain variation in policy-specific outcomes invokes a potentially strong generalist assumption: possessing general knowledge is diagnostic of holding issue-specific knowledge. Is this warranted? Using convergent evidence drawn from best-available US and European surveys, we argue it is. First, factor analysis applied to a cross-national 2018 European data that, unusually, include questions about general politics and the specific issue of EU immigration reveals how combining the questions produces a plausibly unidimensional set. Second, knowledge scales built using Item Response Theory (IRT) modeling of responses to each set of questions display similar associations with known correlates of political knowledge--gender, age, and education--including by country and with well-established ANES, CES, and BES knowledge measures. Finally, these patterns remain after extending our analysis to surveys that test knowledge about public health (specifically COVID-19) and climate change. We propose steps for conducting similar stress-tests on unidimensionality assumptions.
 
 ## Files
 
