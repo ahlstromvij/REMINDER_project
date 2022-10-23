@@ -56,6 +56,11 @@ library(texreg)
 library(emmeans)
 library(ggpubr)
 
+# global plotting values
+global_font_size = 14
+# color blind friendly palette
+cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+
 reminder_data <- read_csv("../../data/model_data_IRT.csv")
 ```
 
@@ -303,11 +308,13 @@ emmeans_function <- function(model, covariates, xlabs) {
     emmeans_object <- summary(emmeans(model, specs = covariates[i]))
     p <- ggplot(emmeans_object) +
       aes_string(x = covariates[i], y = "emmean") +
-      geom_line(group=1, color = "#F8766D") +
-      geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL), color = "#F8766D") +
+      geom_line(group=1, color = cbPalette[1]) +
+      geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL), color = cbPalette[1]) +
       geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
       xlab(xlabs[i]) +
-      ylab("Estimated marginal mean")
+      ylab("Estimated marginal mean") +
+      theme(text = element_text(size=global_font_size)) +
+      theme_minimal()
 
     plot_list[[i]] <- p
   }
@@ -322,8 +329,8 @@ reminder_data <- reminder_data %>%
                        labels=c("18-24","25-34","35-45","45-54","55-64","65+"),
                        ordered_result = TRUE),
          gender = recode(gender,
-                         "Male" = "male",
-                         "Female" = "female"))
+                         "male" = "Male",
+                         "female" = "Female"))
 
 m_reminder_general <- lm(know_score_general ~
                            age_cat +
