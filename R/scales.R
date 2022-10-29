@@ -22,7 +22,7 @@ all_items <- data.frame(model_data$gen_know_ep,
 
 # parallel analysis with scree plot
 par(mfrow=c(1, 1))
-psych::fa.parallel(all_items, fa="fa") # 4 factors
+psych::fa.parallel(all_items, cor="tet", fa="fa") # 4 factors
 
 # let's look at these with efa, using polychoric correlations
 efa_poly <- fa.poly(all_items, 4)
@@ -40,7 +40,7 @@ all_items <- data.frame(model_data$gen_know_ep,
 
 # parallel analysis with scree plot
 par(mfrow=c(1, 1))
-psych::fa.parallel(all_items, cor="tet") # 3 factors
+psych::fa.parallel(all_items, cor="tet", fa="fa") # 3 factors
 
 # let's look at these with efa
 efa_poly <- fa.poly(all_items, nfactors=3)
@@ -53,7 +53,7 @@ know_items_gen <- data.frame(model_data$gen_know_ep,
                              model_data$gen_know_switzerland)
 
 par(mfrow=c(1, 1))
-psych::fa.parallel(know_items_gen, cor="tet") 
+psych::fa.parallel(know_items_gen, cor="tet", fa="fa") 
 # comes out to 1 factor
 
 # let's do the same for the immigration variables
@@ -63,7 +63,7 @@ know_items_imm <- data.frame(model_data$mig_know_asylum,
                              model_data$mig_know_syrians)
 
 par(mfrow=c(1, 1))
-psych::fa.parallel(know_items_imm, cor="tet") 
+psych::fa.parallel(know_items_imm, cor="tet", fa="fa") 
 # comes out to 2 factors
 
 # so let's remove the asylum variable, as earlier
@@ -72,7 +72,7 @@ know_items_imm <- data.frame(model_data$mig_know_free_move,
                              model_data$mig_know_syrians)
 
 par(mfrow=c(1, 1))
-psych::fa.parallel(know_items_imm, cor="tet") 
+psych::fa.parallel(know_items_imm, cor="tet", fa="fa") 
 # comes out to 1 factor
 
 # so it seems there's evidence of at least two dimensions: one for general knowledge, and one for immigration knowledge.
@@ -87,7 +87,7 @@ summary(mod_1f_6_items.fit, standardized=TRUE)
 # the Std.all column gives the type of loadings we would see in efa correlations between items and its latent. we want > 0.3.
 
 # let's create a data-frame where we'll save fit measures for our models
-fit_measures <- data.frame("measure" = c("RMSEA","CFI","TLI","AGFI","X2","df"),
+fit_measures <- data.frame("measure" = c("RMSEA","CFI","TLI","AGFI"),
                            "1f_6_items" = NA,
                            "1f_5_items" = NA,
                            "2f_6_items" = NA,
@@ -96,9 +96,7 @@ fit_measures <- data.frame("measure" = c("RMSEA","CFI","TLI","AGFI","X2","df"),
 fit_measures$X1f_6_items <- c(fitmeasures(mod_1f_6_items.fit)["rmsea"], 
                               fitmeasures(mod_1f_6_items.fit)["cfi"], 
                               fitmeasures(mod_1f_6_items.fit)["tli"], 
-                              fitmeasures(mod_1f_6_items.fit)["agfi"], 
-                              fitmeasures(mod_1f_6_items.fit)["chisq"], 
-                              fitmeasures(mod_1f_6_items.fit)["df"])
+                              fitmeasures(mod_1f_6_items.fit)["agfi"])
 fit_measures$X1f_6_items <- round(fit_measures$X1f_6_items,3)
 
 # explanation of measures here: https://stats.oarc.ucla.edu/spss/seminars/introduction-to-factor-analysis/a-practical-introduction-to-factor-analysis-confirmatory-factor-analysis/
@@ -118,9 +116,7 @@ summary(mod_1f_5_items.fit, standardized=TRUE)
 fit_measures$X1f_5_items <- c(fitmeasures(mod_1f_5_items.fit)["rmsea"], 
                               fitmeasures(mod_1f_5_items.fit)["cfi"], 
                               fitmeasures(mod_1f_5_items.fit)["tli"], 
-                              fitmeasures(mod_1f_5_items.fit)["agfi"], 
-                              fitmeasures(mod_1f_5_items.fit)["chisq"],
-                              fitmeasures(mod_1f_5_items.fit)["df"])
+                              fitmeasures(mod_1f_5_items.fit)["agfi"])
 fit_measures$X1f_5_items <- round(fit_measures$X1f_5_items,3)
 
 # cfa on two-dimensional model with six items
@@ -133,9 +129,7 @@ summary(mod_2f_6_items.fit, standardized=TRUE)
 fit_measures$X2f_6_items <- c(fitmeasures(mod_2f_6_items.fit)["rmsea"], 
                               fitmeasures(mod_2f_6_items.fit)["cfi"], 
                               fitmeasures(mod_2f_6_items.fit)["tli"], 
-                              fitmeasures(mod_2f_6_items.fit)["agfi"], 
-                              fitmeasures(mod_2f_6_items.fit)["chisq"], 
-                              fitmeasures(mod_2f_6_items.fit)["df"])
+                              fitmeasures(mod_2f_6_items.fit)["agfi"])
 fit_measures$X2f_6_items <- round(fit_measures$X2f_6_items,3)
 
 # cfa on two-dimensional model with five items
@@ -148,9 +142,7 @@ summary(mod_2f_5_items.fit, standardized=TRUE)
 fit_measures$X2f_5_items <- c(fitmeasures(mod_2f_5_items.fit)["rmsea"], 
                               fitmeasures(mod_2f_5_items.fit)["cfi"], 
                               fitmeasures(mod_2f_5_items.fit)["tli"], 
-                              fitmeasures(mod_2f_5_items.fit)["agfi"], 
-                              fitmeasures(mod_2f_5_items.fit)["chisq"],
-                              fitmeasures(mod_2f_5_items.fit)["df"])
+                              fitmeasures(mod_2f_5_items.fit)["agfi"])
 fit_measures$X2f_5_items <- round(fit_measures$X2f_5_items,3)
 
 # we see that the 5-item two-dimensional model is the 'best' one in terms of fit; arguably, it has excellent fit.
