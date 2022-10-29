@@ -134,10 +134,10 @@ emmeans_function(m_anes,
                  c("Highest level of education","Gender"))
 dev.off()
 
-# benchmark data 3: cces 2020
-cces_data <- read_csv("data/CES20_Common_OUTPUT_vv.csv")
+# benchmark data 3: ces 2020
+ces_data <- read_csv("data/CES20_Common_OUTPUT_vv.csv")
 
-cces_data <- cces_data %>% 
+ces_data <- ces_data %>% 
   dplyr::select(gender, educ, birthyr, CC20_311a, CurrentGovParty, CC20_311b, CurrentSen1Party, 
          CC20_311c, CurrentSen2Party, CC20_311d, CurrentHouseParty) %>% 
   filter(!is.na(CurrentGovParty), !is.na(CurrentSen1Party), !is.na(CurrentSen2Party), !is.na(CurrentHouseParty)) %>% # removes 765 observations
@@ -189,47 +189,47 @@ cces_data <- cces_data %>%
   dplyr::select(gender, age, age_cat, educ, know_gov_name, know_sen1_name, know_sen2_name, know_house_name)
 
 # create knowledge scale
-cces_know_items <- data.frame(cces_data$know_gov_name,
-                              cces_data$know_sen1_name,
-                              cces_data$know_sen2_name,
-                              cces_data$know_house_name)
+ces_know_items <- data.frame(ces_data$know_gov_name,
+                              ces_data$know_sen1_name,
+                              ces_data$know_sen2_name,
+                              ces_data$know_house_name)
 
 library(mirt)
-cces_know_irt <- mirt(data=cces_know_items,
+ces_know_irt <- mirt(data=ces_know_items,
                        model=1,
                        itemtype = "2PL",
                        verbose=FALSE)
-summary(cces_know_irt)
+summary(ces_know_irt)
 
-plot(cces_know_irt, type="trace")
-plot(cces_know_irt, type="info")
-coef(cces_know_irt, IRTpars=T)
+plot(ces_know_irt, type="trace")
+plot(ces_know_irt, type="info")
+coef(ces_know_irt, IRTpars=T)
 
-cces_data$knowledge <- fscores(cces_know_irt)[,1] # each person's expected score
+ces_data$knowledge <- fscores(ces_know_irt)[,1] # each person's expected score
 
 # Unidimensionality evaluated through scree plot
 par(mfrow=c(1, 1))
-psych::fa.parallel(cces_know_items, cor="poly", fa="fa")
+psych::fa.parallel(ces_know_items, cor="poly", fa="fa")
 # Suggests one factor (unidimensional)
 
 # Q3 for local independence
-Q3resid <- data.frame(residuals(cces_know_irt, type="Q3")) # max = 0.335
+Q3resid <- data.frame(residuals(ces_know_irt, type="Q3")) # max = 0.335
 
-itemfit(cces_know_irt, empirical.plot = 1)
-itemfit(cces_know_irt, empirical.plot = 2)
-itemfit(cces_know_irt, empirical.plot = 3)
-itemfit(cces_know_irt, empirical.plot = 4)
+itemfit(ces_know_irt, empirical.plot = 1)
+itemfit(ces_know_irt, empirical.plot = 2)
+itemfit(ces_know_irt, empirical.plot = 3)
+itemfit(ces_know_irt, empirical.plot = 4)
 
-range(cces_data$knowledge)
+range(ces_data$knowledge)
 
-m_cces <- lm(knowledge ~
+m_ces <- lm(knowledge ~
                age_cat +
                gender +
                educ,
-             data = cces_data)
+             data = ces_data)
 
-png(file="plots/cces_emmeans.png", width = 20, height = 6, units = 'in', res = 300)
-emmeans_function(m_cces,
+png(file="plots/ces_emmeans.png", width = 20, height = 6, units = 'in', res = 300)
+emmeans_function(m_ces,
                  c("educ","gender","age_cat"),
                  c("Highest level of education","Gender","Age bracket"))
 dev.off()
