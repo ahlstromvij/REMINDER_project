@@ -9,7 +9,7 @@ Using general political knowledge questions to explain variation in policy-speci
 
 ## R Scripts
 
-The scripts in the `R` folder are listed below. Steps 1-3 in the manuscript's empirical analysis (see the `markdown` folder) corresponds to scripts 4-6 below.
+The scripts in the `R` folder are listed below. Steps 1-3 in the manuscript's empirical analysis (see the `markdown` folder) correspond to scripts 4-6 below.
 
 1. `preprocessing.R` - Reads in the REMINDER project data from `data/10085_da_en_v1_0.zsav` and pre-processes it. Outputs `data/df_preprocessed.csv`. 
 2. `descriptive_stats.R` - Reads in pre-processed data from the previous step and subsets it to only include Wave 2 data, and shows some basic tables and plots by way of descriptive statistics in relation to immigration attitudes and knowledge. Outputs `data/df_preprocessed_W2.csv`.
