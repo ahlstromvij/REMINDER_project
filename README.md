@@ -26,4 +26,4 @@ The primary data set for this project is available at https://data.aussda.at/dat
 
 ## Requirements
 
-The code in this repository was produced using R 4.1.2 on macOS Catalina (10.15.7).
+The code in this repository was produced using R 4.1.2 on macOS Monterey (12.6).
