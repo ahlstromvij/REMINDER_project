@@ -244,6 +244,8 @@ dev.off()
 
 # benchmark data 3: ces 2020
 ces_data <- read_csv("data/CES20_Common_OUTPUT_vv.csv")
+# please note: this CSV is too large to store in the repo
+# it can be downloaded from https://dataverse.harvard.edu/dataverse/cces
 ces_data <- ces_data %>% 
   dplyr::select(gender, educ, birthyr, CC20_311a, CurrentGovParty, CC20_311b, CurrentSen1Party, 
                 CC20_311c, CurrentSen2Party, CC20_311d, CurrentHouseParty) %>% 
