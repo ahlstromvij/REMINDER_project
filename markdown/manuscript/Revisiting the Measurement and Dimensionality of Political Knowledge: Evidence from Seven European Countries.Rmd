@@ -4,7 +4,7 @@
 #      `corresponding_author` and `acknowledgements`
 fontsize: 12pt
 title: |
-  Is general political knowledge diagnostic of issue-specific knowledge? 
+  Is general political knowledge indicative of issue-specific knowledge? 
   Stress-testing the generalist assumption
 author:
   - name: William L. Allen
@@ -75,10 +75,20 @@ In various forms, the idea that people who are knowledgeable in one area of poli
 In response, we present convergent evidence that stress-tests the generalist assumption by applying a variety of methods to a range of the best-available survey evidence spanning country contexts (the US and seven European countries), topics (immigration, public health, and climate change), and respondent panel type (established omnibus and bespoke online panels). Among other steps, we leverage cross-national European survey data that, unusually, contains questions about both general politics and a specific issue, namely European Union immigration [@meltzer2020]. By assessing the dimensionality and construct validity of the range of knowledge questions contained within our assembled surveys, and by comparing these features to widely-used instruments (the American National Elections Studies, the Cooperative Election Study, and the British Election Study), we conclude that the generalist assumption holds up to scrutiny. Besides contributing novel empirical evidence for this common methodological practice, we also offer practical advice for researchers who either want to conduct similar stress-tests of their own topic- and context-specific survey data on grounds of unidimensionality assumptions, or are considering which types of knowledge questions to include in future studies while acknowledging concerns about resources, time, and survey attentiveness.
 
 # The Generalist Assumption about Political Knowledge
+Our theoretical argument is that... We develop this in two steps. First, ... Second, ...
+
+## Generalist versus Specific Knowledge: Conceptual and Measurement Issues
+(KAV to add discussion that sets out the features of generalist knowledge)
 
 The generalist assumption can be traced back at least to John Zaller's analysis of information items in the 1985 National Election Study Pilot, where he argued that "political information is a relatively general trait that can be effectively measured with a general-purpose information scale" [@zaller1986, 2]. This conclusion subsequently informed his landmark study on public opinion, where he noted that he was "assuming that persons who are knowledgeable about politics in general are habitually attentive to communications on most particular issues as well" [@zaller1992, 43]. @carpinikeeter1996 investigated and defended that assumption, which later featured in both @bartels1996 and @althaus2003's influential works "information effects," i.e., the extent to which voters would express different preferences had they possessed more information.
 
 Distinguishing between more- and less-informed respondents is a central problem to research that uses knowledge items. On the one hand, this decision could be based on scales that measure respondents' levels of correctness to question batteries, as @carpinikeeter1996 do. On the other hand, this could be inferred from interviewer ratings of respondents' "general level of information about politics and public affairs" [@bartels1996, 203]. Subsequent work across a variety of geographical contexts including the US [@ahlstromvij-posttruth], the UK [@ahlstromvij2020-moddemo], Denmark [@bhatti2010; @hansen2009], Sweden [@oscarsson2007] and Canada [@blaisetal2009] follows the norms set by these early studies by using either a variety of general knowledge items or a scale of both general and issue-specific knowledge items alongside interviewer ratings.
+
+## 
+
+
+## Why Does the Generalist Assumption Matter?
+
 
 As such, the generalist assumption has come to carry increasingly substantial weight: not only is the catalogue of geographical contexts in which researchers investigate the impacts of knowledge on political attitudes and choice expanding, but so also is the list of the specific policy issues that feature in models of voters' attitudes and preferences. Yet, as @barabas2014 identify in their assessment of 355 knowledge items fielded between 2007-10, survey researchers have tended to use questions that test respondents' familiarity with either relatively unchanging aspects of government institutions (107 items comprising 30% of their sample) or details of policy-specific current affairs (113 items comprising 32% of their sample). Consequently, researchers using responses to knowledge items as secondary data, or considering fielding their own items as part of original data collection efforts, will have to use a necessarily limited set of questions--likely varying along the general-specific dimension--as a proxy for what respondents know about some other domain that is *actually* of interest.
 
