@@ -8,6 +8,7 @@ library(texreg)
 library(tidyverse)
 library(emmeans)
 library(ggpubr)
+library(ltm)
 
 # read in data
 model_data <- read.csv("data/model_data.csv")
@@ -62,6 +63,13 @@ itemfit(know_scale_gen, empirical.plot = 1)
 itemfit(know_scale_gen, empirical.plot = 2)
 itemfit(know_scale_gen, empirical.plot = 3)
 
+# guessing parameter
+know_scale_gen_ltm2 <- ltm(know_items_gen ~ z1, IRT.param = TRUE)
+coef(know_scale_gen_ltm2)
+
+know_scale_gen_ltm3 <- tpm(know_items_gen, type="latent.trait", IRT.param = TRUE)
+coef(know_scale_gen_ltm3) # Want guessing parameter to be low
+max(coef(know_scale_gen_ltm3)[1])
 
 # immigration knowledge scale
 know_items_imm <- data.frame(model_data$mig_know_free_move,
@@ -88,6 +96,14 @@ Q3resid <- data.frame(residuals(know_scale_imm, type="Q3"))
 itemfit(know_scale_imm, empirical.plot = 1)
 itemfit(know_scale_imm, empirical.plot = 2)
 itemfit(know_scale_imm, empirical.plot = 3)
+
+# guessing parameter
+know_scale_imm_ltm2 <- ltm(know_items_imm ~ z1, IRT.param = TRUE)
+coef(know_scale_imm_ltm2)
+
+know_scale_imm_ltm3 <- tpm(know_items_imm, type="latent.trait", IRT.param = TRUE)
+coef(know_scale_imm_ltm3) # Want guessing parameter to be low
+max(coef(know_scale_imm_ltm3)[1])
 
 # construct validity
 m_gen <- lm(know_score_general ~
