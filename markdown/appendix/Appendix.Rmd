@@ -77,6 +77,9 @@ itemfit(know_scale_gen, empirical.plot = 1)
 itemfit(know_scale_gen, empirical.plot = 2)
 itemfit(know_scale_gen, empirical.plot = 3)
 
+know_scale_gen_ltm3 <- tpm(know_items_gen, type="latent.trait", IRT.param = TRUE)
+max_gen_guess <- max(coef(know_scale_gen_ltm3)[1])
+
 # same for immigration knowledge scale
 know_items_imm <- data.frame(reminder_data$mig_know_free_move,
                              reminder_data$mig_know_schengen,
@@ -102,6 +105,9 @@ Q3resid_imm <- data.frame(residuals(know_scale_imm, type="Q3"))
 itemfit(know_scale_imm, empirical.plot = 1)
 itemfit(know_scale_imm, empirical.plot = 2)
 itemfit(know_scale_imm, empirical.plot = 3)
+
+know_scale_imm_ltm3 <- tpm(know_items_imm, type="latent.trait", IRT.param = TRUE)
+max_imm_guess <- max(coef(know_scale_imm_ltm3)[1])
 ```
 
 # REMINDER knowledge scales
@@ -110,11 +116,11 @@ Both the general and the immigration scale derived from the REMINDER data set [@
 
 ## General knowledge scale
 
-The three general items loaded well onto the factor: G1 at `r round(know_scale_gen_summary$rotF[2],3)`, G2 at `r round(know_scale_gen_summary$rotF[3],3)`, and G3 at `r round(know_scale_gen_summary$rotF[1],3)`. The discrimination value for each was acceptable (in each case greater than 1), and the test information plot suggested that the test provided most information right below $\theta$ = 0, corresponding to mean estimated ability. Unidimensionality was investigated using parallel analysis by way of the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value was `r round(min(Q3resid_general),3)`. Yen suggests a cut-off value of 0.2, but as pointed out by @deayala2009, a Q3 test tends to give inflated negative values for short tests. Indeed, Yen's own suggestion was in the context of scales with at least 17 items. For that reason, a value of `r round(min(Q3resid_general),3)` would seem acceptable, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(reminder_data$know_score_general),3)` to `r round(max(reminder_data$know_score_general),3)`, with a mean of `r round(mean(reminder_data$know_score_general),3)`.
+The three general items loaded well onto the factor: G1 at `r round(know_scale_gen_summary$rotF[2],3)`, G2 at `r round(know_scale_gen_summary$rotF[3],3)`, and G3 at `r round(know_scale_gen_summary$rotF[1],3)`. The discrimination value for each was acceptable (in each case greater than 1), and the test information plot suggested that the test provided most information right below $\theta$ = 0, corresponding to mean estimated ability. Unidimensionality was investigated using parallel analysis by way of the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value was `r round(min(Q3resid_general),3)`. Yen suggests a cut-off value of 0.2, but as pointed out by @deayala2009, a Q3 test tends to give inflated negative values for short tests. Indeed, Yen's own suggestion was in the context of scales with at least 17 items. For that reason, a value of `r round(min(Q3resid_general),3)` would seem acceptable, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(reminder_data$know_score_general),3)` to `r round(max(reminder_data$know_score_general),3)`, with a mean of `r round(mean(reminder_data$know_score_general),3)`. To rule out guessing, a separate three-parameter model (discrimination, difficulty, and guessing) was fitted using the `ltm` package [@rizopoulos2006]. The guessing parameter for each item came out very low, with the maximum value being `r round(max_gen_guess,3)` for G2, suggesting any substantial amount of guessing can be ruled out.
 
 ## Immigration knowledge scale
 
-The three immigration items loaded well onto the factor as well: I1 at `r round(know_scale_imm_summary$rotF[1],3)`, I2 at `r round(know_scale_imm_summary$rotF[2],3)`, and I4 at `r round(know_scale_imm_summary$rotF[3],3)` The discrimination values where acceptable, with all greater than 1, except for I4 at 0.891. Parallel analysis suggested one factor/dimension, and the test information plot showed the scale to discriminate best right below $\theta$ = 0. Local independence was investigated using Yen's Q3, with the largest value being `r round(min(Q3resid_imm),3)`, which in light of the above observation about short scales should be considered acceptable. The empirical plots suggested an acceptable fit. The measured $\theta$ values ranged from `r round(min(reminder_data$know_score_imm),3)` to `r round(max(reminder_data$know_score_imm),3)`, with a mean of `r round(mean(reminder_data$know_score_imm),3)`.
+The three immigration items loaded well onto the factor as well: I1 at `r round(know_scale_imm_summary$rotF[1],3)`, I2 at `r round(know_scale_imm_summary$rotF[2],3)`, and I4 at `r round(know_scale_imm_summary$rotF[3],3)` The discrimination values where acceptable, with all greater than 1, except for I4 at 0.891. Parallel analysis suggested one factor/dimension, and the test information plot showed the scale to discriminate best right below $\theta$ = 0. Local independence was investigated using Yen's Q3, with the largest value being `r round(min(Q3resid_imm),3)`, which in light of the above observation about short scales should be considered acceptable. The empirical plots suggested an acceptable fit. The measured $\theta$ values ranged from `r round(min(reminder_data$know_score_imm),3)` to `r round(max(reminder_data$know_score_imm),3)`, with a mean of `r round(mean(reminder_data$know_score_imm),3)`. As with the general scale above, to rule out guessing, a separate three-parameter model (discrimination, difficulty, and guessing) was fitted using the `ltm` package [@rizopoulos2006].The guessing parameter for each item came out very low, with the maximum value being `r round(max_imm_guess,4)` for I1, suggesting any substantial amount of guessing can be ruled out.
 
 ```{r bes_scale, include=FALSE, echo=FALSE}
 know_items_bes <- data.frame(as.numeric(bes_data$x01_2),
