@@ -1,11 +1,11 @@
-# Is possessing general political knowledge diagnostic of holding issue-specific knowledge? Stress-testing the generalist assumption
-
+# Is general political knowledge indicative of issue-specific knowledge? Stress-testing the generalist assumption
+  
 William L Allen (University of Oxford)  
 Kristoffer Ahlstrom-Vij (Birkbeck, University of London)
 
 ## Abstract
 
-Using general political knowledge questions to explain variation in policy-specific outcomes invokes a potentially strong generalist assumption: possessing general knowledge is diagnostic of holding unmeasured issue-specific knowledge. Is this warranted? Using convergent evidence drawn from best-available US and European surveys, we argue it is. First, factor analysis applied to a cross-national 2018 European data set that, unusually, includes questions about general politics and the specific issue of EU immigration reveals how the questions produce a plausibly unidimensional set. Second, knowledge scales built using Item Response Theory (IRT) modeling of responses to each set of questions display similar associations with known correlates of political knowledge--gender, age, and education--that are mirrored in established ANES, CES, and BES general knowledge measures. Finally, these patterns remain after extending our analysis to surveys that test knowledge about COVID-19 and climate change. We propose steps for conducting similar stress-tests on unidimensionality assumptions.
+Using general political knowledge questions to explain variation in policy-specific outcomes invokes a potentially strong generalist assumption: possessing general knowledge is diagnostic of holding unmeasured, issue-specific knowledge. Is this warranted? Using convergent evidence drawn from best-available US and European surveys, we argue it is. First, factor analysis applied to a cross-national 2018 European data set that, unusually, includes questions about general politics and the specific issue of EU immigration reveals how the questions produce a plausibly unidimensional set. Second, knowledge scales built using Item Response Theory (IRT) modeling of responses to each set of questions display similar associations with known correlates of political knowledge -- gender, age, and education -- that are mirrored in established ANES, CES, and BES general knowledge measures. Finally, these patterns remain after extending our analysis to surveys that test issue-specific knowledge about COVID-19 and climate change. Finally, we also offer practical steps for researchers to follow when conducting similar stress-tests on unidimensionality assumptions.
 
 ## R Scripts
 
