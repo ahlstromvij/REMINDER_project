@@ -613,11 +613,11 @@ So far, we have provided evidence for the generalist assumption in the context o
 
 Our COVID-19 data set comes from a pre-registered survey experiment (N = 2,917) fielded in the U.K. through the wake of its first pandemic wave in July 2020.[^7] The survey contains the following knowledge items, measured pre-treatment, which together form a scale satisfying standard assumptions for IRT (again, see the Supporting Information document for further details on the IRT models):
 
+[^7]: The survey received IRB approval from the relevant university committee. Documentation of this approval is withheld at the review stage, but can be provided upon request.
+
 > (COV1) COVID-19 can be transmitted in areas with hot and humid climate (True)\
 > (COV2) There is currently no vaccine to protect against COVID-19 (True [in July 2020])\
 > (COV3) Most people who get COVID-19 recover from it (True)
-
-[^7] The survey received IRB approval from the relevant university committee. Documentation of this approval is withheld at the review stage, but can be provided upon request.
 
 The climate change data set is from the U.K. segment (N = 1,033) of the European Perceptions of Climate Change survey [@pidgeon2016]. The survey was not specifically designed to measure knowledge about climate change, but it does contain three items which could reasonably be taken to tap into such knowledge,[^8] and moreover form a scale satisfying standard assumptions for IRT:
 
