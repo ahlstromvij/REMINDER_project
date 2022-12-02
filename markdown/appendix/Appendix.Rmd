@@ -1,15 +1,19 @@
 ---
 title: Supporting Information
 #date: "`r Sys.Date()`"
-fontsize: 11pt
-#spacing: halfline # could also be oneline
+fontsize: 12pt
+spacing: oneline # could also be oneline
 #classoptions:
 #  - endnotes
 # abstract: |
 # keywords:
 bibliography: mybibfile.bib
-output: rticles::oup_article
-#header-includes:
+output:
+  pdf_document:
+    toc: true
+    toc_depth: 2
+header-includes:
+  - \usepackage{setspace}\doublespacing
 #  - \usepackage[nomarkers,tablesfirst]{endfloat} # For figures and tables at end
 #  - \usepackage{lineno} # For line numbering
 #  - \linenumbers # For line numbering
@@ -109,6 +113,8 @@ itemfit(know_scale_imm, empirical.plot = 3)
 know_scale_imm_ltm3 <- tpm(know_items_imm, type="latent.trait", IRT.param = TRUE)
 max_imm_guess <- max(coef(know_scale_imm_ltm3)[1])
 ```
+
+\newpage
 
 # REMINDER knowledge scales
 
