@@ -25,7 +25,6 @@ keywords:
   - immigration
   - public health
   - climate change
-#fontsize: 12pt
 spacing: oneline # could also be oneline
 #classoptions:
 #  - endnotes
@@ -36,7 +35,9 @@ output: rticles::oup_article
 #urlcolor: orange
 #linkcolor: green
 #citecolor: red
-#header-includes:
+header-includes:
+  - \usepackage{setspace}\doublespacing
+  - \renewcommand{\footnotesize}{\normalsize}
 #  - \usepackage[nomarkers,tablesfirst]{endfloat} # For figures and tables at end
 #  - \usepackage{lineno} # For line numbering
 #  - \linenumbers # For line numbering
@@ -90,7 +91,7 @@ In response, we present convergent evidence that stress-tests the generalist ass
 
 Besides contributing novel empirical evidence for this methodological practice, we conclude by offering practical advice for researchers who either want to conduct similar stress-tests of their own topic- and context-specific survey data on grounds of unidimensionality assumptions, or are considering which types of knowledge questions to include in future studies while acknowledging concerns about resources, time, and survey attentiveness. To that end, and in line with Open Science principles, we also provide the code underlying the present investigation in a public GitHub repository, as a template for others to use.[^1]
 
-[^1]: The anonymized repository can be accessed at: 
+[^1]: \doublespacing The anonymized repository can be accessed at: 
 
 # The Generalist Assumption about Political Knowledge
 
@@ -106,7 +107,7 @@ What, then, does it mean to be knowledgeable about politics in general, as Zalle
 
 Knowledge of these areas is "critical to the maintenance of a healthy democracy" [@carpinikeeter1996, 14]. Specifically, a person with such knowledge inhabits the position of a (more) effective political actor, in the minimal case as a voter.[^2] That said, considering @carpinikeeter1993's recommended five-item index (see also @carpinikeeter1996, 304-5), the emphasis is very much on the the rules of the game and the main political actors -- on "what the government is and does" as they put it. In their index, the component items ask (1) which party controls the House of Representatives; (2) the percent of the vote required in Congress to override a presidential veto; (3) where the two U.S. parties are located on the political spectrum; (4) which branch of government determines the constitutionality of laws; and (5) who is the U.S. Vice President. 
 
-[^2]: There are important debates about the limitations of this conception of political knowledge. These include observations of how voters often use their lived experiences alongside facts to interpret and engage with political processes [@cramer2017]; and how the formulation of knowledge questions themselves may disadvantage racial and ethnic minorities [@abrajano2015] and women [@kraft2022] by prioritizing some areas of knowledge over others. We note two points here. First, the notion of what we might think of as *technical* political knowledge at work here does not rule out other types of *situated* forms of knowledge -- e.g. knowing what it is like to go hungry for days on end, or to be on the receiving end of racism -- that might enable political agents to only pursue political goals effectively but also to choose morally appropriate ends. Second, if the type of knowledge necessary for effective political action disadvantages the marginalized, the response should not be to reject such knowledge, but to expand its reach, and thereby empower a larger section of society to take effective political action.
+[^2]: \doublespacing There are important debates about the limitations of this conception of political knowledge. These include observations of how voters often use their lived experiences alongside facts to interpret and engage with political processes [@cramer2017]; and how the formulation of knowledge questions themselves may disadvantage racial and ethnic minorities [@abrajano2015] and women [@kraft2022] by prioritizing some areas of knowledge over others. We note two points here. First, the notion of what we might think of as *technical* political knowledge at work here does not rule out other types of *situated* forms of knowledge -- e.g. knowing what it is like to go hungry for days on end, or to be on the receiving end of racism -- that might enable political agents to only pursue political goals effectively but also to choose morally appropriate ends. Second, if the type of knowledge necessary for effective political action disadvantages the marginalized, the response should not be to reject such knowledge, but to expand its reach, and thereby empower a larger section of society to take effective political action.
 
 As we will explain later (section \ref{construct-validation}), this conception of general political knowledge as being primarily about knowing how government works and what the main political actors are coheres well with the content of knowledge items we tend to see in established data sets such as the American National Elections Studies (ANES), the Cooperative Election Study (CES), and the British Election Study (BES). In the case of the ANES, this is no surprise, since Delli Carpini and Keeter's work fed directly into the knowledge items in that survey, which in turn set the standard for other data sets within and outside of the U.S. By contrast, the type of items that we will consider in relation to immigration, public health (COVID-19), and climate change might get to important issues that people care deeply about, but do not pertain directly to the central resource that prior literature conventionally calls "general" political knowledge.
 
@@ -132,7 +133,7 @@ Like Delli Carpini and Keeter, however, our aim is to address whether what we ha
 
 For our main analysis, we use a subset of online survey data collected as part of the REMINDER (Role of European Mobility and Its Impacts in Narratives, Debates and EU Reforms) project [@meltzer2020].[^3] Unlike many existing data sets, this survey has two features which make it uniquely valuable for our purposes. First, it contains both general political knowledge questions *and* issue-specific questions -- in this case, on migration -- in the same survey instrument. This allows us to assess the extent to which these items are collectively unidimensional, as well as whether both sets have similar demographic correlates. Second, it is cross-national, covering seven European countries (Germany, Hungary, Poland, Romania, Spain, Sweden, and the United Kingdom). This enables us to examine whether any results on unidimensionality are artifacts of particular national profiles, e.g. the United States, on which early studies into the unidimensionality of political knowledge were based.
 
-[^3]: Full details about the data set, including its documentation and questionnaire design, are available at <https://doi.org/10.11587/LBSMPQ>.
+[^3]: \doublespacing Full details about the data set, including its documentation and questionnaire design, are available at <https://doi.org/10.11587/LBSMPQ>.
 
 The REMINDER study used a panel design comprising three waves across 2017-18, whose sampling procedures used quotas by age, gender, and region (at NUTS2 level) to approximate representativeness for each country's adult population. We use data from the second wave (collected between June 6 and July 16, 2018) because our items of interest were only asked in that wave alongside the two sets of knowledge questions. Our sample covers 10,749 respondents, with a breakdown of demographic details appearing in Table \ref{tab:tab1}.
 
@@ -196,7 +197,7 @@ Third, we replicate this analysis using scales independently derived from survey
 
 First, we combine all six items from both knowledge batteries from the REMINDER study, and conduct a parallel analysis to estimate how many factors are likely involved. This suggests four factors in our case. We then apply exploratory factor analysis (EFA) set to four factors. As seen in Table \ref{tab:tab2}, three of the immigration items (I1, I2, and I4) load well onto one factor (Factor 2) while two of the general items (G1 and G2) load well onto another (Factor 4). Further parallel analysis of the three general items (G1-3) suggests one factor, and parallel analysis for the three immigration items does the same, if excluding I3. This offers initial evidence of two separate factors, corresponding to general knowledge and immigration knowledge, respectively.[^4]
 
-[^4]: We do not look at scale reliability as measured by Chronbach's alpha, since such reliability can be high even given multidimensionality [@fabrigar2011].
+[^4]: \doublespacing We do not look at scale reliability as measured by Chronbach's alpha, since such reliability can be high even given multidimensionality [@fabrigar2011].
 
 ```{r tab2, echo=FALSE, results="asis"}
 fa_tibble <- tibble(
@@ -290,7 +291,7 @@ Factor analysis enables us to investigate the extent to which correlations betwe
 
 To do this, we first create two knowledge scales using IRT modeling [@deayala2009; @demars2010]. IRT models measure latent traits assumed to fall on a continuous scale. Values on that scale are usually referred to by way of $\theta$ (theta), and taken to range from -$\infty$ to +$\infty$, with a mean of 0 and standard deviation of 1. This means that, while the individual $\theta$ value ascribed to any particular respondent has no intrinsic meaning, it can nevertheless be interpreted relative to an estimated population mean. Full details on the IRT models used in this section as well as those used subsequently can be found in the Supporting Information.[^5] 
 
-[^5]: We account for the possibility of guessing by fitting separate three-parameter models for the general and immigration-specific knowledge scales (see Supporting Information). These results indicate a very low likelihood of guessing.
+[^5]: \doublespacing We account for the possibility of guessing by fitting separate three-parameter models for the general and immigration-specific knowledge scales (see Supporting Information). These results indicate a very low likelihood of guessing.
 
 Having ensured that the two sets of items satisfy standard assumptions for an IRT model (unidimensionality, local independence, and acceptable model fit), we then regress these scales on gender, age, and education, across the pooled REMINDER data set (i.e. not segmenting by nationality). The first two variables are self-explanatory. In the data set, the education variable takes on a value from 0 to 8, corresponding to the nine International Standard Classification of Education (ISCED) levels of education, from early childhood education (0) to doctorate (8). Details about the resulting models can be found in Table \ref{tab:4}.
 
@@ -337,14 +338,14 @@ The CES data set [@ansolabehere2021] (N = 60,138) contains the following knowled
 > (CES3) *Name of second US Senator of respondent's state*.\
 > (CES4) *Name of one member of the US House of Representatives of respondent's state*.
 
-Finally, in the case of BES, we use the 2017 Post-Election Face-to-Face Survey [@fieldhouse2018] (N = 2,067)[^5] which contains the following knowledge items:
+Finally, in the case of BES, we use the 2017 Post-Election Face-to-Face Survey [@fieldhouse2018] (N = 2,067)[^6] which contains the following knowledge items:
 
 > (BES1) No-one may stand for parliament unless they pay a deposit (True)\
 > (BES2) The Liberal Democrats favour a system of proportional representation (True)\
 > (BES3) MPs from different parties are on parliamentary committees (True)\
 > (BES4) The number of members of parliament is about 100 (False)
 
-[^5]: The original data set contains 2,194 observations. 127 observations with missing survey weights were removed, for a resulting sample size of 2,067.
+[^6]: \doublespacing The original data set contains 2,194 observations. 127 observations with missing survey weights were removed, for a resulting sample size of 2,067.
 
 These questions are valuable for our stress-testing objective because, while all general in the sense defended in section \ref{conceptual-issues}, they vary in terms of their temporal dimension [@barabas2014]. For example, some items ask about facts regarding well-established political processes or features (e.g. ANES3, BES1-4), while others require a degree of recent surveillance on the part of respondents (e.g. ANES1, ANES2, CES1-4). Considering these differences matters because they mirror theoretical expectations of how knowledge informs political behavior. On the one hand, knowledge of fundamental and unchanging political rules potentially enables citizens to actively participate in politics [@carpinikeeter1996]. On the other hand, knowing more recent facts potentially signals an ability to learn about -- and have views on -- political events as they happen [@schudson2011].
 
@@ -613,7 +614,7 @@ So far, we have provided evidence for the generalist assumption in the context o
 
 Our COVID-19 data set comes from a pre-registered survey experiment (N = 2,917) fielded in the U.K. through the wake of its first pandemic wave in July 2020.[^7] The survey contains the following knowledge items, measured pre-treatment, which together form a scale satisfying standard assumptions for IRT (again, see the Supporting Information document for further details on the IRT models):
 
-[^7]: The survey received IRB approval from the relevant university committee. Documentation of this approval is withheld at the review stage, but can be provided upon request.
+[^7]: \doublespacing The survey received IRB approval from the relevant university committee. To preserve anonymity, documentation of this approval is withheld at the review stage, but can be provided upon request.
 
 > (COV1) COVID-19 can be transmitted in areas with hot and humid climate (True)\
 > (COV2) There is currently no vaccine to protect against COVID-19 (True [in July 2020])\
@@ -621,7 +622,7 @@ Our COVID-19 data set comes from a pre-registered survey experiment (N = 2,917) 
 
 The climate change data set is from the U.K. segment (N = 1,033) of the European Perceptions of Climate Change survey [@pidgeon2016]. The survey was not specifically designed to measure knowledge about climate change, but it does contain three items which could reasonably be taken to tap into such knowledge,[^8] and moreover form a scale satisfying standard assumptions for IRT:
 
-[^8]: As (CC2) is formulated in terms of the respondent's opinion, it might be taken not to measure someone's level of knowledge. However, as the item asks about the respondent's opinion on a matter of fact, and any opinion taken by the respondent thereby can be deemed correct or incorrect, we treat it as a knowledge item.
+[^8]: \doublespacing As (CC2) is formulated in terms of the respondent's opinion, it might be taken not to measure someone's level of knowledge. However, as the item asks about the respondent's opinion on a matter of fact, and any opinion taken by the respondent thereby can be deemed correct or incorrect, we treat it as a knowledge item.
 
 > (CC1) As far as you know, do you think the world's climate is changing or not? (Correct: The climate is changing)\
 > (CC2) Thinking about the causes of climate change, which, if any, of the following best describes your opinion? (Correct: Climate change is partly, mainly, or completely caused by human activity)\
@@ -662,6 +663,6 @@ Therefore, we offer the following guidelines informed by our analysis:
 
 For any given project, all or only some of these steps will be appropriate or possible. However, it is our hope that the above steps will offer helpful guidance for researchers concerned with questions about knowledge scale dimensionality. To facilitate replication, and in line with Open Science principles, we also provide the code underlying the present investigation as a template for others to use in a public GitHub repository.[^9] 
 
-[^9]: Anonymized link provided in footnote 1. 
+[^9]: \doublespacing Anonymized link provided in footnote 1. 
 
 # References
