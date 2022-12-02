@@ -17,7 +17,7 @@ footnote:
     text: #"Current email address: \\href{mailto:cat@example.com}{cat@example.com}."
 abstract: |
  \singlespacing Using general political knowledge questions to explain variation in policy-specific outcomes invokes a potentially strong generalist assumption: possessing general knowledge is indicative of unmeasured, issue-specific knowledge. Is this warranted? Using convergent evidence from best-available U.S. and European surveys, we argue it is. First, factor analysis applied to cross-national 2018 European data that, unusually, includes questions about general politics and the specific issue of EU immigration reveals how the questions are plausibly unidimensional. Second, knowledge scales built using Item Response Theory modeling of responses to each question set display similar associations with known correlates of political knowledge--gender, age, education--that are mirrored in established ANES, CES, and BES general knowledge measures. Finally, these patterns remain after extending our analysis to surveys testing issue-specific knowledge about COVID-19 and climate change. We conclude by offering  guidance for conducting stress-tests on unidimensionality assumptions, and provide our code in line with Open Science principles.
-
+ \center __Word count__: 6213 words
 acknowledgements: |
   Removed for anonymized reviewing.
 keywords:
