@@ -1,7 +1,4 @@
 # Is general political knowledge indicative of issue-specific knowledge? Stress-testing the generalist assumption
-  
-William L Allen (University of Oxford)  
-Kristoffer Ahlstrom-Vij (Birkbeck, University of London)
 
 ## Abstract
 
