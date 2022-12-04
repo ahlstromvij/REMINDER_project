@@ -12,6 +12,8 @@ output:
   pdf_document:
     toc: true
     toc_depth: 2
+    number_sections: true
+classoption: a4paper
 header-includes:
   - \usepackage{setspace}\doublespacing
 #  - \usepackage[nomarkers,tablesfirst]{endfloat} # For figures and tables at end
