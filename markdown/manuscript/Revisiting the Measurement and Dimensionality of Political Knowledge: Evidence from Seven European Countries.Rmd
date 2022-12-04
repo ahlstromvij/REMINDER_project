@@ -91,7 +91,7 @@ In response, we present convergent evidence that stress-tests the generalist ass
 
 Besides contributing novel empirical evidence for this methodological practice, we conclude by offering practical advice for researchers who either want to conduct similar stress-tests of their own topic- and context-specific survey data on grounds of unidimensionality assumptions, or are considering which types of knowledge questions to include in future studies while acknowledging concerns about resources, time, and survey attentiveness. To that end, and in line with Open Science principles, we also provide the code underlying the present investigation in a public GitHub repository, as a template for others to use.[^1]
 
-[^1]: \doublespacing The anonymized repository can be accessed at: 
+[^1]: \doublespacing The anonymized repository can be accessed at: https://anonymous.4open.science/r/REMINDER_project-30EB/.
 
 # The Generalist Assumption about Political Knowledge
 
