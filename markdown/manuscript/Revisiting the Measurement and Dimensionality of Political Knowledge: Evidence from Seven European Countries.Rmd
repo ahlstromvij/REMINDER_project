@@ -91,7 +91,7 @@ In response, we present convergent evidence that stress-tests the generalist ass
 
 Besides contributing novel empirical evidence for this methodological practice, we conclude by offering practical advice for researchers who either want to conduct similar stress-tests of their own topic- and context-specific survey data on grounds of unidimensionality assumptions, or are considering which types of knowledge questions to include in future studies while acknowledging concerns about resources, time, and survey attentiveness. To that end, and in line with Open Science principles, we also provide the code underlying the present investigation in a public GitHub repository, as a template for others to use.[^1]
 
-[^1]: \doublespacing The anonymized repository can be accessed at: [https://anonymous.4open.science/r/REMINDER_project-30EB/](https://anonymous.4open.science/r/REMINDER_project-30EB/).
+[^1]: \doublespacing Link removed for anonymized reviewing, but can be provided if required at a later stage.
 
 # The Generalist Assumption about Political Knowledge
 
@@ -612,7 +612,7 @@ means_by_nationality(c("germany","hungary","poland","romania","spain","sweden","
 
 So far, we have provided evidence for the generalist assumption in the context of general political knowledge versus migration-specific knowledge. However, our analysis cannot rule out that there is something unique about migration-specific knowledge, perhaps in it having an especially close connection to general political knowledge. Therefore, in our third step, we compare the marginal means of the two REMINDER knowledge scales to those of two, separate issue-specific scales: one relating to public health (specifically knowledge about COVID-19) and one relating to knowledge about climate change. These topics, and the questions within them, are useful for stress-testing the generality of our results from the previous section because while they both deal with policy-specific domains, they vary in terms of temporal dimension just as the previous general knowledge questions from the ANES, CES, and BES do [@barabas2014]. Facts about climate change have arguably become well-established in public consciousness, whereas possessing knowledge about COVID-19 -- at the time of the survey fieldwork -- would likely indicate a degree of active surveillance by respondents.
 
-Our COVID-19 data set comes from a pre-registered survey experiment (N = 2,917) fielded in the U.K. through the wake of its first pandemic wave in July 2020.[^7] The survey contains the following knowledge items, measured pre-treatment, which together form a scale satisfying standard assumptions for IRT (again, see the Supporting Information document for further details on the IRT models):
+Our COVID-19 data set comes from a pre-registered online survey experiment (N = 2,917) that we had fielded in the U.K. through the wake of its first pandemic wave in July 2020.[^7] The sample was provided by Prolific.ac, which is a widely-used platform that performs well on several quality benchmarks including respondent attention and honesty (Peer et al. 2022). For our purposes, we use the following knowledge items, measured pre-treatment, which together form a scale satisfying standard assumptions for IRT (again, see the Supporting Information document for further details on the IRT models):
 
 [^7]: \doublespacing The survey received IRB approval from the relevant university committee. To preserve anonymity, documentation of this approval is withheld at the review stage, but can be provided upon request.
 
@@ -663,6 +663,6 @@ Therefore, we offer the following guidelines informed by our analysis:
 
 For any given project, all or only some of these steps will be appropriate or possible. However, it is our hope that the above steps will offer helpful guidance for researchers concerned with questions about knowledge scale dimensionality. To facilitate replication, and in line with Open Science principles, we also provide the code underlying the present investigation as a template for others to use in a public GitHub repository.[^9] 
 
-[^9]: \doublespacing Anonymized link provided in footnote 1. 
+[^9]: \doublespacing Link removed for anonymized reviewing.
 
 # References
