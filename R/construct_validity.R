@@ -134,6 +134,67 @@ texreg::wordreg(list(m_gen,m_imm),
                 stars = c(0.001, 0.01, 0.05),
                 digits=3)
 
+# differences in mean by type of knowledge by demographics
+model_data %>% 
+  group_by(gender) %>% 
+  summarise(general = mean(know_score_general),
+            immigration = mean(know_score_imm))
+
+model_data %>% 
+  group_by(education_ISCED) %>% 
+  summarise(general = mean(know_score_general),
+            immigration = mean(know_score_imm))
+
+model_data %>% 
+  mutate(age_cat = case_when(age >= quantile(age)[1] & age <= quantile(age)[2] ~ "18_37",
+                             age > quantile(age)[2] & age <= quantile(age)[3] ~ "38_50",
+                             age > quantile(age)[3] & age <= quantile(age)[4] ~ "51_62",
+                             age > quantile(age)[4] ~ "62_up")) %>% 
+  group_by(age_cat) %>% 
+  summarise(general = mean(know_score_general),
+            immigration = mean(know_score_imm))
+
+long_df <- model_data %>% 
+  dplyr::select(gender, age, education_ISCED, know_score_imm, know_score_general) %>% 
+  mutate(age_cat = case_when(age >= quantile(age)[1] & age <= quantile(age)[2] ~ "18_37",
+                             age > quantile(age)[2] & age <= quantile(age)[3] ~ "38_50",
+                             age > quantile(age)[3] & age <= quantile(age)[4] ~ "51_62",
+                             age > quantile(age)[4] ~ "62_up"),
+         education_ISCED = factor(education_ISCED))  %>% 
+  dplyr::select(-age) %>% 
+  pivot_longer(cols = -c(gender, age_cat, education_ISCED),
+               names_to = "knowledge_type",
+               values_to = "value")
+
+long_df %>% 
+  ggplot() +
+  aes(x = gender, y = value, color = knowledge_type) +
+  geom_violin() +
+  stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
+               width=1, position=position_dodge(),show.legend = FALSE)
+
+long_df %>% 
+  ggplot() +
+  aes(x = age_cat, y = value, color = knowledge_type) +
+  geom_violin() +
+  stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
+               width=1, position=position_dodge(),show.legend = FALSE)
+
+long_df %>% 
+  ggplot() +
+  aes(x = education_ISCED, y = value, color = knowledge_type) +
+  geom_violin() +
+  stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
+               width=1, position=position_dodge(),show.legend = FALSE)
+
+long_df %>% 
+  lm(value ~ knowledge_type +
+       gender +
+       age_cat +
+       education_ISCED,
+     data = .) %>% 
+  summary()
+
 # function to calculate and plot marginal means
 emmeans_function <- function(model, covariates, xlabs) {
   plot_list <- list()
