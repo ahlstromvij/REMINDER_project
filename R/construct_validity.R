@@ -146,54 +146,99 @@ model_data %>%
             immigration = mean(know_score_imm))
 
 model_data %>% 
-  mutate(age_cat = case_when(age >= quantile(age)[1] & age <= quantile(age)[2] ~ "18_37",
-                             age > quantile(age)[2] & age <= quantile(age)[3] ~ "38_50",
-                             age > quantile(age)[3] & age <= quantile(age)[4] ~ "51_62",
-                             age > quantile(age)[4] ~ "62_up")) %>% 
+  mutate(age_cat = cut(age, breaks=c(17, 24, 34, 44, 54, 64, Inf), 
+                       labels=c("18-24","25-34","35-45","45-54","55-64","65plus"),
+                       ordered_result = TRUE)) %>% 
   group_by(age_cat) %>% 
   summarise(general = mean(know_score_general),
             immigration = mean(know_score_imm))
 
+# pivot longer
 long_df <- model_data %>% 
   dplyr::select(gender, age, education_ISCED, know_score_imm, know_score_general) %>% 
-  mutate(age_cat = case_when(age >= quantile(age)[1] & age <= quantile(age)[2] ~ "18_37",
-                             age > quantile(age)[2] & age <= quantile(age)[3] ~ "38_50",
-                             age > quantile(age)[3] & age <= quantile(age)[4] ~ "51_62",
-                             age > quantile(age)[4] ~ "62_up"),
-         education_ISCED = factor(education_ISCED))  %>% 
+  mutate(age_cat = cut(age, breaks=c(17, 24, 34, 44, 54, 64, Inf), 
+                       labels=c("18-24","25-34","35-45","45-54","55-64","65 plus"),
+                       ordered_result = TRUE),
+         education_ISCED = factor(education_ISCED),
+         gender = str_to_title(gender))  %>% 
   dplyr::select(-age) %>% 
   pivot_longer(cols = -c(gender, age_cat, education_ISCED),
-               names_to = "knowledge_type",
-               values_to = "value")
+               names_to = "Knowledge",
+               values_to = "value") %>% 
+  mutate(Knowledge = case_when(Knowledge == "know_score_general" ~ "General",
+                               Knowledge == "know_score_imm" ~ "Immigration"))
 
+# plot pooled distributions by demographics
 long_df %>% 
   ggplot() +
-  aes(x = gender, y = value, color = knowledge_type) +
+  aes(x = gender, y = value, fill = gender) +
   geom_violin() +
   stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
                width=1, position=position_dodge(),show.legend = FALSE)
 
 long_df %>% 
   ggplot() +
-  aes(x = age_cat, y = value, color = knowledge_type) +
+  aes(x = age_cat, y = value, fill = age_cat) +
   geom_violin() +
   stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
                width=1, position=position_dodge(),show.legend = FALSE)
 
 long_df %>% 
   ggplot() +
-  aes(x = education_ISCED, y = value, color = knowledge_type) +
+  aes(x = education_ISCED, y = value, fill = education_ISCED) +
   geom_violin() +
   stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
                width=1, position=position_dodge(),show.legend = FALSE)
 
-long_df %>% 
+# so, there are differences by demographics
+# to what extent might they be explainable by the two types of knowledge?
+dist_gender <- long_df %>% 
+  ggplot() +
+  aes(x = gender, y = value, fill = Knowledge) +
+  geom_violin() +
+  stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
+               width=1, position=position_dodge(),show.legend = FALSE) +
+  xlab("Gender") +
+  ylab("Knowledge score") + 
+  scale_fill_grey()
+
+dist_age <- long_df %>% 
+  ggplot() +
+  aes(x = age_cat, y = value, fill = Knowledge) +
+  geom_violin() +
+  stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
+               width=1, position=position_dodge(),show.legend = FALSE) +
+  xlab("Age") +
+  ylab("Knowledge score") + 
+  scale_fill_grey()
+
+dist_educ <- long_df %>% 
+  ggplot() +
+  aes(x = education_ISCED, y = value, fill = Knowledge) +
+  geom_violin() +
+  stat_summary(fun.y="mean",geom="crossbar", mapping=aes(ymin=after_stat(y), ymax=after_stat(y)), 
+               width=1, position=position_dodge(),show.legend = FALSE) + 
+  xlab("Education (ISCED)") +
+  ylab("Knowledge score") + 
+  scale_fill_grey()
+
+png(file="plots/know_means_demographics.png", width = 20, height = 7, units = 'in', res = 300)
+ggarrange(dist_gender, dist_age, dist_educ, nrow=1, common.legend = TRUE, legend = "bottom")
+dev.off()
+
+# differences between types of knowledge withing demographic categoris are small
+# let's test it statistically: once we factor in any differences in levels of knowledge
+# owing to demographic factors, are any remaining difference due to knowledge type
+# statistically significant? no.
+m_knowledge <- long_df %>% 
   lm(value ~ knowledge_type +
        gender +
        age_cat +
        education_ISCED,
-     data = .) %>% 
-  summary()
+     data = .)
+summary(m_knowledge)
+
+# plot(m_knowledge)
 
 # function to calculate and plot marginal means
 emmeans_function <- function(model, covariates, xlabs) {
@@ -453,24 +498,131 @@ emmeans_function(m_reminder_imm,
                  c("Highest level of education","Gender","Age bracket"))
 dev.off()
 
+emmmeans_gen_gender <- summary(emmeans(m_reminder_general, specs = c("gender"))) %>% 
+  mutate(knowledge_type = "general")
+
+emmmeans_imm_gender <- summary(emmeans(m_reminder_imm, specs = c("gender"))) %>% 
+  mutate(knowledge_type = "immigration")
+
+emmeans_gender_combined <- rbind(emmmeans_gen_gender, emmmeans_imm_gender)
+
+emmeans_gender <- emmeans_gender_combined %>% 
+  ggplot() +
+  aes(x = gender, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+  geom_line() +
+  geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
+  geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
+  xlab("Gender") +
+  ylab("Estimated marginal mean")
+emmeans_gender
+
+emmmeans_gen_age_cat <- summary(emmeans(m_reminder_general, specs = c("age_cat"))) %>% 
+  mutate(knowledge_type = "general")
+
+emmmeans_imm_age_cat <- summary(emmeans(m_reminder_imm, specs = c("age_cat"))) %>% 
+  mutate(knowledge_type = "immigration")
+
+emmeans_age_cat_combined <- rbind(emmmeans_gen_age_cat, emmmeans_imm_age_cat)
+
+emmeans_age_cat <- emmeans_age_cat_combined %>% 
+  ggplot() +
+  aes(x = age_cat, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+  geom_line() +
+  geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
+  geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
+  xlab("Age") +
+  ylab("Estimated marginal mean")
+emmeans_age_cat
+
+emmmeans_gen_education_ISCED <- summary(emmeans(m_reminder_general, specs = c("education_ISCED"))) %>% 
+  mutate(knowledge_type = "general")
+
+emmmeans_imm_education_ISCED <- summary(emmeans(m_reminder_imm, specs = c("education_ISCED"))) %>% 
+  mutate(knowledge_type = "immigration")
+
+emmeans_education_ISCED_combined <- rbind(emmmeans_gen_education_ISCED, emmmeans_imm_education_ISCED)
+
+emmeans_education_ISCED <- emmeans_education_ISCED_combined %>% 
+  ggplot() +
+  aes(x = education_ISCED, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+  geom_line() +
+  geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
+  geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
+  xlab("Education") +
+  ylab("Estimated marginal mean")
+emmeans_education_ISCED
+
+png(file="plots/reminder_emmeans_combined.png", width = 20, height = 6, units = 'in', res = 300)
+ggarrange(emmeans_education_ISCED, emmeans_gender, emmeans_age_cat, nrow = 1, common.legend = TRUE, legend = "bottom")
+dev.off()
+
 # reminder data - by nationality
-means_by_nationality <- function(nationalities, knowledge_var) {
+means_by_nationality <- function(nationalities, knowledge_gen, knowledge_imm) {
   plot_list <- list()
   for (i in 1:length(nationalities)) {
-    m <- lm(glue::glue("{knowledge_var} ~ age_cat + gender + education_ISCED"),
-            data = subset(model_data, nationality==nationalities[i]))
-    plot <- emmeans_function(m,
-                             c("education_ISCED","gender","age_cat"),
-                             c("Highest level of education","Gender","Age bracket"))
+    m1 <- lm(glue::glue("{knowledge_gen} ~ age_cat + gender + education_ISCED"),
+             data = subset(model_data, nationality==nationalities[i]))
+    m2 <- lm(glue::glue("{knowledge_imm} ~ age_cat + gender + education_ISCED"),
+             data = subset(model_data, nationality==nationalities[i]))
+    
+    emmmeans_gen_gender <- summary(emmeans(m1, specs = c("gender"))) %>% 
+      mutate(knowledge_type = "general")
+    
+    emmmeans_imm_gender <- summary(emmeans(m2, specs = c("gender"))) %>% 
+      mutate(knowledge_type = "immigration")
+    
+    emmeans_gender_combined <- rbind(emmmeans_gen_gender, emmmeans_imm_gender)
+    
+    emmeans_gender <- emmeans_gender_combined %>% 
+      ggplot() +
+      aes(x = gender, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+      geom_line() +
+      geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
+      geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
+      xlab("Gender") +
+      ylab("Estimated marginal mean")
+    
+    emmmeans_gen_age_cat <- summary(emmeans(m1, specs = c("age_cat"))) %>% 
+      mutate(knowledge_type = "general")
+    
+    emmmeans_imm_age_cat <- summary(emmeans(m2, specs = c("age_cat"))) %>% 
+      mutate(knowledge_type = "immigration")
+    
+    emmeans_age_cat_combined <- rbind(emmmeans_gen_age_cat, emmmeans_imm_age_cat)
+    
+    emmeans_age_cat <- emmeans_age_cat_combined %>% 
+      ggplot() +
+      aes(x = age_cat, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+      geom_line() +
+      geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
+      geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
+      xlab("Age") +
+      ylab("Estimated marginal mean")
+    
+    emmmeans_gen_education_ISCED <- summary(emmeans(m1, specs = c("education_ISCED"))) %>% 
+      mutate(knowledge_type = "general")
+    
+    emmmeans_imm_education_ISCED <- summary(emmeans(m2, specs = c("education_ISCED"))) %>% 
+      mutate(knowledge_type = "immigration")
+    
+    emmeans_education_ISCED_combined <- rbind(emmmeans_gen_education_ISCED, emmmeans_imm_education_ISCED)
+    
+    emmeans_education_ISCED <- emmeans_education_ISCED_combined %>% 
+      ggplot() +
+      aes(x = education_ISCED, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+      geom_line() +
+      geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
+      geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
+      xlab("Age") +
+      ylab("Estimated marginal mean")
+    
+    plot <- ggarrange(emmeans_education_ISCED, emmeans_gender, emmeans_age_cat, nrow = 1, common.legend = TRUE, legend = "bottom")
+    
     plot_list[[i]] <- annotate_figure(plot, top = text_grob(str_to_upper(nationalities[i], locale = "en"), color = "black", size = 12))
   }
   return(ggarrange(plotlist = plot_list, nrow=7))
 }
 
-png(file="plots/reminder_gen_emmeans_nat.png", width = 20, height = 50, units = 'in', res = 300)
-means_by_nationality(c("germany","hungary","poland","romania","spain","sweden","uk"), "know_score_general")
-dev.off()
-
-png(file="plots/reminder_imm_emmeans_nat.png", width = 20, height = 50, units = 'in', res = 300)
-means_by_nationality(c("germany","hungary","poland","romania","spain","sweden","uk"), "know_score_imm")
+png(file="plots/reminder_gen_nat.png", width = 20, height = 50, units = 'in', res = 300)
+means_by_nationality(c("germany","hungary","poland","romania","spain","sweden","uk"), "know_score_general", "know_score_imm")
 dev.off()
