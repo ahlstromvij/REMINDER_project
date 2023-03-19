@@ -124,7 +124,7 @@ summary(m_imm)
 texreg::wordreg(list(m_gen,m_imm),
                 file="tables/construct_validity_table.docx",
                 single.row = TRUE, 
-                caption = "Main effects (OLS with robust standard errors)",
+                caption = "Main effects (OLS)",
                 custom.model.names=c("General knowledge",
                                      "Immigration knowledge"),
                 custom.coef.names = c("(Intercept)", "Male", "Age", "Education"),
@@ -226,17 +226,36 @@ png(file="plots/know_means_demographics.png", width = 20, height = 7, units = 'i
 ggarrange(dist_gender, dist_age, dist_educ, nrow=1, common.legend = TRUE, legend = "bottom")
 dev.off()
 
-# differences between types of knowledge withing demographic categoris are small
+# differences between types of knowledge withing demographic categories are small
 # let's test it statistically: once we factor in any differences in levels of knowledge
 # owing to demographic factors, are any remaining difference due to knowledge type
 # statistically significant? no.
-m_knowledge <- long_df %>% 
-  lm(value ~ knowledge_type +
+longer_df <- model_data %>% 
+  dplyr::select(gender, age, education_ISCED, know_score_imm, know_score_general) %>% 
+  pivot_longer(cols = -c(gender, age, education_ISCED),
+               names_to = "Knowledge",
+               values_to = "value") %>% 
+  mutate(Knowledge = case_when(Knowledge == "know_score_general" ~ "General",
+                               Knowledge == "know_score_imm" ~ "Immigration"))
+
+m_knowledge <- longer_df %>% 
+  lm(value ~ Knowledge +
        gender +
-       age_cat +
+       age +
        education_ISCED,
      data = .)
 summary(m_knowledge)
+
+texreg::wordreg(list(m_knowledge),
+                file="tables/knowledge_type_effect_table.docx",
+                single.row = TRUE, 
+                caption = "Main effect (OLS)",
+                custom.coef.names = c("(Intercept)", "Immigration knowledge", "Male", "Age", "Education"),
+                caption.above = TRUE,
+                float.pos = "h!",
+                custom.note="%stars.",
+                stars = c(0.001, 0.01, 0.05),
+                digits=3)
 
 # plot(m_knowledge)
 
