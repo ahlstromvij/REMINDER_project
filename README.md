@@ -2,7 +2,7 @@
 
 ## Abstract
 
-Using general political knowledge questions to explain variation in policy-specific outcomes invokes a potentially strong assumption: possessing general knowledge is indicative of unmeasured, issue-specific knowledge. We call this the *generalist assumption* and ask: Is it warranted? Using convergent evidence from best-available U.S. and European surveys, we argue it is. First, factor analysis applied to cross-national European data that, unusually, includes items about general politics and the specific issue of EU immigration reveals that the questions are plausibly unidimensional. Second, knowledge scales built using Item Response Theory modeling display similar associations with known correlates of political knowledge -- gender, age, education -- that are mirrored in established ANES, CES, and BES general knowledge measures. Finally, these patterns remain after extending our analysis to surveys testing issue-specific knowledge about COVID-19 and climate change. We conclude by offering guidance for stress-testing on unidimensionality assumptions, and provide our code in line with Open Science principles.
+Using general political knowledge questions to explain variation in policy-specific outcomes invokes what we call a *generalist assumption*: possessing general knowledge is indicative of unmeasured, issue-specific knowledge. Yet the empirical evidence on which this assumption rests is limited in terms of sample coverage and recency. Is it warranted? Using convergent evidence from best-available U.S. and European surveys (total N=79,904), we argue it is. First, factor analysis applied to cross-national European data that, unusually, includes items about general politics and the specific issue of EU immigration reveals plausible unidimensionality. Second, knowledge scales built using Item Response Theory modeling display similar associations with known correlates of political knowledge -- gender, age, education -- that are mirrored in established ANES, CES, and BES general knowledge measures. Finally, these patterns remain after extending our analysis to surveys testing issue-specific knowledge about COVID-19 and climate change. We conclude with guidance for stress-testing on unidimensionality assumptions.
 
 ## R Scripts
 
@@ -23,4 +23,4 @@ The primary, REMINDER data set for this project is available at https://data.aus
 
 ## Requirements
 
-The code in this repository was produced using R 4.1.2 on macOS Monterey (12.6).
+The code in this repository was produced using R 4.1.2 on macOS Monterey (12.6.3).
