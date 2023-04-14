@@ -16,7 +16,7 @@ footnote:
   - code: 
     text: #"Current email address: \\href{mailto:cat@example.com}{cat@example.com}."
 abstract: |
- \singlespacing Using general political knowledge questions to explain variation in policy-specific outcomes invokes what we call a *generalist assumption*: possessing general knowledge is indicative of unmeasured, issue-specific knowledge. Yet the empirical evidence on which this assumption rests is limited in terms of sample coverage and recency. Is it warranted? Using convergent evidence from best-available U.S. and European surveys (total N=79,904), we argue it is. First, factor analysis applied to cross-national European data that, unusually, includes items about general politics and the specific issue of EU immigration reveals plausible unidimensionality. Second, knowledge scales built using Item Response Theory modeling display similar associations with known correlates of political knowledge--gender, age, education--that are mirrored in established ANES, CES, and BES general knowledge measures. Finally, these patterns remain after extending our analysis to surveys testing issue-specific knowledge about COVID-19 and climate change. We conclude with guidance for stress-testing on unidimensionality assumptions.
+ \singlespacing Using general political knowledge questions to explain variation in policy-specific outcomes invokes what we call a *generalist assumption*: possessing general knowledge is indicative of unmeasured, issue-specific knowledge. Yet the empirical evidence on which this assumption rests is limited in terms of sample coverage and recency. Is it warranted? Using convergent evidence from best-available U.S. and European surveys (total N=79,904), we argue it is. First, factor analysis applied to cross-national European data that, unusually, includes items about general politics and the specific issue of EU immigration reveals plausible unidimensionality. Second, knowledge scales built using Item Response Theory modeling display similar associations with known correlates of political knowledge -- gender, age, education -- that are mirrored in established ANES, CES, and BES general knowledge measures. Finally, these patterns remain after extending our analysis to surveys testing issue-specific knowledge about COVID-19 and climate change. We conclude with guidance for stress-testing on unidimensionality assumptions.
  \center __Word count__: 6282 words
 acknowledgements: |
   Removed for anonymized reviewing.
@@ -85,7 +85,7 @@ Political knowledge has been called a "workhorse variable" [@kleinberg2022] owin
 
 By contrast, our interest lies primarily in the *topical* dimension of political knowledge questions -- specifically in assessing how general and policy-specific knowledge relate, and what this implies for researchers' necessarily constrained efforts to effectively and efficiently measure voters' levels of knowledge by way of survey instruments. Such an assessment matters because, when researchers try to explain variation in *policy-specific* attitudes and behaviors using *general* knowledge items as a way to distinguish between more- and less-informed respondents, they are forced to make a potentially strong assumption: possessing general political knowledge is indicative of holding issue-specific knowledge (and *vice versa*). We call this the *generalist assumption*.
 
-The idea that people who are knowledgeable in one area of politics will be knowledgeable in others has underpinned much of the key work in public opinion [@zaller1986; @zaller1992;@carpinikeeter1993; @carpinikeeter1996]. Methodologically, this is attractive because it implies that researchers can use a general knowledge scale to measure the extent to which people are politically informed across specific domains, even in the absence of items directly concerned with the particular topics represented within those domains. Yet despite its methodological and practical appeal, this assumption has remained largely untested for nearly 30 years [@carpinikeeter1996; @burnett_mccubbins_2020], partly due to the lack of available survey instruments which contain both general and issue-specific factual items. Moreover, the evidence that does exist is limited to relatively small-scale samples exclusively drawn from the U.S.
+The idea that people who are knowledgeable in one area of politics will be knowledgeable in others has underpinned much of the key work in public opinion [@zaller1986; @zaller1992;@carpinikeeter1993; @carpinikeeter1996]. Methodologically, this is attractive because it implies that researchers can use a general knowledge scale to measure the extent to which people are politically informed across specific domains, even in the absence of items directly concerned with the particular topics represented within those domains. Yet despite its methodological and practical appeal, this assumption has remained largely untested over the past 30 years [@carpinikeeter1996; @burnett_mccubbins_2020], partly due to the lack of available survey instruments which contain both general and issue-specific factual items. Moreover, the evidence that does exist is limited to relatively small-scale samples exclusively drawn from the U.S.
 
 In response, we present convergent evidence that updates @carpinikeeter1996's classic investigation by stress-testing the generalist assumption. We do so by applying a variety of methods to a range of the best-available survey evidence spanning geographic contexts (the U.S. and seven European countries), topics (migration, public health, and climate change), and respondent panel type (established omnibus and bespoke online panels). Among other steps, we exploit cross-national European survey data that, unusually, contains questions about both general politics and a specific issue, namely European Union immigration [@meltzer2020]. By assessing the dimensionality and construct validity of the full range of knowledge questions contained within our assembled surveys, and by comparing these features to widely-used instruments -- the American National Elections Studies, the Cooperative Election Study, and the British Election Study -- we conclude that the generalist assumption holds up to scrutiny. 
 
@@ -95,7 +95,7 @@ Besides contributing up-to-date empirical evidence for this methodological pract
 
 # The Generalist Assumption about Political Knowledge
 
-Our main contention in this section is that the generalist assumption has come to carry an increasingly heavy burden in political scientific scholarship on knowledge. This is understandable, given that making such an assumption widens the data sets that researchers can use, and thereby drives empirical progress. However, since there have only been two systematic investigations into whether the assumption actually holds over the last three decades [@carpinikeeter1996; @burnett_mccubbins_2020]--neither of which consider contexts beyond the U.S.--another investigation is overdue. In this section, we elaborate on this narrative while clarifying the distinction between general and issue-specific knowledge.
+Our main contention in this section is that the generalist assumption has come to carry an increasingly heavy burden in political scientific scholarship on knowledge. This is understandable, given that making such an assumption widens the data sets that researchers can use, and thereby drives empirical progress. However, since there have only been two systematic investigations into whether the assumption actually holds over the last three decades [@carpinikeeter1996; @burnett_mccubbins_2020] -- neither of which consider contexts beyond the U.S. -- another investigation is overdue. In this section, we elaborate on this narrative while clarifying the distinction between general and issue-specific knowledge.
 
 ## Generalist versus Specific Knowledge: Conceptual Issues {#conceptual-issues}
 
@@ -185,13 +185,13 @@ Then, to measure migration-specific knowledge, we identify correct responses to 
 
 ## Methods {#methods}
 
-To evaluate the core elements of the generalist assumption, we apply a three-step approach that expands on that taken by @carpinikeeter1996 in their aforementioned, early work on knowledge scales. 
+To evaluate the core elements of the generalist assumption, we apply a four-step approach that expands on that taken by @carpinikeeter1996 in their aforementioned, early work on knowledge scales. 
 
 First, we use a combination of exploratory (EFA) and confirmatory (CFA) factor analysis to investigate the dimensionality of the political knowledge response data. While Delli Carpini and Keeter rely exclusively on CFA, we find it helpful to start with parallel analysis and EFA in the first step, in order to get an initial sense of likely dimensionality.
 
 Second, we use regression analysis to investigate whether any latent traits exhibit correlations with demographic traits that would be expected if they corresponded to political knowledge (a measure of construct validity). To do this, we go beyond @carpinikeeter1996 in using Item Response Theory (IRT) to both create and validate general and immigration-specific knowledge scales based on the batteries of questions available in the data set [@deayala2009; @demars2010].
 
-Third, we then calculate the estimated marginal mean levels of general political knowledge across levels of education, gender, and age as contained in three reference data sets -- the 2019 American National Elections Studies (ANES) pilot [@anes2019], the 2020 Cooperative Election Study (CES) [@ansolabehere2021], and the 2017 British Election Study (BES) Post-Election Face-to-Face Survey [@fieldhouse2018] -- to investigate whether these exhibit similar patterns as those found in the REMINDER data. Crucially for our stress-testing objective, the general knowledge questions within these omnibus surveys vary along the temporal dimension [@barabas2014]: some tap into respondents' knowledge of established aspects of government and participation, while others measure respondents' surveillance knowledge of politics such as familiarity with current political office-holders.
+Third, we then calculate the estimated marginal mean levels of general political knowledge across levels of education, gender, and age as contained in three reference data sets -- the 2019 American National Elections Studies (ANES) pilot [@anes2019], the 2020 Cooperative Election Study (CES) [@ansolabehere2021], and the 2017 British Election Study (BES) Post-Election Face-to-Face Survey [@fieldhouse2018] -- to investigate whether these exhibit similar patterns to those found in the REMINDER data. Crucially for our stress-testing objective, the general knowledge questions within these omnibus surveys vary along the temporal dimension [@barabas2014]: some tap into respondents' knowledge of established aspects of government and participation, while others measure respondents' surveillance knowledge of politics such as familiarity with current political office-holders.
 
 Fourth, we replicate this analysis using scales independently derived from surveys that contain knowledge items about other issue-specific matters, namely public health (specifically about COVID-19) and climate change. The COVID-19 questions were part of a bespoke survey experiment fielded in the U.K. (N = 2,917), while the climate change questions came from the U.K. segment of a survey fielded by @pidgeon2016 (N = 1,033). This step addresses concerns that our results are merely artifacts of migration knowledge somehow being uniquely related to general political knowledge.
 
@@ -215,7 +215,7 @@ fa_tibble <- tibble(
 kable(fa_tibble, 
       "latex", 
       booktabs = T, 
-      caption="EFA of general (G) and immigration (I) knowledge questions", 
+      caption="EFA of general (G) and immigration (I) knowledge items", 
       label="tab2")
 ```
 
@@ -283,7 +283,7 @@ fit_measures <- fit_measures %>%
 kable(fit_measures, 
       "latex", 
       booktabs = T,
-      caption="CFA fit measures of general (G) and immigration (I) knowledge questions for unidimensional (1D) and two-dimensional (2D) models", 
+      caption="CFA fit measures of general (G) and immigration (I) knowledge items for unidimensional (1D) and two-dimensional (2D) models", 
       label="tab3")
 ```
 
@@ -314,7 +314,7 @@ m_imm <- lm(know_score_imm ~
 
 texreg(list(m_gen, m_imm),
                single.row = TRUE,
-               caption = "Regression models (OLS)",
+               caption = "Construct validity regression models (OLS)",
                custom.model.names=c("General knowledge",
                                     "Immigration knowledge"),
                custom.coef.names = c("(Intercept)", "Male", "Age", "Education"),
@@ -326,7 +326,7 @@ texreg(list(m_gen, m_imm),
                label="tab:4")
 ```
 
-Table \ref{tab:4} shows how the coefficient values in both cases cohere with what we know about the relationship between political knowledge and demographics: men tend to have more political knowledge than women [@vanheerdehudson2020; @plutzer2020; @carpinikeeter1996], and the educated more political knowledge than the uneducated [@hebbelstrup2016]. This echoes the patterns found by @barabas2014 in their study of knowledge items. It also seems reasonable to assume that political knowledge increases with age, as indeed is the case on both models. 
+Table \ref{tab:4} shows how the coefficient values in both cases cohere with what we know about the relationship between political knowledge and demographics: men tend to have more political knowledge than women [@vanheerdehudson2020; @plutzer2020; @carpinikeeter1996], and the educated more political knowledge than the uneducated [@hebbelstrup2016]. This echoes the patterns found by @barabas2014 in their study of knowledge items. It also seems reasonable to assume that political knowledge increases with age [@plutzer2020], as indeed is the case on both models. 
 
 Moreover, as can also be seen from Table \ref{tab:4}, the associations are very similar between the two scales, which speaks in favor of unidimensionality: both scales appear to be measuring the same fundamental, underlying trait. We can illustrate the similarity between the two scales further by looking at the mean levels of knowledge across aforementioned demographics. We see in Figure \ref{fig:violinplots} that the mean level of knowledge is very similar between the two scales for the different levels/categories. 
 
@@ -396,7 +396,7 @@ m_knowledge <- longer_df %>%
 
 texreg(list(m_knowledge),
                single.row = TRUE,
-               caption = "Regression model (OLS)",
+               caption = "Knowledge type regression model (OLS)",
                custom.model.names = "Model",
                custom.coef.names = c("(Intercept)", "Immigration knowledge", "Male", "Age", "Education"),
                caption.above = TRUE,
@@ -485,7 +485,7 @@ m_reminder_imm <- lm(know_score_imm ~
 bes_data <- bes_data %>% 
   mutate(education = recode(education,
                             `0` = "None",
-                            `1` = "<GCSE",
+                            `1` = "< GCSE",
                             `2` = "GCSE",
                             `3` = "A-lvl.",
                             `4` = "UG",
@@ -713,11 +713,11 @@ ggarrange(plotlist = list(annotate_figure(p3, top = text_grob("ANES",
 
 Figure \ref{fig:emmeans_plots1} shows that the estimated marginal means for each of the three demographic variables are very similar across the general and migration-specific knowledge scales. This is consistent with the evidence from previous sections for the generalist assumption: if both scales are tapping into the same underlying trait, then we should indeed expect the marginal means to exhibit similar patterns across these variables, as they do.
 
-Turning to Figure \ref{fig:emmeans_plots2}, the fact that the two scales from the previous figure exhibit similar patterns in their marginal means to the three established scales from the questions contained within the ANES, CES, and BES offers further evidence for both the generalist assumption and for construct validity, i.e. for the scales tapping into a particular form of knowledge.
+Turning to Figure \ref{fig:emmeans_plots2}, the fact that the two scales from the previous figure moreover exhibit similar patterns in their marginal means to the three established scales from the questions contained within the ANES, CES, and BES offers further evidence for both the generalist assumption and for construct validity, i.e. for the scales tapping into a particular form of knowledge.
 
 Finally, as shown in Figure \ref{fig:emmeans_plots3}, breaking down the estimated means from the REMINDER scales by country suggests that the observations made about the geographically pooled data appear to hold in the cases of individual countries, too. This offers further evidence that the generalist assumption is robust in the face of geographic segmentation.
 
-```{r emmeans_plots3, fig.cap = "Estimated marginal means for general knowledge scale by country", echo=FALSE, fig.width=11,fig.height=16}
+```{r emmeans_plots3, fig.cap = "Estimated marginal means for general (solid line) and immigration (dashed line) knowledge scale by country", echo=FALSE, fig.width=11,fig.height=16}
 
 means_by_nationality <- function(nationalities, knowledge_gen, knowledge_imm) {
   plot_list <- list()
@@ -728,16 +728,16 @@ means_by_nationality <- function(nationalities, knowledge_gen, knowledge_imm) {
              data = subset(reminder_data, nationality==nationalities[i]))
     
     emmmeans_gen_gender <- summary(emmeans(m1, specs = c("gender"))) %>% 
-      mutate(knowledge_type = "general")
+      mutate(Knowledge = "general")
     
     emmmeans_imm_gender <- summary(emmeans(m2, specs = c("gender"))) %>% 
-      mutate(knowledge_type = "immigration")
+      mutate(Knowledge = "immigration")
     
     emmeans_gender_combined <- rbind(emmmeans_gen_gender, emmmeans_imm_gender)
     
     emmeans_gender <- emmeans_gender_combined %>% 
       ggplot() +
-      aes(x = gender, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+      aes(x = gender, y = emmean, linetype = Knowledge, shape = Knowledge, group = Knowledge) +
       geom_line() +
       geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
       geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
@@ -745,16 +745,16 @@ means_by_nationality <- function(nationalities, knowledge_gen, knowledge_imm) {
       ylab("Estimated marginal mean")
     
     emmmeans_gen_age_cat <- summary(emmeans(m1, specs = c("age_cat"))) %>% 
-      mutate(knowledge_type = "general")
+      mutate(Knowledge = "general")
     
     emmmeans_imm_age_cat <- summary(emmeans(m2, specs = c("age_cat"))) %>% 
-      mutate(knowledge_type = "immigration")
+      mutate(Knowledge = "immigration")
     
     emmeans_age_cat_combined <- rbind(emmmeans_gen_age_cat, emmmeans_imm_age_cat)
     
     emmeans_age_cat <- emmeans_age_cat_combined %>% 
       ggplot() +
-      aes(x = age_cat, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+      aes(x = age_cat, y = emmean, linetype = Knowledge, shape = Knowledge, group = Knowledge) +
       geom_line() +
       geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
       geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
@@ -762,23 +762,23 @@ means_by_nationality <- function(nationalities, knowledge_gen, knowledge_imm) {
       ylab("Estimated marginal mean")
     
     emmmeans_gen_education_ISCED <- summary(emmeans(m1, specs = c("education_ISCED"))) %>% 
-      mutate(knowledge_type = "general")
+      mutate(Knowledge = "general")
     
     emmmeans_imm_education_ISCED <- summary(emmeans(m2, specs = c("education_ISCED"))) %>% 
-      mutate(knowledge_type = "immigration")
+      mutate(Knowledge = "immigration")
     
     emmeans_education_ISCED_combined <- rbind(emmmeans_gen_education_ISCED, emmmeans_imm_education_ISCED)
     
     emmeans_education_ISCED <- emmeans_education_ISCED_combined %>% 
       ggplot() +
-      aes(x = education_ISCED, y = emmean, linetype = knowledge_type, shape = knowledge_type, group = knowledge_type) +
+      aes(x = education_ISCED, y = emmean, linetype = Knowledge, shape = Knowledge, group = Knowledge) +
       geom_line() +
       geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL)) +
       geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
       xlab("Age") +
       ylab("Estimated marginal mean")
     
-    plot <- ggarrange(emmeans_education_ISCED, emmeans_gender, emmeans_age_cat, nrow = 1, common.legend = TRUE, legend = "bottom")
+    plot <- ggarrange(emmeans_education_ISCED, emmeans_gender, emmeans_age_cat, nrow = 1, common.legend = TRUE, legend = FALSE)
     
     plot_list[[i]] <- annotate_figure(plot, top = text_grob(str_to_upper(nationalities[i], locale = "en"), color = "black", size = 12))
   }
@@ -824,7 +824,7 @@ ggarrange(plotlist = list(annotate_figure(p6, top = text_grob("COVID knowledge",
           nrow=2)
 ```
 
-Figure \ref{fig:emmeans_plots4} plots the estimated marginal means for the same demographic variables as in the previous section for the COVID and climate change knowledge scales. For both scales, the marginal means by education shows the same, monotonic trend seen in Figure \ref{fig:emmeans_plots1} and \ref{fig:emmeans_plots2}. In the case of both scales, men generally have more knowledge than women, which again aligns with what we found in regards to the scales in the previous section. In the case of age, we see a more pronounced drop from the first to the second bracket than what we saw for the previous four scales. Additionally, the climate change scale in particular exhibits a less straightforward relationship than the other scales, in having substantially higher levels of knowledge in the first bracket. It is worth reflecting on whether knowledge about climate change might have a different age distribution given the potential for higher levels of awareness among younger compared to older people, in light of how the former have a greater number of years of exposure to the effects of climate change ahead of them.
+Figure \ref{fig:emmeans_plots4} plots the estimated marginal means for the same demographic variables as in the previous section for the COVID and climate change knowledge scales. For both scales, the marginal means by education shows the same, monotonic trend seen in Figure \ref{fig:emmeans_plots1} and \ref{fig:emmeans_plots2}. In the case of both scales, men generally have more knowledge than women, which again aligns with what we found in regards to the scales in the previous section. In the case of age, we see a more pronounced drop from the first to the second bracket than what we saw for the previous five scales. Additionally, the climate change scale in particular exhibits a less straightforward relationship than the other scales, in having substantially higher levels of knowledge in the first bracket. It is worth reflecting on whether knowledge about climate change might have a different age distribution given the potential for higher levels of awareness among younger compared to older people, in light of how the former have a greater number of years of exposure to the effects of climate change ahead of them.
 
 # Discussion and Practical Guidance
 
@@ -832,7 +832,7 @@ A long line of research demonstrates how being more politically informed potenti
 
 In response, we have exploited a recent, large-scale survey that, unusually, contains both types of items in one instrument across seven European countries. Combining several analytical approaches, we conclude that the preponderance of evidence points to the generalist assumption being defensible. First, exploratory and confirmatory factor analyses applied to various combinations of the knowledge items revealed how the collection of questions performed well when treated unidimensionally. Second, in terms of construct validity, key demographic features that prior work leads us to expect are relevant to political knowledge exhibit similar associations between our political and immigration knowledge scales. Moreover, both scales in the aggregate and by country exhibit similar patterns in estimated marginal mean level of knowledge to established knowledge scales built from questions in the ANES, CES, and BES. Third, in an extension to migration, we observe the same patterns in the case of issue-specific knowledge scales about COVID-19 and climate change which reflect knowledge based in both longer- and shorter-term events.
 
-Our study makes two important contributions to understanding about the validity and specificity of general political knowledge questions as they are widely used in contemporary survey practice. First, we validate the generalist assumption of political knowledge using adult populations and up-to-date methods: knowing more about general politics is indicative of domain-specific knowledge. This echoes @burnett_mccubbins_2020's claim that political knowledge is not unique. However, by contrast to their conclusion that this feature renders such knowledge questions inadequate, we take a different view that this lends support for the practical choice of inferring respondents' knowledge about specific issues from their general political knowledge levels. Second, we demonstrate how the generalist assumption appears to hold across a much wider range of geographic contexts and sampling methods than those tested by @carpinikeeter1996 and @burnett_mccubbins_2020. While we acknowledge our own investigation has been limited to European cases, we think this represents a significant advance on existing evidence and paves the way for further comparative work using a similar workflow. 
+Our study makes two important contributions to understanding about the validity and specificity of general political knowledge questions as they are widely used in contemporary survey practice. First, we validate the generalist assumption of political knowledge using adult populations and up-to-date methods: knowing more about general politics is indicative of domain-specific knowledge. This echoes @burnett_mccubbins_2020's claim that political knowledge is not unique. However, by contrast to their conclusion that this feature renders such knowledge questions inadequate, we take the view that this lends support for the practical choice of inferring respondents' knowledge about specific issues from their general political knowledge levels. Second, we demonstrate how the generalist assumption appears to hold across a much wider range of geographic contexts and sampling methods than those tested by @carpinikeeter1996 and @burnett_mccubbins_2020. While we acknowledge our own investigation has been limited to European cases, we think this represents a significant advance on existing evidence and paves the way for further comparative work using a similar workflow. 
 
 Our results also have practical implications for the ways that researchers use political knowledge questions as they study domain-specific attitudes and preferences. Although we have argued the generalist assumption is defensible, we also emphasize that it should not be deployed uncritically. This is reflected in our discussion of the results regarding the age-related correlates of knowledge about climate change in Figure \ref{fig:emmeans_plots4}, and by our acknowledgement in footnote 1 of how "standard" knowledge questions display very real limitations. Rather, we advise that researchers should stress-test it as far as available data sets allow, notably by including knowledge items from different domains, and by using a combination of methods to evaluate its plausibility in specific contexts. Having evidence of this would be useful in at least two situations: where researchers want to evaluate the dimensionality of knowledge items available to them to decide which scales to use; and where researchers are collecting data, want to run a pilot with a range of knowledge items, and then choose the minimum number of items needed to achieve their objectives to potentially save funds and survey time.
 
