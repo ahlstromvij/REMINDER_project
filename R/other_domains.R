@@ -10,8 +10,8 @@ emmeans_function <- function(model, covariates, xlabs) {
     emmeans_object <- summary(emmeans(model, specs = covariates[i]))
     p <- ggplot(emmeans_object) +
       aes_string(x = covariates[i], y = "emmean") +
-      geom_line(group=1, color = "#F8766D") +
-      geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL), color = "#F8766D") +
+      geom_line(group=1, color = "black") +
+      geom_pointrange(aes(ymin=lower.CL, ymax=upper.CL), color = "black") +
       geom_hline(yintercept=0, linetype="dashed", alpha=0.5) +
       xlab(xlabs[i]) +
       ylab("Estimated marginal mean")
@@ -21,7 +21,7 @@ emmeans_function <- function(model, covariates, xlabs) {
 }
 
 #epcc data
-epcc_data <- read_csv("data/epcc_data.csv")
+epcc_data <- read_csv("data/epcc_data_processed_all.csv")
 epcc_data <- epcc_data %>% 
   filter(education != "other" & education != "student") %>% 
   mutate(education = factor(education, 
@@ -41,19 +41,75 @@ epcc_data <- epcc_data %>%
                                  "35-44",
                                  "45-54",
                                  "55-64",
-                                 "65+"),
-                      ordered = T))
+                                 "65plus"),
+                      ordered = T),
+         country = case_when(country == 1 ~ "uk",
+                             country == 2 ~ "france",
+                             country == 3 ~ "germany",
+                             country == 4 ~ "norway"))
 
-m_epcc <- lm(knowledge ~
-               age +
-               gender +
-               education,
-             data = epcc_data)
+m_epcc_uk <- epcc_data %>% 
+  subset(country == "uk") %>% 
+  lm(knowledge ~
+       age +
+       gender +
+       education,
+     data = .)
+summary(m_epcc_uk)
 
-png(file="plots/epcc_emmeans.png", width = 20, height = 6, units = 'in', res = 300)
-emmeans_function(m_epcc,
+m_epcc_fr <- epcc_data %>% 
+  subset(country == "france") %>% 
+  lm(knowledge ~
+       age +
+       gender +
+       education,
+     data = .)
+summary(m_epcc_fr)
+
+m_epcc_ge <- epcc_data %>% 
+  subset(country == "germany") %>% 
+  lm(knowledge ~
+       age +
+       gender +
+       education,
+     data = .)
+summary(m_epcc_ge)
+
+m_epcc_no <- epcc_data %>% 
+  subset(country == "norway") %>% 
+  lm(knowledge ~
+       age +
+       gender +
+       education,
+     data = .)
+summary(m_epcc_no)
+
+epcc_uk_plot <- emmeans_function(m_epcc_uk,
                  c("education","gender","age"),
                  c("Highest level of education","Gender","Age bracket"))
+
+epcc_fr_plot <- emmeans_function(m_epcc_fr,
+                 c("education","gender","age"),
+                 c("Highest level of education","Gender","Age bracket"))
+
+epcc_ge_plot <- emmeans_function(m_epcc_ge,
+                 c("education","gender","age"),
+                 c("Highest level of education","Gender","Age bracket"))
+
+epcc_no_plot <- emmeans_function(m_epcc_no,
+                 c("education","gender","age"),
+                 c("Highest level of education","Gender","Age bracket"))
+
+png(file="plots/epcc_emmeans_all.png", width = 10, height = 15, units = 'in', res = 300)
+ggarrange(plotlist = list(annotate_figure(epcc_uk_plot, top = text_grob("UK", 
+                                                                        color = "black", size = 16)),
+                          annotate_figure(epcc_fr_plot, top = text_grob("France", 
+                                                                        color = "black", size = 16)),
+                          annotate_figure(epcc_ge_plot, top = text_grob("Germany", 
+                                                                        color = "black", size = 16)),
+                          annotate_figure(epcc_no_plot, top = text_grob("Norway", 
+                                                                        color = "black", size = 16))),
+          nrow=4)
 dev.off()
 
 # covid data
