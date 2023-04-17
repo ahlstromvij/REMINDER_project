@@ -39,7 +39,7 @@ bes_data <- read_csv("../../data/bes_data.csv")
 anes_data <- read_csv("../../data/anes_data.csv")
 cces_data <- read_csv("../../data/cces_data.csv")
 covid_data <- read_csv("../../data/covid_data.csv")
-epcc_data <- read_csv("../../data/epcc_data.csv")
+epcc_data <- read_csv("../../data/epcc_data_processed_all.csv")
 ```
 
 ```{r reminder_scales, include=FALSE, echo=FALSE}
@@ -238,50 +238,6 @@ write_csv(cces_data, "../../data/cces_data.csv")
 
 The CES data was taken from the 2020 Cooperative Election Study [@ansolabehere2021] (N = 60,138). Out of the original, total sample of 61,000, 765 of the observations had missing data in place of the correct answer (e.g., the correct political affiliation of the relevant state governor), and could as such not be coded for accuracy. These observations where therefore removed. An additional 97 observations were missing at least one response on one of the knowledge questions. Given the small number of missing responses here, a decision was taken to simply remove these rather than impute them. The knowledge scale was constructed using `mirt` [@chalmers2012]. The three items loaded well onto the factors: CES1 at `r round(know_scale_cces_summary$rotF[1],3)`, CES2 at `r round(know_scale_cces_summary$rotF[2],3)`, CES3 at `r round(know_scale_cces_summary$rotF[3],3)`, and CES4 at `r round(know_scale_cces_summary$rotF[4],3)`. The discrimination value for each was acceptable, in each case greater than 1, and the test information plot suggested that the test provided most information at around $\theta$ = 0. Unidimensionality was investigated using parallel analysis in the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value is `r round(min(Q3resid_cces),3)`. For reasons discussed above, this would seem an acceptable value, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(cces_data$ability),3)` to `r round(max(cces_data$ability),3)`, with a mean of `r round(mean(cces_data$ability),3)` and standard deviation of `r round(sd(cces_data$ability),3)`.
 
-# Climate change knowledge scale
-
-```{r climate_scale, include=FALSE, echo=FALSE}
-# create knowledge scale
-know_items_climate <- data.frame(epcc_data$cc_climate_changing,
-                         epcc_data$cc_causes,
-                         epcc_data$cc_scientists_agree)
-
-know_scale_climate <- mirt(data=know_items_climate,
-                       model=1,
-                       itemtype = "2PL",
-                       verbose=FALSE)
-know_scale_climate_summary <- summary(know_scale_climate)
-
-plot(know_scale_climate, type="trace")
-plot(know_scale_climate, type="info")
-coef(know_scale_climate, IRTpars=T)
-
-epcc_data$knowledge <- fscores(know_scale_climate)[,1] # each person's expected score
-
-# Unidimensionality evaluated through scree plot
-par(mfrow=c(1, 1))
-psych::fa.parallel(know_items_climate, cor="poly")
-# Suggests one factor (unidimensional)
-
-# Q3 for local independence
-Q3resid_epcc <- data.frame(residuals(know_scale_climate, type="Q3"))
-
-itemfit(know_scale_climate, empirical.plot = 1)
-itemfit(know_scale_climate, empirical.plot = 2)
-itemfit(know_scale_climate, empirical.plot = 3)
-
-epcc_data %>% 
-  summarise(min = min(knowledge),
-            mean = mean(knowledge),
-            sd = sd(knowledge),
-            max = max(knowledge))
-# mean of 0, sd of 0.6
-
-write_csv(epcc_data, "../../data/epcc_data.csv")
-```
-
-The data set used to construct the climate change knowledge scale was derived from the U.K. segment (N = 1,033) of the survey "Public Perceptions of Climate Change across Four European Countries: United Kingdom, France, Germany and Norway" [@pidgeon2016]. 0.5% of the data was missing across the variables used (education, age, gender, and the three knowledge items). These were imputed using multiple imputation in R's `Hmisc` package [@harrell2022]. The knowledge scale was constructed using `mirt` [@chalmers2012]. The three items loaded well onto the factors: CC1 at `r round(know_scale_climate_summary$rotF[1],3)`, CC2 at `r round(know_scale_climate_summary$rotF[2],3)`, and CC3 at `r round(know_scale_climate_summary$rotF[3],3)`. The discrimination value for each was acceptable, in each case greater than 1, except for COV3, which had a discrimination value of 0.827. The test information plot suggested that the test provided most information at around $\theta$ = -1.5. Unidimensionality was investigated using parallel analysis in the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value was `r round(min(Q3resid_epcc),3)`. For reasons discussed above, this would seem an acceptable value, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(epcc_data$knowledge),3)` to `r round(max(epcc_data$knowledge),3)`, with a mean of `r round(mean(epcc_data$knowledge),3)` and standard deviation of `r round(sd(epcc_data$knowledge),3)`.
-
 # COVID knowledge scale
 
 ```{r covid_scale, include=FALSE, echo=FALSE}
@@ -325,5 +281,45 @@ write_csv(covid_data, "../../data/covid_data.csv")
 ```
 
 The data set used to construct the COVID knowledge scale was derived from a separate survey administered by the authors in connection with a separate project in July 2020. The scale was constructed using `mirt` [@chalmers2012], and the three items loaded well onto the factors: COV1 at `r round(know_scale_covid_summary$rotF[1],3)`, COV2 at `r round(know_scale_covid_summary$rotF[2],3)`, and COV3 at `r round(know_scale_covid_summary$rotF[3],3)` The discrimination value for each was acceptable, in each case greater than 1, except for COV3, which had a discrimination value of 0.827. The test information plot suggested that the test provided most information at around $\theta$ = -2. Unidimensionality was investigated using parallel analysis in the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value is `r round(min(Q3resid_covid),3)`. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(covid_data$know),3)` to `r round(max(covid_data$know),3)`, with a mean of `r round(mean(covid_data$know),3)` and standard deviation of `r round(sd(covid_data$know),3)`.
+
+# Climate change knowledge scale
+
+```{r climate_scale, include=FALSE, echo=FALSE}
+# create knowledge scale
+know_items_climate <- data.frame(epcc_data$cc_climate_changing,
+                         epcc_data$cc_causes,
+                         epcc_data$cc_scientists_agree)
+
+know_scale_climate <- mirt(data=know_items_climate,
+                       model=1,
+                       itemtype = "2PL",
+                       verbose=FALSE)
+know_scale_climate_summary <- summary(know_scale_climate)
+
+epcc_data$knowledge <- fscores(know_scale_climate)[,1] # each person's expected score
+
+# Unidimensionality evaluated through scree plot
+par(mfrow=c(1, 1))
+psych::fa.parallel(know_items_climate, cor="poly")
+# Suggests one factor (unidimensional)
+
+# Q3 for local independence
+Q3resid_epcc <- data.frame(residuals(know_scale_climate, type="Q3"))
+
+itemfit(know_scale_climate, empirical.plot = 1)
+itemfit(know_scale_climate, empirical.plot = 2)
+itemfit(know_scale_climate, empirical.plot = 3)
+
+epcc_data %>% 
+  summarise(min = min(knowledge),
+            mean = mean(knowledge),
+            sd = sd(knowledge),
+            max = max(knowledge))
+# mean of 0, sd of 0.6
+
+write_csv(epcc_data, "../../data/epcc_data.csv")
+```
+
+The data set used to construct the climate change knowledge scale was derived from "Public Perceptions of Climate Change across Four European Countries: United Kingdom, France, Germany and Norway" [@pidgeon2016] (N = 4,048). 0.4% of the data was missing across the variables used (education, age, gender, and the three knowledge items). These were imputed using multiple imputation in R's `Hmisc` package [@harrell2022]. The knowledge scale was constructed using `mirt` [@chalmers2012]. The three items loaded well onto the factors: CC1 at `r round(know_scale_climate_summary$rotF[1],3)`, CC2 at `r round(know_scale_climate_summary$rotF[2],3)`, and CC3 at `r round(know_scale_climate_summary$rotF[3],3)`. The discrimination value for each was acceptable, in each case greater than 1. The test information plot suggested that the test provided most information at around $\theta$ = 0. Unidimensionality was investigated using parallel analysis in the `psych` [@revelle2022] package, which suggested one factor/dimension. Local independence was investigated using Yen's Q3 [@yen1993]. The largest Q3 value was `r round(min(Q3resid_epcc),3)`. For reasons discussed above, this would seem an acceptable value, given the short scale. Model fit was evaluated using empirical plots, which suggested acceptable fit. The measured $\theta$ values ranged from `r round(min(epcc_data$knowledge),3)` to `r round(max(epcc_data$knowledge),3)`, with a mean of `r round(mean(epcc_data$knowledge),3)` and standard deviation of `r round(sd(epcc_data$knowledge),3)`.
 
 # References
