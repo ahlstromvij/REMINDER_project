@@ -909,4 +909,7 @@ For any given project, all or only some of these steps will be appropriate or po
 
 [^10]: \doublespacing Link removed for anonymized reviewing.
 
+# Statements of Data Availability and Competing Interests
+The data that support the findings of this study are openly available at (link withheld for reviewing). The author(s) declare no competing interests.
+
 # References
